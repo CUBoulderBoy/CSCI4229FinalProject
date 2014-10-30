@@ -1,8 +1,8 @@
-# Lab 7: X-Wing with Lighting and Textures
-# Christopher Jordan
+# Final Project: Star Wars IV Death Star Trench Scene
+# Christopher Jordan and Jeremy Granger
 # CSCI 4229 Fall 2014
 
-EXE=hw7
+EXE=final
 
 # Main target
 all: $(EXE)
@@ -27,7 +27,7 @@ CLEAN=rm -f $(EXE) *.o *.a
 endif
 
 # Dependencies
-hw7.o: hw7.c CSCIx229.h
+final.o: final.c CSCIx229.h
 fatal.o: fatal.c CSCIx229.h
 loadtexbmp.o: loadtexbmp.c CSCIx229.h
 print.o: print.c CSCIx229.h
@@ -46,7 +46,7 @@ CSCIx229.a:fatal.o loadtexbmp.o print.o project.o errcheck.o object.o
 	g++ -c $(CFLG) $<
 
 #  Link
-hw7:hw7.o CSCIx229.a
+final:final.o CSCIx229.a
 	gcc -O3 -o $@ $^   $(LIBS)
 
 #  Clean
