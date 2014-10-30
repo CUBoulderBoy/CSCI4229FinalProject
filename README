@@ -1,11 +1,24 @@
-Lab 5: Snowfall with Projections and Lighting
+Lab 7: X-Wing with Lighting and Textures
 
 Christopher Jordan
 CSCI4229 Fall 2014
 
 Utilizing code provided from William Schreuder via the ex9 and ex13 programs
 
-Approximate time: 12 hours
+Approximate time: 30 hours
+
+Notes:
+This is a work in progress and an attempt to make progress towards our
+final project. I still intend to add a lot more detail to the x-wing fighter.
+However, as I built this from the ground up for this lab, time limited my
+ability to add details while learning textures and ensuring the appropriate
+normal vectors for all planes on the fighter.
+
+There are also textures here that are not utilized. I have kept them since
+I might use them in future iterations of this code.
+
+Building: "make"
+Running: "./hw7"
 
 Key bindings
   l          Toggles lighting
@@ -24,6 +37,7 @@ Key bindings
   p          Toggles ortogonal/perspective projection
   +/-        Change field of view of perspective
   x          Toggle axes
+  t          Toggle texture
   arrows     Change view angle
   PgDn/PgUp  Zoom Out and In
   Mouse LB     Change view angle

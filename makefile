@@ -1,8 +1,8 @@
-# Lab 5: Snowfall with Projections and Lighting
+# Lab 7: X-Wing with Lighting and Textures
 # Christopher Jordan
 # CSCI 4229 Fall 2014
 
-EXE=hw5
+EXE=hw7
 
 # Main target
 all: $(EXE)
@@ -27,7 +27,7 @@ CLEAN=rm -f $(EXE) *.o *.a
 endif
 
 # Dependencies
-hw5.o: hw5.c CSCIx229.h
+hw7.o: hw7.c CSCIx229.h
 fatal.o: fatal.c CSCIx229.h
 loadtexbmp.o: loadtexbmp.c CSCIx229.h
 print.o: print.c CSCIx229.h
@@ -46,7 +46,7 @@ CSCIx229.a:fatal.o loadtexbmp.o print.o project.o errcheck.o object.o
 	g++ -c $(CFLG) $<
 
 #  Link
-hw5:hw5.o CSCIx229.a
+hw7:hw7.o CSCIx229.a
 	gcc -O3 -o $@ $^   $(LIBS)
 
 #  Clean
