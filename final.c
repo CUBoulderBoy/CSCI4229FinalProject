@@ -17,7 +17,7 @@ int th=0;         //  Azimuth of view angle
 int ph=0;         //  Elevation of view angle
 int fov=55;       //  Field of view (for perspective)
 double asp=1;     //  Aspect ratio
-double dim=30.0;   //  Size of world
+double dim=40.0;   //  Size of world
 
 // Texture array
 unsigned int texture[10]; // Texture names
@@ -801,6 +801,56 @@ static void xWing(double x, double y, double z,
 }
 
 /*
+ *  Draw a Tie-Fighter Wing
+ *     
+ */
+static void tFighterWing(double x, double y, double z,
+                 double rx, double ry, double rz,
+                 double th)
+{
+   //  Save transformation
+   glPushMatrix();
+   
+   //  Offset
+   glTranslated(x,y,z);
+   glRotated(th,rx,ry,rz);
+
+   // Wing panel
+   glBindTexture(GL_TEXTURE_2D,texture[9]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   glNormal3d(1,0,0);
+   glTexCoord2f(0.1491,0); glVertex3d(0,0,-5.9560);
+   glTexCoord2f(0,0.4931); glVertex3d(0,19.7230,0);
+   glTexCoord2f(0.1491,1); glVertex3d(0,40,-5.9560);
+   glTexCoord2f(0.7233,1); glVertex3d(0,40,-28.8919);
+   glTexCoord2f(0.8807,0.4931); glVertex3d(0,19.730,-35.18);
+   glTexCoord2f(0.7233,0); glVertex3d(0,0,-28.8919);
+   glEnd();
+
+   // Start the body connecting bridge to wing
+   glPushMatrix();
+   glTranslated(0,19.7230,-17.59);
+
+   // Create connecting bridge
+   glBindTexture(GL_TEXTURE_2D,texture[6]);
+   glBegin(GL_QUAD_STRIP);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(0,Sin(th),Cos(th));
+      glTexCoord2f(0,th*0.0123+.05); glVertex3d(0, 3 * Sin(th), 3 * Cos(th));
+      glTexCoord2f(1,th*0.0123+.05); glVertex3d(-7, 2 * Sin(th), 2 * Cos(th));
+   }
+   glEnd();
+
+   // End the body connecting bridge to the wing
+   glPopMatrix();
+
+   // End the wings
+   glPopMatrix();
+}
+
+/*
  *  Draw a Tie-Fighter
  *     
  */
@@ -821,20 +871,11 @@ static void tFighter(double x, double y, double z,
    glEnable(GL_TEXTURE_2D);
    glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
 
-   // Nose left top panel
-   glBindTexture(GL_TEXTURE_2D,texture[9]);
-   glBegin(GL_POLYGON);
-   glColor3f(0.75,0.75,0.75);
-   glNormal3d(1,0,0);
-   glTexCoord2f(0.1491,0); glVertex3d(0,0,-5.9560);
-   glTexCoord2f(0,0.4931); glVertex3d(0,19.7230,0);
-   glTexCoord2f(0.1491,1); glVertex3d(0,40,-5.9560);
-   glTexCoord2f(0.7233,1); glVertex3d(0,40,-28.8919);
-   glTexCoord2f(0.8807,0.4931); glVertex3d(0,19.730,-35.18);
-   glTexCoord2f(0.7233,0); glVertex3d(0,0,-28.8919);
-   glEnd();
+   // Create Tie Fighter Wings
+   tFighterWing(20,0,35.18, 0,0,0, 0);
+   tFighterWing(0,0,0, 0,1,0, 180);
 
-      // Disable Textures
+   // Disable Textures
    glDisable(GL_TEXTURE_2D);
 
    //  Undo transofrmations
