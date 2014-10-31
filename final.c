@@ -20,7 +20,7 @@ double asp=1;     //  Aspect ratio
 double dim=30.0;   //  Size of world
 
 // Texture array
-unsigned int texture[9]; // Texture names
+unsigned int texture[10]; // Texture names
 
 // Light values
 int one       =   1;  // Unit value
@@ -801,6 +801,47 @@ static void xWing(double x, double y, double z,
 }
 
 /*
+ *  Draw a Tie-Fighter
+ *     
+ */
+static void tFighter(double x, double y, double z,
+                 double dx, double dy, double dz,
+                 double rx, double ry, double rz,
+                 double th)
+{
+   //  Save transformation
+   glPushMatrix();
+   
+   //  Offset
+   glTranslated(x,y,z);
+   glScaled(dx,dy,dz);
+   glRotated(th,rx,ry,rz);
+
+   //  Enable textures
+   glEnable(GL_TEXTURE_2D);
+   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
+
+   // Nose left top panel
+   glBindTexture(GL_TEXTURE_2D,texture[9]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   glNormal3d(1,0,0);
+   glTexCoord2f(0.1491,0); glVertex3d(0,0,-5.9560);
+   glTexCoord2f(0,0.4931); glVertex3d(0,19.7230,0);
+   glTexCoord2f(0.1491,1); glVertex3d(0,40,-5.9560);
+   glTexCoord2f(0.7233,1); glVertex3d(0,40,-28.8919);
+   glTexCoord2f(0.8807,0.4931); glVertex3d(0,19.730,-35.18);
+   glTexCoord2f(0.7233,0); glVertex3d(0,0,-28.8919);
+   glEnd();
+
+      // Disable Textures
+   glDisable(GL_TEXTURE_2D);
+
+   //  Undo transofrmations
+   glPopMatrix();
+}
+
+/*
  *  Draw vertex in polar coordinates with normal
  */
 static void Vertex(double th,double ph)
@@ -908,7 +949,10 @@ void display()
    glLightfv(GL_LIGHT0,GL_POSITION,Position);
 
    // Create XWING
-   xWing(0,0,0, 1,1,1, 0,0,0, 0);
+   //xWing(0,0,0, 1,1,1, 0,0,0, 0);
+
+   // Create Tie-Fighter
+   tFighter(0,0,0, 1,1,1, 0,0,0, 0);
 
    //  Done - disable lighting
    glDisable(GL_LIGHTING);
@@ -1080,6 +1124,7 @@ int main(int argc,char* argv[])
    texture[6] = LoadTexBMP("img6.bmp");
    texture[7] = LoadTexBMP("img7.bmp");
    texture[8] = LoadTexBMP("img8.bmp");
+   texture[9] = LoadTexBMP("tie-fighter-wing-panel.bmp");
 
    // Set clock
    ot = clock();
