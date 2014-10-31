@@ -820,12 +820,12 @@ static void tFighterWing(double x, double y, double z,
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
    glNormal3d(1,0,0);
-   glTexCoord2f(0.1491,0); glVertex3d(0,0,-5.9560);
-   glTexCoord2f(0,0.4931); glVertex3d(0,19.7230,0);
-   glTexCoord2f(0.1491,1); glVertex3d(0,40,-5.9560);
-   glTexCoord2f(0.7233,1); glVertex3d(0,40,-28.8919);
-   glTexCoord2f(0.8807,0.4931); glVertex3d(0,19.730,-35.18);
-   glTexCoord2f(0.7233,0); glVertex3d(0,0,-28.8919);
+   glTexCoord2f(0.1491,0); glVertex3d(12,0,-5.9560);
+   glTexCoord2f(0,0.4931); glVertex3d(12,19.7230,0);
+   glTexCoord2f(0.1491,1); glVertex3d(12,40,-5.9560);
+   glTexCoord2f(0.7233,1); glVertex3d(12,40,-28.8919);
+   glTexCoord2f(0.8807,0.4931); glVertex3d(12,19.730,-35.18);
+   glTexCoord2f(0.7233,0); glVertex3d(12,0,-28.8919);
    glEnd();
 
    // Start the body connecting bridge to wing
@@ -838,8 +838,8 @@ static void tFighterWing(double x, double y, double z,
    for (th = 0; th <= 360; th += 5)
    {
       glNormal3d(0,Sin(th),Cos(th));
-      glTexCoord2f(0,th*0.0123+.05); glVertex3d(0, 3 * Sin(th), 3 * Cos(th));
-      glTexCoord2f(1,th*0.0123+.05); glVertex3d(-7, 2 * Sin(th), 2 * Cos(th));
+      glTexCoord2f(0,th*0.0123+.05); glVertex3d(5, 3 * Sin(th), 3 * Cos(th));
+      glTexCoord2f(1,th*0.0123+.05); glVertex3d(12, 2 * Sin(th), 2 * Cos(th));
    }
    glEnd();
 
@@ -871,9 +871,9 @@ static void tFighter(double x, double y, double z,
    glEnable(GL_TEXTURE_2D);
    glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
 
-   // Create Tie Fighter Wings
-   tFighterWing(20,0,35.18, 0,0,0, 0);
-   tFighterWing(0,0,0, 0,1,0, 180);
+   // Create Tie Fighter Wings and center on origin
+   tFighterWing(0,-19.723,17.19, 0,0,0, 0);
+   tFighterWing(0,-19.723,-17.19, 0,1,0, 180);
 
    // Disable Textures
    glDisable(GL_TEXTURE_2D);
