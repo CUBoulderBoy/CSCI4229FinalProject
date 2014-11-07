@@ -71,6 +71,55 @@ int first=0;
    glNormal3f(nx,ny,nz);
  }
 
+ /*
+ *  Draw vertex in polar coordinates with normal
+ */
+static void Vertex(double th,double ph)
+{
+   double x = Sin(th)*Cos(ph);
+   double y = Cos(th)*Cos(ph);
+   double z =         Sin(ph);
+   //  For a sphere at the origin, the position
+   //  and normal vectors are the same
+   glNormal3d(x,y,z);
+   glVertex3d(x,y,z);
+}
+
+/*
+ *  Draw a ball
+ *     at (x,y,z)
+ *     radius (r)
+ */
+static void ball(double x,double y,double z,double r)
+{
+   int th,ph;
+   float yellow[] = {1.0,1.0,0.0,1.0};
+   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
+   //  Save transformation
+   glPushMatrix();
+   //  Offset, scale and rotate
+   glTranslated(x,y,z);
+   glScaled(r,r,r);
+   //  White ball
+   glColor3f(1,1,1);
+   glMaterialfv(GL_FRONT,GL_SHININESS,shinyvec);
+   glMaterialfv(GL_FRONT,GL_SPECULAR,yellow);
+   glMaterialfv(GL_FRONT,GL_EMISSION,Emission);
+   //  Bands of latitude
+   for (ph=-90;ph<90;ph+=inc)
+   {
+      glBegin(GL_QUAD_STRIP);
+      for (th=0;th<=360;th+=2*inc)
+      {
+         Vertex(th,ph);
+         Vertex(th,ph+inc);
+      }
+      glEnd();
+   }
+   //  Undo transofrmations
+   glPopMatrix();
+}
+
 /*
  *  Draw an x-wing wing laser cannon
  *     
@@ -820,12 +869,12 @@ static void tFighterWing(double x, double y, double z,
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
    glNormal3d(1,0,0);
-   glTexCoord2f(0.1491,0); glVertex3d(12,0,-5.9560);
-   glTexCoord2f(0,0.4931); glVertex3d(12,19.7230,0);
-   glTexCoord2f(0.1491,1); glVertex3d(12,40,-5.9560);
-   glTexCoord2f(0.7233,1); glVertex3d(12,40,-28.8919);
-   glTexCoord2f(0.8807,0.4931); glVertex3d(12,19.730,-35.18);
-   glTexCoord2f(0.7233,0); glVertex3d(12,0,-28.8919);
+   glTexCoord2f(0.1491,0); glVertex3d(13,0,-5.9560);
+   glTexCoord2f(0,0.4931); glVertex3d(13,19.7230,0);
+   glTexCoord2f(0.1491,1); glVertex3d(13,40,-5.9560);
+   glTexCoord2f(0.7233,1); glVertex3d(13,40,-28.8919);
+   glTexCoord2f(0.8807,0.4931); glVertex3d(13,19.730,-35.18);
+   glTexCoord2f(0.7233,0); glVertex3d(13,0,-28.8919);
    glEnd();
 
    // Start the body connecting bridge to wing
@@ -838,8 +887,8 @@ static void tFighterWing(double x, double y, double z,
    for (th = 0; th <= 360; th += 5)
    {
       glNormal3d(0,Sin(th),Cos(th));
-      glTexCoord2f(0,th*0.0123+.05); glVertex3d(5, 3 * Sin(th), 3 * Cos(th));
-      glTexCoord2f(1,th*0.0123+.05); glVertex3d(12, 2 * Sin(th), 2 * Cos(th));
+      glTexCoord2f(0,th*0.0123+.05); glVertex3d(6, 3 * Sin(th), 3 * Cos(th));
+      glTexCoord2f(1,th*0.0123+.05); glVertex3d(13, 2 * Sin(th), 2 * Cos(th));
    }
    glEnd();
 
@@ -847,6 +896,37 @@ static void tFighterWing(double x, double y, double z,
    glPopMatrix();
 
    // End the wings
+   glPopMatrix();
+}
+
+/*
+ *  Draw the Tie-Fighter Cockpit
+ *     
+ */
+static void tFighterCockpit(double size)
+{
+   //  Save transformation
+   glPushMatrix();
+   
+   //  Offset
+   glScaled(size, size, size);
+
+   // Declare local variables
+   int ph, th;
+
+   //  Bands of latitude
+   for (ph=-90;ph<90;ph+=inc)
+   {
+      glBegin(GL_QUAD_STRIP);
+      for (th=0;th<=360;th+=2*inc)
+      {
+         Vertex(th,ph);
+         Vertex(th,ph+inc);
+      }
+      glEnd();
+   }
+
+   //  Restore transformation
    glPopMatrix();
 }
 
@@ -874,59 +954,11 @@ static void tFighter(double x, double y, double z,
    // Create Tie Fighter Wings and center on origin
    tFighterWing(0,-19.723,17.19, 0,0,0, 0);
    tFighterWing(0,-19.723,-17.19, 0,1,0, 180);
+   tFighterCockpit(7);
 
    // Disable Textures
    glDisable(GL_TEXTURE_2D);
 
-   //  Undo transofrmations
-   glPopMatrix();
-}
-
-/*
- *  Draw vertex in polar coordinates with normal
- */
-static void Vertex(double th,double ph)
-{
-   double x = Sin(th)*Cos(ph);
-   double y = Cos(th)*Cos(ph);
-   double z =         Sin(ph);
-   //  For a sphere at the origin, the position
-   //  and normal vectors are the same
-   glNormal3d(x,y,z);
-   glVertex3d(x,y,z);
-}
-
-/*
- *  Draw a ball
- *     at (x,y,z)
- *     radius (r)
- */
-static void ball(double x,double y,double z,double r)
-{
-   int th,ph;
-   float yellow[] = {1.0,1.0,0.0,1.0};
-   float Emission[]  = {0.0,0.0,0.01*emission,1.0};
-   //  Save transformation
-   glPushMatrix();
-   //  Offset, scale and rotate
-   glTranslated(x,y,z);
-   glScaled(r,r,r);
-   //  White ball
-   glColor3f(1,1,1);
-   glMaterialfv(GL_FRONT,GL_SHININESS,shinyvec);
-   glMaterialfv(GL_FRONT,GL_SPECULAR,yellow);
-   glMaterialfv(GL_FRONT,GL_EMISSION,Emission);
-   //  Bands of latitude
-   for (ph=-90;ph<90;ph+=inc)
-   {
-      glBegin(GL_QUAD_STRIP);
-      for (th=0;th<=360;th+=2*inc)
-      {
-         Vertex(th,ph);
-         Vertex(th,ph+inc);
-      }
-      glEnd();
-   }
    //  Undo transofrmations
    glPopMatrix();
 }
