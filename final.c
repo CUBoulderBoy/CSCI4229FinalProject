@@ -21,6 +21,7 @@ double dim=40.0;   //  Size of world
 
 // Texture array
 unsigned int texture[10]; // Texture names
+GLuint cockpitTex;
 
 // Light values
 int one       =   1;  // Unit value
@@ -905,6 +906,9 @@ static void tFighterWing(double x, double y, double z,
  */
 static void tFighterCockpit(double size)
 {
+	
+   glEnable(GL_TEXTURE_2D);
+	
    //  Save transformation
    glPushMatrix();
    
@@ -913,21 +917,120 @@ static void tFighterCockpit(double size)
 
    // Declare local variables
    int ph, th;
+	
+	/* Front windscreen */
+	glBegin(GL_TRIANGLE_FAN);
+	glColor3d(0.5, 0.5, 0.5);
+	glVertex3d(0, 0, 1);
+	
+	for (th = 0; th <= 360; th += 45)
+	{
+		// x = sin(t)
+		// y = cos(t)
+		glVertex3d(0.5 * Cos(th), 0.5 * Sin(th), 1);
+		
+	}
+	glEnd();
+	
+	// Octa-windows, outside
+	glBegin(GL_QUADS);
+	glColor3d(0, 0, 0);
+	
+	glVertex3d(0.2 * Cos(3), 0.2 * Sin(3), 1.001);
+	glVertex3d(0.47 * Cos(3), 0.47 * Sin(3), 1.001);
+	glVertex3d(0.47 * Cos(42), 0.47 * Sin(42), 1.001);
+	glVertex3d(0.2 * Cos(42), 0.2 * Sin(42), 1.001);
+	
+	glVertex3d(0.2 * Cos(48), 0.2 * Sin(48), 1.001);
+	glVertex3d(0.47 * Cos(48), 0.47 * Sin(48), 1.001);
+	glVertex3d(0.47 * Cos(87), 0.47 * Sin(87), 1.001);
+	glVertex3d(0.2 * Cos(87), 0.2 * Sin(87), 1.001);
+	
+	glVertex3d(0.2 * Cos(93), 0.2 * Sin(93), 1.001);
+	glVertex3d(0.47 * Cos(93), 0.47 * Sin(93), 1.001);
+	glVertex3d(0.47 * Cos(132), 0.47 * Sin(132), 1.001);
+	glVertex3d(0.2 * Cos(132), 0.2 * Sin(132), 1.001);
+	
+	glVertex3d(0.2 * Cos(138), 0.2 * Sin(138), 1.001);
+	glVertex3d(0.47 * Cos(138), 0.47 * Sin(138), 1.001);
+	glVertex3d(0.47 * Cos(177), 0.47 * Sin(177), 1.001);
+	glVertex3d(0.2 * Cos(177), 0.2 * Sin(177), 1.001);
+	
+	glVertex3d(0.2 * Cos(183), 0.2 * Sin(183), 1.001);
+	glVertex3d(0.47 * Cos(183), 0.47 * Sin(183), 1.001);
+	glVertex3d(0.47 * Cos(222), 0.47 * Sin(222), 1.001);
+	glVertex3d(0.2 * Cos(222), 0.2 * Sin(222), 1.001);
+	
+	glVertex3d(0.2 * Cos(228), 0.2 * Sin(228), 1.001);
+	glVertex3d(0.47 * Cos(228), 0.47 * Sin(228), 1.001);
+	glVertex3d(0.47 * Cos(267), 0.47 * Sin(267), 1.001);
+	glVertex3d(0.2 * Cos(267), 0.2 * Sin(267), 1.001);
+	
+	glVertex3d(0.2 * Cos(273), 0.2 * Sin(273), 1.001);
+	glVertex3d(0.47 * Cos(273), 0.47 * Sin(273), 1.001);
+	glVertex3d(0.47 * Cos(312), 0.47 * Sin(312), 1.001);
+	glVertex3d(0.2 * Cos(312), 0.2 * Sin(312), 1.001);
+	
+	glVertex3d(0.2 * Cos(318), 0.2 * Sin(318), 1.001);
+	glVertex3d(0.47 * Cos(318), 0.47 * Sin(318), 1.001);
+	glVertex3d(0.47 * Cos(357), 0.47 * Sin(357), 1.001);
+	glVertex3d(0.2 * Cos(357), 0.2 * Sin(357), 1.001);
+	
+	glEnd();
+	
+	// Center window
+	glBegin(GL_POLYGON);
+	glColor3d(0, 0, 0);
+	glVertex3d(0.17 * Cos(0), 0.17 * Sin(0), 1.001);
+	glVertex3d(0.17 * Cos(45), 0.17 * Sin(45), 1.001);
+	glVertex3d(0.17 * Cos(90), 0.17 * Sin(90), 1.001);
+	glVertex3d(0.17 * Cos(135), 0.17 * Sin(135), 1.001);
+	glVertex3d(0.17 * Cos(180), 0.17 * Sin(180), 1.001);
+	glVertex3d(0.17 * Cos(225), 0.17 * Sin(225), 1.001);
+	glVertex3d(0.17 * Cos(270), 0.17 * Sin(270), 1.001);
+	glVertex3d(0.17 * Cos(315), 0.17 * Sin(315), 1.001);
+	glVertex3d(0.17 * Cos(315), 0.17 * Sin(315), 1.001);
+	glVertex3d(0.17 * Cos(360), 0.17 * Sin(360), 1.001);
+	glEnd();
+	
+	// Front windscreen border trim (joins windscreen to fuselage)
+	glBegin(GL_QUAD_STRIP);
+	
+	double color = 0.5;
+	for (th = 0; th <= 360; th += 45, color += 0.015)
+	{
+		glColor3d(color, color, color);
+		
+		// x = sin(t)
+		// y = cos(t)
+		glVertex3d(0.5 * Cos(th), 0.5 * Sin(th), 1);
+		glVertex3d(0.5 * Cos(th), 0.5 * Sin(th), 0.7);
+		
+	}
+	glEnd();
+	/* End front windscreen */
+	
+	glColor3d(1, 1, 1);
 
+   glBindTexture(GL_TEXTURE_2D, cockpitTex);
    //  Bands of latitude
    for (ph=-90;ph<90;ph+=inc)
    {
       glBegin(GL_QUAD_STRIP);
       for (th=0;th<=360;th+=2*inc)
       {
-         Vertex(th,ph);
-         Vertex(th,ph+inc);
+		  glTexCoord2d(th/360.0,ph/180.0+0.5);
+		  Vertex(th,ph);
+		  glTexCoord2d(th/360.0,(ph+inc)/180.0+0.5);
+		  Vertex(th,ph+inc);
       }
       glEnd();
    }
 
    //  Restore transformation
    glPopMatrix();
+	
+   glDisable(GL_TEXTURE_2D);
 }
 
 /*
@@ -1198,6 +1301,8 @@ int main(int argc,char* argv[])
    texture[7] = LoadTexBMP("img7.bmp");
    texture[8] = LoadTexBMP("img8.bmp");
    texture[9] = LoadTexBMP("tie-fighter-wing-panel.bmp");
+	
+	cockpitTex = LoadTexBMP("TIECockpit.bmp");
 
    // Set clock
    ot = clock();
