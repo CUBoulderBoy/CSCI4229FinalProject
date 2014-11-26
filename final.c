@@ -1067,6 +1067,136 @@ static void tFighter(double x, double y, double z,
 }
 
 /*
+ *  Draw a trench turrent top
+ *     
+ */
+static void turretTop(double rt)
+{
+   //  Save transformation
+   glPushMatrix();
+   
+   //  Offset
+   glRotated(rt,0,1,0);
+
+   //  Enable textures
+   glEnable(GL_TEXTURE_2D);
+   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
+
+   // Disable Textures
+   glDisable(GL_TEXTURE_2D);
+
+   //  Undo transofrmations
+   glPopMatrix();
+}
+
+/*
+ *  Draw a trench turret base
+ *     
+ */
+static void turretBase()
+{
+   // Top panel
+   glBindTexture(GL_TEXTURE_2D,texture[1]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   glNormal3d(0,0,1);
+   glTexCoord2f(0,1); glVertex3d(-3,9,-3);
+   glTexCoord2f(0,0); glVertex3d(-3,9,3);
+   glTexCoord2f(1,0); glVertex3d(3,9,3);
+   glTexCoord2f(1,1); glVertex3d(3,9,-3);
+   glEnd();
+
+   // Bottom panel
+   glBindTexture(GL_TEXTURE_2D,texture[1]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   glNormal3d(0,0,-1);
+   glTexCoord2f(1,0); glVertex3d(-4,0,-4);
+   glTexCoord2f(1,1); glVertex3d(-4,0,4);
+   glTexCoord2f(0,1); glVertex3d(4,0,4);
+   glTexCoord2f(0,0); glVertex3d(4,0,-4);
+   glEnd();
+
+   // Front panel
+   glBindTexture(GL_TEXTURE_2D,texture[9]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   normal(-4,0,4, 4,0,4, -3,9,3);
+   glTexCoord2f(0,0); glVertex3d(-4,0,4);
+   glTexCoord2f(1,0); glVertex3d(4,0,4);
+   glTexCoord2f(1,1); glVertex3d(3,9,3);
+   glTexCoord2f(0,1); glVertex3d(-3,9,3);
+   glEnd();
+
+   // Right panel
+   glBindTexture(GL_TEXTURE_2D,texture[9]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   normal(,,, ,,, ,,);
+   glTexCoord2f(,); glVertex3d(,,);
+   glTexCoord2f(,); glVertex3d(,,);
+   glTexCoord2f(,); glVertex3d(,,);
+   glTexCoord2f(,); glVertex3d(,,);
+   glEnd();
+
+   // Left panel
+   glBindTexture(GL_TEXTURE_2D,texture[9]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   normal(,,, ,,, ,,);
+   glTexCoord2f(,); glVertex3d(,,);
+   glTexCoord2f(,); glVertex3d(,,);
+   glTexCoord2f(,); glVertex3d(,,);
+   glTexCoord2f(,); glVertex3d(,,);
+   glEnd();
+
+   // Back panel
+   glBindTexture(GL_TEXTURE_2D,texture[9]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   normal(,,, ,,, ,,);
+   glTexCoord2f(,); glVertex3d(,,);
+   glTexCoord2f(,); glVertex3d(,,);
+   glTexCoord2f(,); glVertex3d(,,);
+   glTexCoord2f(,); glVertex3d(,,);
+   glEnd();
+}
+
+/*
+ *  Draw a trench turret
+ *     
+ */
+static void tTurret(double x, double y, double z,
+                 double dx, double dy, double dz,
+                 double rx, double ry, double rz,
+                 double th, double rt)
+{
+   //  Save transformation
+   glPushMatrix();
+   
+   //  Offset
+   glTranslated(x,y,z);
+   glScaled(dx,dy,dz);
+   glRotated(th,rx,ry,rz);
+
+   //  Enable textures
+   glEnable(GL_TEXTURE_2D);
+   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
+
+   // Create turret base
+   turretBase();
+
+   // Create turret top
+   //turretTop(0);
+
+   // Disable Textures
+   glDisable(GL_TEXTURE_2D);
+
+   //  Undo transofrmations
+   glPopMatrix();
+}
+
+/*
  *  OpenGL (GLUT) calls this routine to display the scene
  */
 void display()
@@ -1128,7 +1258,10 @@ void display()
    //xWing(0,0,0, 1,1,1, 0,0,0, 0);
 
    // Create Tie-Fighter
-   tFighter(0,0,0, 1,1,1, 0,0,0, 0);
+   //tFighter(0,0,0, 1,1,1, 0,0,0, 0);
+
+   // Create turret
+   tTurret(0,0,0, 1,1,1, 0,0,0, 0, 0);
 
    //  Done - disable lighting
    glDisable(GL_LIGHTING);
