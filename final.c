@@ -1099,7 +1099,7 @@ static void turretBase()
    glBindTexture(GL_TEXTURE_2D,texture[1]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
-   glNormal3d(0,0,1);
+   glNormal3d(0,1,0);
    glTexCoord2f(0,1); glVertex3d(-3,9,-3);
    glTexCoord2f(0,0); glVertex3d(-3,9,3);
    glTexCoord2f(1,0); glVertex3d(3,9,3);
@@ -1110,7 +1110,7 @@ static void turretBase()
    glBindTexture(GL_TEXTURE_2D,texture[1]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
-   glNormal3d(0,0,-1);
+   glNormal3d(0,-1,0);
    glTexCoord2f(1,0); glVertex3d(-4,0,-4);
    glTexCoord2f(1,1); glVertex3d(-4,0,4);
    glTexCoord2f(0,1); glVertex3d(4,0,4);
@@ -1118,7 +1118,7 @@ static void turretBase()
    glEnd();
 
    // Front panel
-   glBindTexture(GL_TEXTURE_2D,texture[9]);
+   glBindTexture(GL_TEXTURE_2D,texture[1]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
    normal(-4,0,4, 4,0,4, -3,9,3);
@@ -1129,36 +1129,36 @@ static void turretBase()
    glEnd();
 
    // Right panel
-   glBindTexture(GL_TEXTURE_2D,texture[9]);
+   glBindTexture(GL_TEXTURE_2D,texture[1]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
-   normal(,,, ,,, ,,);
-   glTexCoord2f(,); glVertex3d(,,);
-   glTexCoord2f(,); glVertex3d(,,);
-   glTexCoord2f(,); glVertex3d(,,);
-   glTexCoord2f(,); glVertex3d(,,);
+   normal(4,0,4, 4,0,-4, 3,9,3);
+   glTexCoord2f(0,0); glVertex3d(4,0,4);
+   glTexCoord2f(1,0); glVertex3d(4,0,-4);
+   glTexCoord2f(1,1); glVertex3d(3,9,-3);
+   glTexCoord2f(0,1); glVertex3d(3,9,3);
    glEnd();
 
    // Left panel
-   glBindTexture(GL_TEXTURE_2D,texture[9]);
+   glBindTexture(GL_TEXTURE_2D,texture[1]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
-   normal(,,, ,,, ,,);
-   glTexCoord2f(,); glVertex3d(,,);
-   glTexCoord2f(,); glVertex3d(,,);
-   glTexCoord2f(,); glVertex3d(,,);
-   glTexCoord2f(,); glVertex3d(,,);
+   normal(-4,0,-4, -4,0,4, -3,9,-3);
+   glTexCoord2f(0,0); glVertex3d(-4,0,-4);
+   glTexCoord2f(1,0); glVertex3d(-4,0,4);
+   glTexCoord2f(1,1); glVertex3d(-3,9,3);
+   glTexCoord2f(0,1); glVertex3d(-3,9,-3);
    glEnd();
 
    // Back panel
-   glBindTexture(GL_TEXTURE_2D,texture[9]);
+   glBindTexture(GL_TEXTURE_2D,texture[1]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
-   normal(,,, ,,, ,,);
-   glTexCoord2f(,); glVertex3d(,,);
-   glTexCoord2f(,); glVertex3d(,,);
-   glTexCoord2f(,); glVertex3d(,,);
-   glTexCoord2f(,); glVertex3d(,,);
+   normal(4,0,-4, -4,0,-4, 3,9,-3);
+   glTexCoord2f(0,0); glVertex3d(4,0,-4);
+   glTexCoord2f(1,0); glVertex3d(-4,0,-4);
+   glTexCoord2f(1,1); glVertex3d(-3,9,-3);
+   glTexCoord2f(0,1); glVertex3d(3,9,-3);
    glEnd();
 }
 
