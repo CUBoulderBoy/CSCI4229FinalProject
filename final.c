@@ -20,7 +20,7 @@ double asp=1;     //  Aspect ratio
 double dim=40.0;   //  Size of world
 
 // Texture array
-unsigned int texture[10]; // Texture names
+unsigned int texture[12]; // Texture names
 GLuint cockpitTex;
 
 // Light values
@@ -1076,11 +1076,78 @@ static void turretTop(double rt)
    glPushMatrix();
    
    //  Offset
+   glTranslated(0,0.1,0);
    glRotated(rt,0,1,0);
 
    //  Enable textures
    glEnable(GL_TEXTURE_2D);
    glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
+
+   // Top panel
+   glBindTexture(GL_TEXTURE_2D,texture[11]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   glNormal3d(0,1,0);
+   glTexCoord2f(0,1); glVertex3d(-2.5,12,-2.5);
+   glTexCoord2f(0,0); glVertex3d(-2.5,12,2.5);
+   glTexCoord2f(1,0); glVertex3d(2.5,12,2.5);
+   glTexCoord2f(1,1); glVertex3d(2.5,12,-2.5);
+   glEnd();
+
+   // Bottom panel
+   glBindTexture(GL_TEXTURE_2D,texture[11]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   glNormal3d(0,-1,0);
+   glTexCoord2f(0,1); glVertex3d(-3,8,-3);
+   glTexCoord2f(0,0); glVertex3d(-3,8,3);
+   glTexCoord2f(1,0); glVertex3d(3,8,3);
+   glTexCoord2f(1,1); glVertex3d(3,8,-3);
+   glEnd();
+
+   // Front panel
+   glBindTexture(GL_TEXTURE_2D,texture[11]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   normal(-3,8,3, 3,8,3, -2.5,12,2.5);
+   glTexCoord2f(0,0); glVertex3d(-3,8,3);
+   glTexCoord2f(1,0); glVertex3d(3,8,3);
+   glTexCoord2f(0.92,0.67); glVertex3d(2.5,12,2.5);
+   glTexCoord2f(0.08,0.67); glVertex3d(-2.5,12,2.5);
+   glEnd();
+
+   // Right panel
+   glBindTexture(GL_TEXTURE_2D,texture[11]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   normal(3,8,3, 3,8,-3, 2.5,12,2.5);
+   glTexCoord2f(0,0); glVertex3d(3,8,3);
+   glTexCoord2f(1,0); glVertex3d(3,8,-3);
+   glTexCoord2f(0.92,0.67); glVertex3d(2.5,12,-2.5);
+   glTexCoord2f(0.08,0.67); glVertex3d(2.5,12,2.5);
+   glEnd();
+
+   // Left panel
+   glBindTexture(GL_TEXTURE_2D,texture[11]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   normal(-3,8,-3, -3,8,3, -2.5,12,-2.5);
+   glTexCoord2f(0,0); glVertex3d(-3,8,-3);
+   glTexCoord2f(1,0); glVertex3d(-3,8,3);
+   glTexCoord2f(0.92,0.67); glVertex3d(-2.5,12,2.5);
+   glTexCoord2f(0.08,0.67); glVertex3d(-2.5,12,-2.5);
+   glEnd();
+
+   // Back panel
+   glBindTexture(GL_TEXTURE_2D,texture[11]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   normal(3,8,-3, -3,8,-3, 2.5,12,-2.5);
+   glTexCoord2f(0,0); glVertex3d(3,8,-3);
+   glTexCoord2f(1,0); glVertex3d(-3,8,-3);
+   glTexCoord2f(0.92,0.67); glVertex3d(-2.5,12,-2.5);
+   glTexCoord2f(0.08,0.67); glVertex3d(2.5,12,-2.5);
+   glEnd();
 
    // Disable Textures
    glDisable(GL_TEXTURE_2D);
@@ -1096,18 +1163,18 @@ static void turretTop(double rt)
 static void turretBase()
 {
    // Top panel
-   glBindTexture(GL_TEXTURE_2D,texture[1]);
+   glBindTexture(GL_TEXTURE_2D,texture[11]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
    glNormal3d(0,1,0);
-   glTexCoord2f(0,1); glVertex3d(-3,9,-3);
-   glTexCoord2f(0,0); glVertex3d(-3,9,3);
-   glTexCoord2f(1,0); glVertex3d(3,9,3);
-   glTexCoord2f(1,1); glVertex3d(3,9,-3);
+   glTexCoord2f(0,1); glVertex3d(-3,8,-3);
+   glTexCoord2f(0,0); glVertex3d(-3,8,3);
+   glTexCoord2f(1,0); glVertex3d(3,8,3);
+   glTexCoord2f(1,1); glVertex3d(3,8,-3);
    glEnd();
 
    // Bottom panel
-   glBindTexture(GL_TEXTURE_2D,texture[1]);
+   glBindTexture(GL_TEXTURE_2D,texture[11]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
    glNormal3d(0,-1,0);
@@ -1118,47 +1185,47 @@ static void turretBase()
    glEnd();
 
    // Front panel
-   glBindTexture(GL_TEXTURE_2D,texture[1]);
+   glBindTexture(GL_TEXTURE_2D,texture[11]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
-   normal(-4,0,4, 4,0,4, -3,9,3);
+   normal(-4,0,4, 4,0,4, -3,8,3);
    glTexCoord2f(0,0); glVertex3d(-4,0,4);
    glTexCoord2f(1,0); glVertex3d(4,0,4);
-   glTexCoord2f(1,1); glVertex3d(3,9,3);
-   glTexCoord2f(0,1); glVertex3d(-3,9,3);
+   glTexCoord2f(0.88,1); glVertex3d(3,8,3);
+   glTexCoord2f(0.13,1); glVertex3d(-3,8,3);
    glEnd();
 
    // Right panel
-   glBindTexture(GL_TEXTURE_2D,texture[1]);
+   glBindTexture(GL_TEXTURE_2D,texture[11]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
-   normal(4,0,4, 4,0,-4, 3,9,3);
+   normal(4,0,4, 4,0,-4, 3,8,3);
    glTexCoord2f(0,0); glVertex3d(4,0,4);
    glTexCoord2f(1,0); glVertex3d(4,0,-4);
-   glTexCoord2f(1,1); glVertex3d(3,9,-3);
-   glTexCoord2f(0,1); glVertex3d(3,9,3);
+   glTexCoord2f(0.88,1); glVertex3d(3,8,-3);
+   glTexCoord2f(0.13,1); glVertex3d(3,8,3);
    glEnd();
 
    // Left panel
-   glBindTexture(GL_TEXTURE_2D,texture[1]);
+   glBindTexture(GL_TEXTURE_2D,texture[11]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
-   normal(-4,0,-4, -4,0,4, -3,9,-3);
+   normal(-4,0,-4, -4,0,4, -3,8,-3);
    glTexCoord2f(0,0); glVertex3d(-4,0,-4);
    glTexCoord2f(1,0); glVertex3d(-4,0,4);
-   glTexCoord2f(1,1); glVertex3d(-3,9,3);
-   glTexCoord2f(0,1); glVertex3d(-3,9,-3);
+   glTexCoord2f(0.88,1); glVertex3d(-3,8,3);
+   glTexCoord2f(0.13,1); glVertex3d(-3,8,-3);
    glEnd();
 
    // Back panel
-   glBindTexture(GL_TEXTURE_2D,texture[1]);
+   glBindTexture(GL_TEXTURE_2D,texture[11]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
-   normal(4,0,-4, -4,0,-4, 3,9,-3);
+   normal(4,0,-4, -4,0,-4, 3,8,-3);
    glTexCoord2f(0,0); glVertex3d(4,0,-4);
    glTexCoord2f(1,0); glVertex3d(-4,0,-4);
-   glTexCoord2f(1,1); glVertex3d(-3,9,-3);
-   glTexCoord2f(0,1); glVertex3d(3,9,-3);
+   glTexCoord2f(0.88,1); glVertex3d(-3,8,-3);
+   glTexCoord2f(0.13,1); glVertex3d(3,8,-3);
    glEnd();
 }
 
@@ -1187,7 +1254,7 @@ static void tTurret(double x, double y, double z,
    turretBase();
 
    // Create turret top
-   //turretTop(0);
+   turretTop(0);
 
    // Disable Textures
    glDisable(GL_TEXTURE_2D);
@@ -1434,6 +1501,8 @@ int main(int argc,char* argv[])
    texture[7] = LoadTexBMP("img7.bmp");
    texture[8] = LoadTexBMP("img8.bmp");
    texture[9] = LoadTexBMP("tie-fighter-wing-panel.bmp");
+   texture[10] = LoadTexBMP("img10.bmp");
+   texture[11] = LoadTexBMP("Vinyl_Gray_2.bmp");
 	
 	cockpitTex = LoadTexBMP("TIECockpit.bmp");
 
