@@ -586,15 +586,51 @@ static void xWing(double x, double y, double z,
    glBindTexture(GL_TEXTURE_2D,texture[3]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
-   normal(-5,0,-3, -2,0,25, -1,1.5,30);
+   normal(-5,0,-3, -2,0,30, -1,1.5,30);
    glTexCoord2f(-1,-1); glVertex3d(-5,+0,-3);
    glTexCoord2f(-1,1); glVertex3d(-2,+0,+30);
    glTexCoord2f(0,1); glVertex3d(-1,+1.5,+30);
+   glTexCoord2f(1,1); glVertex3d(-2,+2.5,+7);
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[3]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   normal(-5,0,-3, -2,2.5,7, -4,2,-3);
+   glTexCoord2f(-1,-1); glVertex3d(-5,+0,-3);
+   glTexCoord2f(-1,1); glVertex3d(-4,+2,-3);
+   glTexCoord2f(1,1); glVertex3d(-2,+2.5,+7);
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   normal(-4,2,-3, -2,2.5,7, -3,4,-3);
+   glTexCoord2f(-1,1); glVertex3d(-3,+4,-3);
+   glTexCoord2f(-1,1); glVertex3d(-4,+2,-3);
+   glTexCoord2f(1,1); glVertex3d(-2,+2.5,+7);
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   normal(-2,2.5,7, -3,5,0, -3,5,-2);
    glTexCoord2f(1,1); glVertex3d(-2,+2.5,+7);
    glTexCoord2f(1,0); glVertex3d(-3,+5,+0);
    glTexCoord2f(1,0); glVertex3d(-3,+5,-2);
    glTexCoord2f(-1,1); glVertex3d(-3,+4,-3);
    glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   normal(-2,2.5,7, -3,5,0, -3,5,-2);
+   glTexCoord2f(1,1); glVertex3d(-2,+2.5,+7);
+   glTexCoord2f(1,0); glVertex3d(-3,+5,+0);
+   glTexCoord2f(1,0); glVertex3d(-3,+5,-2);
+   glTexCoord2f(-1,1); glVertex3d(-3,+4,-3);
+   glEnd();
+
 
    // Nose right top panel
    glBindTexture(GL_TEXTURE_2D,texture[3]);
@@ -620,7 +656,7 @@ static void xWing(double x, double y, double z,
    glEnd();
 
    // Cockpit top panel
-   glBindTexture(GL_TEXTURE_2D,texture[3]);
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
    glBegin(GL_POLYGON);
    normal(3,5,0, -3,5,-2, -3,5,0);
    glTexCoord2f(1,0); glVertex3d(+3,+5,+0);
@@ -805,20 +841,20 @@ static void xWing(double x, double y, double z,
 
    glBindTexture(GL_TEXTURE_2D,texture[7]);
    glBegin(GL_POLYGON);
-   normal(-3,4,0, -3,4,-17, -3,-3,-17);
-   glTexCoord2f(0,1); glVertex3d(-3,+4,+0);
+   normal(-3,4,-3, -3,4,-17, -3,-3,-17);
+   glTexCoord2f(0,1); glVertex3d(-3,+4,-3);
    glTexCoord2f(1,1); glVertex3d(-3,+4,-17);
    glTexCoord2f(1,0); glVertex3d(-3,-3,-17);
-   glTexCoord2f(0,0); glVertex3d(-3,-3,+0);
+   glTexCoord2f(0,0); glVertex3d(-3,-3,-3);
    glEnd();
 
    glBindTexture(GL_TEXTURE_2D,texture[7]);
    glBegin(GL_POLYGON);
-   normal(+3,4,0, +3,-3,-17, +3,4,-17);
-   glTexCoord2f(1,1); glVertex3d(+3,+4,+0);
+   normal(+3,4,-3, +3,-3,-17, +3,4,-17);
+   glTexCoord2f(1,1); glVertex3d(+3,+4,-3);
    glTexCoord2f(0,1); glVertex3d(+3,+4,-17);
    glTexCoord2f(0,0); glVertex3d(+3,-3,-17);
-   glTexCoord2f(1,0); glVertex3d(+3,-3,+0);
+   glTexCoord2f(1,0); glVertex3d(+3,-3,-3);
    glEnd();
 
    // ------------------- Body back panels --------------------------------
@@ -1525,13 +1561,13 @@ void display()
    glLightfv(GL_LIGHT0,GL_POSITION,Position);
 
    // Create XWING
-   //xWing(0,0,0, 1,1,1, 0,0,0, 0);
+   xWing(0,0,0, 1,1,1, 0,0,0, 0);
 
    // Create Tie-Fighter
    //tFighter(0,0,0, 1,1,1, 0,0,0, 0);
 
    // Create turret
-   tTurret(0,0,0, 1,1,1, 0,0,0, 0, 0);
+   //tTurret(0,0,0, 1,1,1, 0,0,0, 0, 0);
 
    //  Done - disable lighting
    glDisable(GL_LIGHTING);
