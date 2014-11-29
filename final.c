@@ -1149,6 +1149,209 @@ static void turretTop(double rt)
    glTexCoord2f(0.08,0.67); glVertex3d(2.5,12,-2.5);
    glEnd();
 
+   // Push matrix to built turret guns
+   glPushMatrix();
+
+   // Adjust gun
+   glTranslated(0,10.5,3);
+   glRotated(-20,1,0,0);
+   int th;
+
+   // Build left gun
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_TRIANGLE_FAN);
+   glVertex3d(-1, 0, -1);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(0,0,-1);
+      glTexCoord2f(0.032 + 0.1 * Cos(th), 0.075 + 0.1 * Sin(th)); glVertex3d(-1 + 0.6 * Cos(th), 0.6 * Sin(th), -1);
+      
+   }
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_QUAD_STRIP);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(Cos(th),Sin(th),0);
+      glTexCoord2f(0,th*0.00274); glVertex3d(-1 + 0.6 * Cos(th), 0.6 * Sin(th), -1);
+      glTexCoord2f(1,th*0.00274); glVertex3d(-1 + 0.6 * Cos(th), 0.6 * Sin(th), 0);
+   }
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_TRIANGLE_FAN);
+   glVertex3d(-1, 0, 0);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(0,0,-1);
+      glTexCoord2f(0.032 + 0.1 * Cos(th), 0.075 + 0.1 * Sin(th)); glVertex3d(-1 + 0.8 * Cos(th), 0.8 * Sin(th), 0);
+      
+   }
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_TRIANGLE_FAN);
+   glVertex3d(-1, 0, 0.3);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(0,0,1);
+      glTexCoord2f(0.032 + 0.1 * Cos(th), 0.075 + 0.1 * Sin(th)); glVertex3d(-1 + 0.8 * Cos(th), 0.8 * Sin(th), 0.3);
+      
+   }
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_QUAD_STRIP);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(Cos(th),Sin(th),0);
+      glTexCoord2f(0,th*0.00274); glVertex3d(-1 + 0.8 * Cos(th), 0.8 * Sin(th), 0);
+      glTexCoord2f(1,th*0.00274); glVertex3d(-1 + 0.8 * Cos(th), 0.8 * Sin(th), 0.3);
+   }
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_TRIANGLE_FAN);
+   glVertex3d(-1, 0, 2);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(0,0,1);
+      glTexCoord2f(0.032 + 0.1 * Cos(th), 0.075 + 0.1 * Sin(th)); glVertex3d(-1 + 0.5 * Cos(th), 0.5 * Sin(th), 2);
+      
+   }
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_QUAD_STRIP);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(Cos(th),Sin(th),0);
+      glTexCoord2f(0,th*0.00274); glVertex3d(-1 + 0.5 * Cos(th), 0.5 * Sin(th), 0.3);
+      glTexCoord2f(1,th*0.00274); glVertex3d(-1 + 0.5 * Cos(th), 0.5 * Sin(th), 2);
+   }
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_TRIANGLE_FAN);
+   glVertex3d(-1, 0, 5);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(0,0,1);
+      glTexCoord2f(0.032 + 0.1 * Cos(th), 0.075 + 0.1 * Sin(th)); glVertex3d(-1 + 0.3 * Cos(th), 0.3 * Sin(th), 5);
+      
+   }
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_QUAD_STRIP);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(Cos(th),Sin(th),0);
+      glTexCoord2f(0,th*0.00274); glVertex3d(-1 + 0.3 * Cos(th), 0.3 * Sin(th), 2);
+      glTexCoord2f(1,th*0.00274); glVertex3d(-1 + 0.3 * Cos(th), 0.3 * Sin(th), 5);
+   }
+   glEnd();
+
+   // Build right gun
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_TRIANGLE_FAN);
+   glVertex3d(1, 0, -1);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(0,0,-1);
+      glTexCoord2f(0.032 + 0.1 * Cos(th), 0.075 + 0.1 * Sin(th)); glVertex3d(1 + 0.6 * Cos(th), 0.6 * Sin(th), -1);
+      
+   }
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_QUAD_STRIP);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(Cos(th),Sin(th),0);
+      glTexCoord2f(0,th*0.00274); glVertex3d(1 + 0.6 * Cos(th), 0.6 * Sin(th), -1);
+      glTexCoord2f(1,th*0.00274); glVertex3d(1 + 0.6 * Cos(th), 0.6 * Sin(th), 0);
+   }
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_TRIANGLE_FAN);
+   glVertex3d(1, 0, 0);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(0,0,-1);
+      glTexCoord2f(0.032 + 0.1 * Cos(th), 0.075 + 0.1 * Sin(th)); glVertex3d(1 + 0.8 * Cos(th), 0.8 * Sin(th), 0);
+      
+   }
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_TRIANGLE_FAN);
+   glVertex3d(1, 0, 0.3);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(0,0,1);
+      glTexCoord2f(0.032 + 0.1 * Cos(th), 0.075 + 0.1 * Sin(th)); glVertex3d(1 + 0.8 * Cos(th), 0.8 * Sin(th), 0.3);
+      
+   }
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_QUAD_STRIP);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(Cos(th),Sin(th),0);
+      glTexCoord2f(0,th*0.00274); glVertex3d(1 + 0.8 * Cos(th), 0.8 * Sin(th), 0);
+      glTexCoord2f(1,th*0.00274); glVertex3d(1 + 0.8 * Cos(th), 0.8 * Sin(th), 0.3);
+   }
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_TRIANGLE_FAN);
+   glVertex3d(1, 0, 2);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(0,0,1);
+      glTexCoord2f(0.032 + 0.1 * Cos(th), 0.075 + 0.1 * Sin(th)); glVertex3d(1 + 0.5 * Cos(th), 0.5 * Sin(th), 2);
+      
+   }
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_QUAD_STRIP);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(Cos(th),Sin(th),0);
+      glTexCoord2f(0,th*0.00274); glVertex3d(1 + 0.5 * Cos(th), 0.5 * Sin(th), 0.3);
+      glTexCoord2f(1,th*0.00274); glVertex3d(1 + 0.5 * Cos(th), 0.5 * Sin(th), 2);
+   }
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_TRIANGLE_FAN);
+   glVertex3d(1, 0, 5);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(0,0,1);
+      glTexCoord2f(0.032 + 0.1 * Cos(th), 0.075 + 0.1 * Sin(th)); glVertex3d(1 + 0.3 * Cos(th), 0.3 * Sin(th), 5);
+      
+   }
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_QUAD_STRIP);
+   for (th = 0; th <= 360; th += 5)
+   {
+      glNormal3d(Cos(th),Sin(th),0);
+      glTexCoord2f(0,th*0.00274); glVertex3d(1 + 0.3 * Cos(th), 0.3 * Sin(th), 2);
+      glTexCoord2f(1,th*0.00274); glVertex3d(1 + 0.3 * Cos(th), 0.3 * Sin(th), 5);
+   }
+   glEnd();
+
+   //  Undo transofrmations
+   glPopMatrix();
+
    // Disable Textures
    glDisable(GL_TEXTURE_2D);
 
@@ -1316,8 +1519,8 @@ void display()
    glEnable(GL_LIGHT0);
 
    //  Set ambient, diffuse, specular components and position of light 0
-   glLightfv(GL_LIGHT0,GL_AMBIENT ,Ambient);
-   glLightfv(GL_LIGHT0,GL_DIFFUSE ,Diffuse);
+   glLightfv(GL_LIGHT0,GL_AMBIENT,Ambient);
+   glLightfv(GL_LIGHT0,GL_DIFFUSE,Diffuse);
    glLightfv(GL_LIGHT0,GL_SPECULAR,Specular);
    glLightfv(GL_LIGHT0,GL_POSITION,Position);
 
@@ -1340,7 +1543,7 @@ void display()
 }
 
 /*
- *  Idle function for falling snow
+ *  Idle function
  */
 void idle()
 {
