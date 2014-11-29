@@ -20,7 +20,7 @@ double asp=1;     //  Aspect ratio
 double dim=40.0;   //  Size of world
 
 // Texture array
-unsigned int texture[12]; // Texture names
+unsigned int texture[14]; // Texture names
 GLuint cockpitTex;
 
 // Light values
@@ -583,7 +583,7 @@ static void xWing(double x, double y, double z,
    glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
 
    // Nose left top panel
-   glBindTexture(GL_TEXTURE_2D,texture[3]);
+   glBindTexture(GL_TEXTURE_2D,texture[12]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
    normal(-5,0,-3, -2,0,30, -1,1.5,30);
@@ -593,7 +593,7 @@ static void xWing(double x, double y, double z,
    glTexCoord2f(1,1); glVertex3d(-2,+2.5,+7);
    glEnd();
 
-   glBindTexture(GL_TEXTURE_2D,texture[3]);
+   glBindTexture(GL_TEXTURE_2D,texture[12]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
    normal(-5,0,-3, -2,2.5,7, -4,2,-3);
@@ -624,25 +624,60 @@ static void xWing(double x, double y, double z,
    glBindTexture(GL_TEXTURE_2D,texture[8]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
-   normal(-2,2.5,7, -3,5,0, -3,5,-2);
+   normal(-2,2.5,7, -3,5,0, -3,4,-3);
    glTexCoord2f(1,1); glVertex3d(-2,+2.5,+7);
    glTexCoord2f(1,0); glVertex3d(-3,+5,+0);
    glTexCoord2f(1,0); glVertex3d(-3,+5,-2);
    glTexCoord2f(-1,1); glVertex3d(-3,+4,-3);
    glEnd();
 
-
    // Nose right top panel
-   glBindTexture(GL_TEXTURE_2D,texture[3]);
+   glBindTexture(GL_TEXTURE_2D,texture[12]);
    glBegin(GL_POLYGON);
-   normal(5,0,-3, 2,0,25, 1,1.5,30);
-   glTexCoord2f(-1,-1); glVertex3d(+5,+0,-3);
-   glTexCoord2f(-1,1); glVertex3d(+2,+0,+30);
-   glTexCoord2f(0,1); glVertex3d(+1,+1.5,+30);
-   glTexCoord2f(1,1); glVertex3d(+2,+2.5,+7);
-   glTexCoord2f(1,0); glVertex3d(+3,+5,+0);
-   glTexCoord2f(1,0); glVertex3d(+3,+5,-2);
-   glTexCoord2f(-1,1); glVertex3d(+3,+4,-3);
+   glColor3f(0.75,0.75,0.75);
+   normal(5,0,-3, 1,1.5,30, 2,0,30);
+   glTexCoord2f(-1,-1); glVertex3d(5,+0,-3);
+   glTexCoord2f(-1,1); glVertex3d(2,+0,+30);
+   glTexCoord2f(0,1); glVertex3d(1,+1.5,+30);
+   glTexCoord2f(1,1); glVertex3d(2,+2.5,+7);
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[12]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   normal(2,2.5,7, 5,0,-3, 4,2,-3);
+   glTexCoord2f(-1,-1); glVertex3d(5,+0,-3);
+   glTexCoord2f(-1,1); glVertex3d(4,+2,-3);
+   glTexCoord2f(1,1); glVertex3d(2,+2.5,+7);
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   normal(2,2.5,7, 3,4,-3, 4,2,-3);
+   glTexCoord2f(-1,1); glVertex3d(3,+4,-3);
+   glTexCoord2f(-1,1); glVertex3d(4,+2,-3);
+   glTexCoord2f(1,1); glVertex3d(2,+2.5,+7);
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   normal(2,2.5,7, 3,5,0, 3,4,-3);
+   glTexCoord2f(1,1); glVertex3d(2,+2.5,+7);
+   glTexCoord2f(1,0); glVertex3d(3,+5,+0);
+   glTexCoord2f(1,0); glVertex3d(3,+5,-2);
+   glTexCoord2f(-1,1); glVertex3d(3,+4,-3);
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
+   glBegin(GL_POLYGON);
+   glColor3f(0.75,0.75,0.75);
+   normal(2,2.5,7, 3,4,-3, 3,5,0);
+   glTexCoord2f(1,1); glVertex3d(2,+2.5,+7);
+   glTexCoord2f(1,0); glVertex3d(3,+5,+0);
+   glTexCoord2f(1,0); glVertex3d(3,+5,-2);
+   glTexCoord2f(-1,1); glVertex3d(3,+4,-3);
    glEnd();
 
    // Cockpit window panel
@@ -1742,6 +1777,8 @@ int main(int argc,char* argv[])
    texture[9] = LoadTexBMP("tie-fighter-wing-panel.bmp");
    texture[10] = LoadTexBMP("img10.bmp");
    texture[11] = LoadTexBMP("Vinyl_Gray_2.bmp");
+   texture[12] = LoadTexBMP("red_material.bmp");
+   texture[13] = LoadTexBMP("Vinyl_Gray_1.bmp");
 	
 	cockpitTex = LoadTexBMP("TIECockpit.bmp");
 
