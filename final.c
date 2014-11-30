@@ -342,6 +342,8 @@ static void wingEngine(double x, double y, double z){
 static void createWings(){
    // ------------------- Left Top Wing -----------------------------------
    // Bottom of wing
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(2,2);
    glBindTexture(GL_TEXTURE_2D,texture[2]);
    glBegin(GL_POLYGON);
    normal(-3,0.5,-17, -3,0.5,-7, -25,8,-14);
@@ -349,6 +351,37 @@ static void createWings(){
    glTexCoord2f(1,0.9031); glVertex3d(-3,+0.5,-17);
    glTexCoord2f(0,0.6217); glVertex3d(-25,+8,-14);
    glTexCoord2f(0,0.2709); glVertex3d(-25,+8,-10);
+   glEnd();
+   glDisable(GL_POLYGON_OFFSET_FILL);
+
+   // First panel on wing
+   glBindTexture(GL_TEXTURE_2D,texture[0]);
+   glBegin(GL_POLYGON);
+   normal(-3,0.5,-17, -3,0.5,-7, -25,8,-14);
+   glTexCoord2f(1,0); glVertex3d(-5.2,1.25,-16.2);
+   glTexCoord2f(1,0.9031); glVertex3d(-9.6,2.75,-15.6);
+   glTexCoord2f(0,0.6217); glVertex3d(-9.6,2.75,-8.4);
+   glTexCoord2f(0,0.2709); glVertex3d(-5.2,1.25,-7.8);
+   glEnd();
+
+   // Middle panel on wing
+   glBindTexture(GL_TEXTURE_2D,texture[0]);
+   glBegin(GL_POLYGON);
+   normal(-3,0.5,-17, -3,0.5,-7, -25,8,-14);
+   glTexCoord2f(1,0); glVertex3d(-11.8,3.5,-15.3);
+   glTexCoord2f(1,0.9031); glVertex3d(-16.2,5,-14.7);
+   glTexCoord2f(0,0.6217); glVertex3d(-16.2,5,-9.3);
+   glTexCoord2f(0,0.2709); glVertex3d(-11.8,3.5,-8.7);
+   glEnd();
+
+   // Tip panel on wing
+   glBindTexture(GL_TEXTURE_2D,texture[0]);
+   glBegin(GL_POLYGON);
+   normal(-3,0.5,-17, -3,0.5,-7, -25,8,-14);
+   glTexCoord2f(1,0); glVertex3d(-18.4,5.75,-14.4);
+   glTexCoord2f(1,0.9031); glVertex3d(-22.8,7.25,-13.8);
+   glTexCoord2f(0,0.6217); glVertex3d(-22.8,7.25,-10.2);
+   glTexCoord2f(0,0.2709); glVertex3d(-18.4,5.75,-9.6);
    glEnd();
 
    // Top of wing
@@ -397,6 +430,8 @@ static void createWings(){
 
    // ------------------- Left Bottom Wing -----------------------------------
    // Top of wing
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(2,2);
    glBindTexture(GL_TEXTURE_2D,texture[2]);
    glBegin(GL_POLYGON);
    normal(-3,0.5,-17, -25,-7,-14, -3,0.5,-7);
@@ -404,6 +439,37 @@ static void createWings(){
    glTexCoord2f(1,0.9031); glVertex3d(-3,+0.5,-17);
    glTexCoord2f(0,0.6217); glVertex3d(-25,-7,-14);
    glTexCoord2f(0,0.2709); glVertex3d(-25,-7,-10);
+   glEnd();
+   glDisable(GL_POLYGON_OFFSET_FILL);
+
+   // First panel on wing
+   glBindTexture(GL_TEXTURE_2D,texture[0]);
+   glBegin(GL_POLYGON);
+   normal(-3,0.5,-17, -25,-7,-14, -3,0.5,-7);
+   glTexCoord2f(1,0); glVertex3d(-5.2,-0.25,-16.2);
+   glTexCoord2f(1,0.9031); glVertex3d(-9.6,-1.75,-15.6);
+   glTexCoord2f(0,0.6217); glVertex3d(-9.6,-1.75,-8.4);
+   glTexCoord2f(0,0.2709); glVertex3d(-5.2,-0.25,-7.8);
+   glEnd();
+
+   // Middle panel on wing
+   glBindTexture(GL_TEXTURE_2D,texture[0]);
+   glBegin(GL_POLYGON);
+   normal(-3,0.5,-17, -25,-7,-14, -3,0.5,-7);
+   glTexCoord2f(1,0); glVertex3d(-11.8,-2.5,-15.3);
+   glTexCoord2f(1,0.9031); glVertex3d(-16.2,-4,-14.7);
+   glTexCoord2f(0,0.6217); glVertex3d(-16.2,-4,-9.3);
+   glTexCoord2f(0,0.2709); glVertex3d(-11.8,-2.5,-8.7);
+   glEnd();
+
+   // Tip panel on wing
+   glBindTexture(GL_TEXTURE_2D,texture[0]);
+   glBegin(GL_POLYGON);
+   normal(-3,0.5,-17, -25,-7,-14, -3,0.5,-7);
+   glTexCoord2f(1,0); glVertex3d(-18.4,-4.75,-14.4);
+   glTexCoord2f(1,0.9031); glVertex3d(-22.8,-6.25,-13.8);
+   glTexCoord2f(0,0.6217); glVertex3d(-22.8,-6.25,-10.2);
+   glTexCoord2f(0,0.2709); glVertex3d(-18.4,-4.75,-9.6);
    glEnd();
 
    // Bottom of wing
@@ -452,6 +518,8 @@ static void createWings(){
 
    // ------------------- Right Top Wing -----------------------------------
    // Bottom of wing
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(2,2);
    glBindTexture(GL_TEXTURE_2D,texture[2]);
    glBegin(GL_POLYGON);
    normal(3,0.5,-17, 25,8,-14, 3,0.5,-7);
@@ -459,6 +527,37 @@ static void createWings(){
    glTexCoord2f(1,0.9031); glVertex3d(+3,+0.5,-17);
    glTexCoord2f(0,0.6217); glVertex3d(+25,+8,-14);
    glTexCoord2f(0,0.2709); glVertex3d(+25,+8,-10);
+   glEnd();
+   glDisable(GL_POLYGON_OFFSET_FILL);
+
+   // First panel on wing
+   glBindTexture(GL_TEXTURE_2D,texture[0]);
+   glBegin(GL_POLYGON);
+   normal(3,0.5,-17, 25,8,-14, 3,0.5,-7);
+   glTexCoord2f(1,0); glVertex3d(5.2,1.25,-16.2);
+   glTexCoord2f(1,0.9031); glVertex3d(9.6,2.75,-15.6);
+   glTexCoord2f(0,0.6217); glVertex3d(9.6,2.75,-8.4);
+   glTexCoord2f(0,0.2709); glVertex3d(5.2,1.25,-7.8);
+   glEnd();
+
+   // Middle panel on wing
+   glBindTexture(GL_TEXTURE_2D,texture[0]);
+   glBegin(GL_POLYGON);
+   normal(3,0.5,-17, 25,8,-14, 3,0.5,-7);
+   glTexCoord2f(1,0); glVertex3d(11.8,3.5,-15.3);
+   glTexCoord2f(1,0.9031); glVertex3d(16.2,5,-14.7);
+   glTexCoord2f(0,0.6217); glVertex3d(16.2,5,-9.3);
+   glTexCoord2f(0,0.2709); glVertex3d(11.8,3.5,-8.7);
+   glEnd();
+
+   // Tip panel on wing
+   glBindTexture(GL_TEXTURE_2D,texture[0]);
+   glBegin(GL_POLYGON);
+   normal(3,0.5,-17, 25,8,-14, 3,0.5,-7);
+   glTexCoord2f(1,0); glVertex3d(18.4,5.75,-14.4);
+   glTexCoord2f(1,0.9031); glVertex3d(22.8,7.25,-13.8);
+   glTexCoord2f(0,0.6217); glVertex3d(22.8,7.25,-10.2);
+   glTexCoord2f(0,0.2709); glVertex3d(18.4,5.75,-9.6);
    glEnd();
 
    // Top of wing
@@ -507,6 +606,8 @@ static void createWings(){
 
    // ------------------- Right Bottom Wing -----------------------------------
    // Top of wing
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(2,2);
    glBindTexture(GL_TEXTURE_2D,texture[2]);
    glBegin(GL_POLYGON);
    normal(3,0.5,-17, 3,0.5,-7, 25,-7,-14);
@@ -515,6 +616,38 @@ static void createWings(){
    glTexCoord2f(0,0.6217); glVertex3d(+25,-7,-14);
    glTexCoord2f(0,0.2709); glVertex3d(+25,-7,-10);
    glEnd();
+   glDisable(GL_POLYGON_OFFSET_FILL);
+
+   // First panel on wing
+   glBindTexture(GL_TEXTURE_2D,texture[0]);
+   glBegin(GL_POLYGON);
+   normal(3,0.5,-17, 3,0.5,-7, 25,-7,-14);
+   glTexCoord2f(1,0); glVertex3d(5.2,-0.25,-16.2);
+   glTexCoord2f(1,0.9031); glVertex3d(9.6,-1.75,-15.6);
+   glTexCoord2f(0,0.6217); glVertex3d(9.6,-1.75,-8.4);
+   glTexCoord2f(0,0.2709); glVertex3d(5.2,-0.25,-7.8);
+   glEnd();
+
+   // Middle panel on wing
+   glBindTexture(GL_TEXTURE_2D,texture[0]);
+   glBegin(GL_POLYGON);
+   normal(3,0.5,-17, 3,0.5,-7, 25,-7,-14);
+   glTexCoord2f(1,0); glVertex3d(11.8,-2.5,-15.3);
+   glTexCoord2f(1,0.9031); glVertex3d(16.2,-4,-14.7);
+   glTexCoord2f(0,0.6217); glVertex3d(16.2,-4,-9.3);
+   glTexCoord2f(0,0.2709); glVertex3d(11.8,-2.5,-8.7);
+   glEnd();
+
+   // Tip panel on wing
+   glBindTexture(GL_TEXTURE_2D,texture[0]);
+   glBegin(GL_POLYGON);
+   normal(3,0.5,-17, 3,0.5,-7, 25,-7,-14);
+   glTexCoord2f(1,0); glVertex3d(18.4,-4.75,-14.4);
+   glTexCoord2f(1,0.9031); glVertex3d(22.8,-6.25,-13.8);
+   glTexCoord2f(0,0.6217); glVertex3d(22.8,-6.25,-10.2);
+   glTexCoord2f(0,0.2709); glVertex3d(18.4,-4.75,-9.6);
+   glEnd();
+
 
    // Bottom of wing
    glBindTexture(GL_TEXTURE_2D,texture[2]);
@@ -602,7 +735,7 @@ static void xWing(double x, double y, double z,
    glTexCoord2f(1,1); glVertex3d(-2,+2.5,+7);
    glEnd();
 
-   glBindTexture(GL_TEXTURE_2D,texture[14]);
+   glBindTexture(GL_TEXTURE_2D,texture[6]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
    normal(-2,2.5,7, -3,5,0, -3,5,-2);
@@ -611,7 +744,7 @@ static void xWing(double x, double y, double z,
    glTexCoord2f(0,0); glVertex3d(-2,+2.5,+7);
    glEnd();
 
-   glBindTexture(GL_TEXTURE_2D,texture[14]);
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
    normal(-2,2.5,7, -3,5,-2, -3.8,2,-2);
@@ -620,7 +753,7 @@ static void xWing(double x, double y, double z,
    glTexCoord2f(1,1); glVertex3d(-2,+2.5,+7);
    glEnd();
 
-   glBindTexture(GL_TEXTURE_2D,texture[14]);
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
    normal(-2,2.5,7, -3.8,2,-2, -4.7,0.25,-2);
@@ -669,7 +802,7 @@ static void xWing(double x, double y, double z,
    glTexCoord2f(1,1); glVertex3d(2,+2.5,+7);
    glEnd();
 
-   glBindTexture(GL_TEXTURE_2D,texture[14]);
+   glBindTexture(GL_TEXTURE_2D,texture[6]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
    normal(2,2.5,7, 3,5,-2, 3,5,0);
@@ -678,7 +811,7 @@ static void xWing(double x, double y, double z,
    glTexCoord2f(0,0); glVertex3d(2,+2.5,+7);
    glEnd();
 
-   glBindTexture(GL_TEXTURE_2D,texture[14]);
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
    normal(2,2.5,7, 3.8,2,-2, 3,5,-2);
@@ -687,7 +820,7 @@ static void xWing(double x, double y, double z,
    glTexCoord2f(1,1); glVertex3d(2,+2.5,+7);
    glEnd();
 
-   glBindTexture(GL_TEXTURE_2D,texture[14]);
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
    glBegin(GL_POLYGON);
    glColor3f(0.75,0.75,0.75);
    normal(2,2.5,7, 4.7,0.25,-2, 3.8,2,-2);
@@ -717,7 +850,7 @@ static void xWing(double x, double y, double z,
    glEnd();
 
    // Cockpit window panel
-   glBindTexture(GL_TEXTURE_2D,texture[14]);
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
    glBegin(GL_POLYGON);
    normal(3,5,0, -3,5,0, -2,2.5,7);
    glTexCoord2f(0,1); glVertex3d(+3,+5,+0);
@@ -727,7 +860,7 @@ static void xWing(double x, double y, double z,
    glEnd();
 
    // Cockpit top panel
-   glBindTexture(GL_TEXTURE_2D,texture[14]);
+   glBindTexture(GL_TEXTURE_2D,texture[8]);
    glBegin(GL_POLYGON);
    normal(3,5,0, -3,5,-2, -3,5,0);
    glTexCoord2f(1,0); glVertex3d(+3,+5,+0);
