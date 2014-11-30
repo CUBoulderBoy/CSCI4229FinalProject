@@ -20,7 +20,7 @@ double asp=1;     //  Aspect ratio
 double dim=40.0;   //  Size of world
 
 // Texture array
-unsigned int texture[15]; // Texture names
+unsigned int texture[16]; // Texture names
 GLuint cockpitTex;
 
 // Light values
@@ -291,13 +291,13 @@ static void wingEngine(double x, double y, double z){
    }
    glEnd();
    
-   glBindTexture(GL_TEXTURE_2D,texture[0]);
+   glBindTexture(GL_TEXTURE_2D,texture[15]);
    glBegin(GL_TRIANGLE_FAN);
    glVertex3d(0, 0, 8);
-   for (th = 0; th <= 360; th += 1)
+   for (th = 0; th <= 360; th += 5)
    {
       glNormal3d(0,0,1);
-      glTexCoord2f(0.5 + Cos(th), 0.5 + Sin(th)); glVertex3d(1.5 * Cos(th), 1.5 * Sin(th), 8);
+      glTexCoord2f(0.4 + 0.5* Cos(th), 0.5 + 0.5 * Sin(th)); glVertex3d(1.5 * Cos(th), 1.5 * Sin(th), 8);
       
    }
    glEnd();
@@ -312,13 +312,13 @@ static void wingEngine(double x, double y, double z){
    }
    glEnd();
 
-   glBindTexture(GL_TEXTURE_2D,texture[0]);
+   glBindTexture(GL_TEXTURE_2D,texture[15]);
    glBegin(GL_TRIANGLE_FAN);
    glVertex3d(0, 0, -9);
    for (th = 0; th <= 360; th += 1)
    {
       glNormal3d(0,0,-1);
-      glTexCoord2f(0.5 + Cos(th), 0.5 + Sin(th)); glVertex3d(0.8 * Cos(th), 0.8 * Sin(th), -9);
+      glTexCoord2f(0.4 + 0.5* Cos(th), 0.5 + 0.5 * Sin(th)); glVertex3d(0.8 * Cos(th), 0.8 * Sin(th), -9);
       
    }
    glEnd();
@@ -802,7 +802,7 @@ static void xWing(double x, double y, double z,
    // --------------- Body top and bottom panels -----------------------
    // Body top panel
    glEnable(GL_POLYGON_OFFSET_FILL);
-   glPolygonOffset(1,1);
+   glPolygonOffset(2,2);
    glBindTexture(GL_TEXTURE_2D,texture[3]);
    glBegin(GL_POLYGON);
    glNormal3d(0,1,0);
@@ -1831,6 +1831,7 @@ int main(int argc,char* argv[])
    texture[12] = LoadTexBMP("red_material.bmp");
    texture[13] = LoadTexBMP("Vinyl_Gray_1.bmp");
    texture[14] = LoadTexBMP("Carpet_Gray.bmp");
+   texture[15] = LoadTexBMP("jet-engine.bmp");
 	
 	cockpitTex = LoadTexBMP("TIECockpit.bmp");
 
