@@ -801,6 +801,8 @@ static void xWing(double x, double y, double z,
 
    // --------------- Body top and bottom panels -----------------------
    // Body top panel
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(1,1);
    glBindTexture(GL_TEXTURE_2D,texture[3]);
    glBegin(GL_POLYGON);
    glNormal3d(0,1,0);
@@ -811,7 +813,20 @@ static void xWing(double x, double y, double z,
    glTexCoord2f(0,0); glVertex3d(-4,+4,-19);
    glTexCoord2f(0.9375,0.7212); glVertex3d(-4,+4,-4);
    glEnd();
+   glDisable(GL_POLYGON_OFFSET_FILL);
 
+   // Body top panel center
+   glBindTexture(GL_TEXTURE_2D,texture[1]);
+   glBegin(GL_POLYGON);
+   glNormal3d(0,1,0);
+   glTexCoord2f(1,0.631); glVertex3d(-2,+4,-2);  
+   glTexCoord2f(1,0.0901); glVertex3d(+2,+4,-2);
+   glTexCoord2f(0.9375,0); glVertex3d(+3,+4,-3);
+   glTexCoord2f(0,0.7212); glVertex3d(+3,+4,-18);
+   glTexCoord2f(0,0); glVertex3d(-3,+4,-18);
+   glTexCoord2f(0.9375,0.7212); glVertex3d(-3,+4,-3);
+   glEnd();
+   
    // Body bottom panel
    glBindTexture(GL_TEXTURE_2D,texture[3]);
    glBegin(GL_POLYGON);
