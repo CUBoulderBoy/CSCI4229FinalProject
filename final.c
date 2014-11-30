@@ -385,6 +385,8 @@ static void createWings(){
    glEnd();
 
    // Top of wing
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(2,2);
    glBindTexture(GL_TEXTURE_2D,texture[2]);
    glBegin(GL_POLYGON);
    normal(-3,1.5,-17, -25,9,-14, -3,1.5,-7);
@@ -392,6 +394,26 @@ static void createWings(){
    glTexCoord2f(1,0.9031); glVertex3d(-3,+1.5,-17);
    glTexCoord2f(0,0.6217); glVertex3d(-25,+9,-14);
    glTexCoord2f(0,0.2709); glVertex3d(-25,+9,-10);
+   glEnd();
+   glDisable(GL_POLYGON_OFFSET_FILL);
+
+   // Red panel on wing
+   glBindTexture(GL_TEXTURE_2D,texture[12]);
+   glBegin(GL_POLYGON);
+   normal(-3,1.5,-17, -25,9,-14, -3,1.5,-7);
+   glTexCoord2f(1,0); glVertex3d(-20.6,7.5,-12.7);
+   glTexCoord2f(1,0.9031); glVertex3d(-16.2,6,-12.4);
+   glTexCoord2f(0,0.6217); glVertex3d(-16.2,6,-8.8);
+   glTexCoord2f(0,0.2709); glVertex3d(-20.6,7.5,-9.7);
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[12]);
+   glBegin(GL_POLYGON);
+   normal(-3,1.5,-17, -25,9,-14, -3,1.5,-7);
+   glTexCoord2f(1,0); glVertex3d(-14,5.25,-12.25);
+   glTexCoord2f(1,0.9031); glVertex3d(-16.2,6,-12.4);
+   glTexCoord2f(0,0.6217); glVertex3d(-16.2,6,-11.7);
+   glTexCoord2f(0,0.2709); glVertex3d(-14,5.25,-11.5);
    glEnd();
 
    // Wing front side
@@ -561,6 +583,8 @@ static void createWings(){
    glEnd();
 
    // Top of wing
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(2,2);
    glBindTexture(GL_TEXTURE_2D,texture[2]);
    glBegin(GL_POLYGON);
    normal(3,1.5,-17, 3,1.5,-7, 25,9,-14);
@@ -568,6 +592,26 @@ static void createWings(){
    glTexCoord2f(1,0.9031); glVertex3d(+3,+1.5,-17);
    glTexCoord2f(0,0.6217); glVertex3d(+25,+9,-14);
    glTexCoord2f(0,0.2709); glVertex3d(+25,+9,-10);
+   glEnd();
+   glDisable(GL_POLYGON_OFFSET_FILL);
+
+   // Red panels on wing
+   glBindTexture(GL_TEXTURE_2D,texture[12]);
+   glBegin(GL_POLYGON);
+   normal(3,1.5,-17, 3,1.5,-7, 25,9,-14);
+   glTexCoord2f(1,0); glVertex3d(20.6,7.5,-12.7);
+   glTexCoord2f(1,0.9031); glVertex3d(16.2,6,-12.4);
+   glTexCoord2f(0,0.6217); glVertex3d(16.2,6,-8.8);
+   glTexCoord2f(0,0.2709); glVertex3d(20.6,7.5,-9.7);
+   glEnd();
+
+   glBindTexture(GL_TEXTURE_2D,texture[12]);
+   glBegin(GL_POLYGON);
+   normal(3,1.5,-17, 3,1.5,-7, 25,9,-14);
+   glTexCoord2f(1,0); glVertex3d(14,5.25,-12.25);
+   glTexCoord2f(1,0.9031); glVertex3d(16.2,6,-12.4);
+   glTexCoord2f(0,0.6217); glVertex3d(16.2,6,-11.7);
+   glTexCoord2f(0,0.2709); glVertex3d(14,5.25,-11.5);
    glEnd();
 
    // Front wing side
@@ -584,7 +628,7 @@ static void createWings(){
    glBindTexture(GL_TEXTURE_2D,texture[6]);
    glBegin(GL_POLYGON);
    normal(+25,8,-14, +3,0.5,-17, +25,9,-14);
-   glTexCoord2f(1,0.1); glVertex3d(-+3,+0.5,-17);
+   glTexCoord2f(1,0.1); glVertex3d(+3,+0.5,-17);
    glTexCoord2f(0,0.1); glVertex3d(+25,+8,-14);
    glTexCoord2f(0,0.1729); glVertex3d(+25,+9,-14);
    glTexCoord2f(1,0.1729); glVertex3d(+3,+1.5,-17);
