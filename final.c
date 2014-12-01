@@ -22,6 +22,7 @@ double dim=40.0;   //  Size of world
 // Texture array
 unsigned int texture[16]; // Texture names
 GLuint cockpitTex;
+GLuint space[6];
 
 // Light values
 int one       =   1;  // Unit value
@@ -119,6 +120,69 @@ static void ball(double x,double y,double z,double r)
    }
    //  Undo transofrmations
    glPopMatrix();
+}
+
+// Draw skybox
+static void skybox(double D)
+{
+   glColor3f(1,1,1);
+   glEnable(GL_TEXTURE_2D);
+   
+   //  Sides
+   glBindTexture(GL_TEXTURE_2D,space[0]);
+   glBegin(GL_QUADS);
+   glTexCoord2f(0,0); glVertex3f(-D,-D,-D);
+   glTexCoord2f(1,0); glVertex3f(+D,-D,-D);
+   glTexCoord2f(1,1); glVertex3f(+D,+D,-D);
+   glTexCoord2f(0,1); glVertex3f(-D,+D,-D);
+   glEnd();
+   
+   
+   glBindTexture(GL_TEXTURE_2D,space[1]);
+   glBegin(GL_QUADS);
+   glTexCoord2f(0,0); glVertex3f(+D,-D,-D);
+   glTexCoord2f(1,0); glVertex3f(+D,-D,+D);
+   glTexCoord2f(1,1); glVertex3f(+D,+D,+D);
+   glTexCoord2f(0,1); glVertex3f(+D,+D,-D);
+   glEnd();
+   
+   
+   glBindTexture(GL_TEXTURE_2D,space[2]);
+   glBegin(GL_QUADS);
+   glTexCoord2f(0,0); glVertex3f(+D,-D,+D);
+   glTexCoord2f(1,0); glVertex3f(-D,-D,+D);
+   glTexCoord2f(1,1); glVertex3f(-D,+D,+D);
+   glTexCoord2f(0,1); glVertex3f(+D,+D,+D);
+   glEnd();
+   
+   
+   glBindTexture(GL_TEXTURE_2D,space[3]);
+   glBegin(GL_QUADS);
+   glTexCoord2f(0,0); glVertex3f(-D,-D,+D);
+   glTexCoord2f(1,0); glVertex3f(-D,-D,-D);
+   glTexCoord2f(1,1); glVertex3f(-D,+D,-D);
+   glTexCoord2f(0,1); glVertex3f(-D,+D,+D);
+   glEnd();
+   
+   //  Top and bottom
+   glBindTexture(GL_TEXTURE_2D,space[4]);
+   glBegin(GL_QUADS);
+   glTexCoord2f(0,0); glVertex3f(+D,+D,-D);
+   glTexCoord2f(1,0); glVertex3f(+D,+D,+D);
+   glTexCoord2f(1,1); glVertex3f(-D,+D,+D);
+   glTexCoord2f(0,1); glVertex3f(-D,+D,-D);
+   glEnd();
+   
+   
+   glBindTexture(GL_TEXTURE_2D,space[5]);
+   glBegin(GL_QUADS);
+   glTexCoord2f(0,0); glVertex3f(-D,-D,+D);
+   glTexCoord2f(1,0); glVertex3f(+D,-D,+D);
+   glTexCoord2f(1,1); glVertex3f(+D,-D,-D);
+   glTexCoord2f(0,1); glVertex3f(-D,-D,-D);
+   glEnd();
+   
+   glDisable(GL_TEXTURE_2D);
 }
 
 /*
@@ -1786,6 +1850,9 @@ void display()
    // Call gluLookAt
    gluLookAt(Ex,Ey,Ez, 0,0,0 , 0,Cos(ph),0);
 
+   // Draw skybox
+   skybox(3.5*dim);
+
    //  Flat or smooth shading
    glShadeModel(smooth ? GL_SMOOTH : GL_FLAT);
 
@@ -1830,7 +1897,7 @@ void display()
    //tFighter(0,0,0, 1,1,1, 0,0,0, 0);
 
    // Create turret
-   //tTurret(0,0,0, 1,1,1, 0,0,0, 0, 0);
+   tTurret(0,0,0, 1,1,1, 0,0,0, 0, 0);
 
    //  Done - disable lighting
    glDisable(GL_LIGHTING);
@@ -2011,6 +2078,13 @@ int main(int argc,char* argv[])
    texture[15] = LoadTexBMP("jet-engine.bmp");
 	
 	cockpitTex = LoadTexBMP("TIECockpit.bmp");
+
+   space[0] = LoadTexBMP("neg-z.bmp");
+   space[1] = LoadTexBMP("neg-x.bmp");
+   space[2] = LoadTexBMP("pos-z.bmp");
+   space[3] = LoadTexBMP("pos-x.bmp");
+   space[4] = LoadTexBMP("pos-y.bmp");
+   space[5] = LoadTexBMP("neg-y.bmp");
 
    // Set clock
    ot = clock();
