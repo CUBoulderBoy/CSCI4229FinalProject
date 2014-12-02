@@ -17,12 +17,13 @@ int th=0;         //  Azimuth of view angle
 int ph=0;         //  Elevation of view angle
 int fov=55;       //  Field of view (for perspective)
 double asp=1;     //  Aspect ratio
-double dim=40.0;   //  Size of world
+double dim=300.0;   //  Size of world
 
 // Texture array
 unsigned int texture[16]; // Texture names
 GLuint cockpitTex;
 GLuint space[6];
+GLuint trenchTex[6];
 
 // Light values
 int one       =   1;  // Unit value
@@ -183,6 +184,873 @@ static void skybox(double D)
    glEnd();
    
    glDisable(GL_TEXTURE_2D);
+}
+
+static void trench(double x, double y, double z) {
+
+   glEnable(GL_TEXTURE_2D);
+
+   glPushMatrix();
+   glTranslated(x, y, z);
+
+   glColor3d(1, 1, 1);
+   glBindTexture(GL_TEXTURE_2D, trenchTex[0]);
+
+   double rep = 1.5;
+   // Trench floor
+   glBegin(GL_POLYGON);
+   glNormal3d(0, 1, 0);
+   glTexCoord2f(0, 0); glVertex3d(-150, 0, 300);
+   glTexCoord2f(2 * rep, 0); glVertex3d(150, 0, 300);
+   glTexCoord2f(2 * rep, 7 * rep); glVertex3d(150, 0, -300);
+   glTexCoord2f(0, 7 * rep); glVertex3d(-150, 0, -300);
+   glEnd();
+
+   // Trench port side
+   glBegin(GL_POLYGON);
+   glNormal3d(-1, 0, 0);
+   glTexCoord2f(0, 0); glVertex3d(150, 0, -300);
+   glTexCoord2f(9.5 * rep, 0); glVertex3d(150, 0, 300);
+   glTexCoord2f(9.5 * rep, rep); glVertex3d(150, 200, 300);
+   glTexCoord2f(0, rep); glVertex3d(150, 200, -300);
+   glEnd();
+
+   // Trench starboard side
+   glBegin(GL_POLYGON);
+   glNormal3d(1, 0, 0);
+   glTexCoord2f(0, 0); glVertex3d(-150, 0, 300);
+   glTexCoord2f(9.5 * rep, 0); glVertex3d(-150, 0, -300);
+   glTexCoord2f(9.5 * rep, rep); glVertex3d(-150, 200, -300);
+   glTexCoord2f(0, rep); glVertex3d(-150, 200, 300);
+   glEnd();
+
+   glPopMatrix();
+
+   glDisable(GL_TEXTURE_2D);
+
+}
+
+static void vader(double x,double y,double z,double r)
+{
+   int d = 5;
+   int th, ph;
+   double color = 0.1;
+   
+   //  Save transformation
+   glPushMatrix();
+   //  Offset and scale
+   glTranslated(x,y,z);
+   glScaled(r,r,r);
+
+   /*if (roll) {
+      glRotated(10 * Cos(rotateZ), 0, 0, 1);
+   } */
+   
+   // Fuselage - Sphere
+   for (ph=-90;ph<90;ph+=d)
+   {
+      
+      glColor3d(color, color, color);
+      
+      glBegin(GL_QUAD_STRIP);
+      for (th=0;th<=360;th+=d)
+      {
+         Vertex(th,ph);
+         Vertex(th,ph+d);
+         
+      }
+      glEnd();
+      color += (d / 250.0);
+   }
+
+
+   glPushMatrix();
+
+   glTranslated(0, -1, 0);
+
+   for (ph=-90;ph<0;ph+=d)
+   {
+      
+      glColor3d(0.3, 0.3, 0.2);
+      
+      glBegin(GL_QUAD_STRIP);
+      for (th=0;th<=360;th+=d)
+      {
+         Vertex(th, ph);
+         Vertex(th, ph+d);
+         
+      }
+      glEnd();
+      color += (d / 250.0);
+   }
+
+   glPopMatrix();
+
+   
+   /* Front windscreen */
+   glBegin(GL_TRIANGLE_FAN);
+   glColor3d(0.5, 0.5, 0.5);
+   glVertex3d(0, 0, 1);
+   
+   for (th = 0; th <= 360; th += 45)
+   {
+      // x = sin(t)
+      // y = cos(t)
+      glVertex3d(0.5 * Cos(th), 0.5 * Sin(th), 1);
+      
+   }
+   glEnd();
+   
+   // Octa-windows, outside
+   glBegin(GL_QUADS);
+   glColor3d(0, 0, 0);
+   
+   glVertex3d(0.2 * Cos(3), 0.2 * Sin(3), 1.001);
+   glVertex3d(0.47 * Cos(3), 0.47 * Sin(3), 1.001);
+   glVertex3d(0.47 * Cos(42), 0.47 * Sin(42), 1.001);
+   glVertex3d(0.2 * Cos(42), 0.2 * Sin(42), 1.001);
+   
+   glVertex3d(0.2 * Cos(48), 0.2 * Sin(48), 1.001);
+   glVertex3d(0.47 * Cos(48), 0.47 * Sin(48), 1.001);
+   glVertex3d(0.47 * Cos(87), 0.47 * Sin(87), 1.001);
+   glVertex3d(0.2 * Cos(87), 0.2 * Sin(87), 1.001);
+   
+   glVertex3d(0.2 * Cos(93), 0.2 * Sin(93), 1.001);
+   glVertex3d(0.47 * Cos(93), 0.47 * Sin(93), 1.001);
+   glVertex3d(0.47 * Cos(132), 0.47 * Sin(132), 1.001);
+   glVertex3d(0.2 * Cos(132), 0.2 * Sin(132), 1.001);
+   
+   glVertex3d(0.2 * Cos(138), 0.2 * Sin(138), 1.001);
+   glVertex3d(0.47 * Cos(138), 0.47 * Sin(138), 1.001);
+   glVertex3d(0.47 * Cos(177), 0.47 * Sin(177), 1.001);
+   glVertex3d(0.2 * Cos(177), 0.2 * Sin(177), 1.001);
+   
+   glVertex3d(0.2 * Cos(183), 0.2 * Sin(183), 1.001);
+   glVertex3d(0.47 * Cos(183), 0.47 * Sin(183), 1.001);
+   glVertex3d(0.47 * Cos(222), 0.47 * Sin(222), 1.001);
+   glVertex3d(0.2 * Cos(222), 0.2 * Sin(222), 1.001);
+   
+   glVertex3d(0.2 * Cos(228), 0.2 * Sin(228), 1.001);
+   glVertex3d(0.47 * Cos(228), 0.47 * Sin(228), 1.001);
+   glVertex3d(0.47 * Cos(267), 0.47 * Sin(267), 1.001);
+   glVertex3d(0.2 * Cos(267), 0.2 * Sin(267), 1.001);
+   
+   glVertex3d(0.2 * Cos(273), 0.2 * Sin(273), 1.001);
+   glVertex3d(0.47 * Cos(273), 0.47 * Sin(273), 1.001);
+   glVertex3d(0.47 * Cos(312), 0.47 * Sin(312), 1.001);
+   glVertex3d(0.2 * Cos(312), 0.2 * Sin(312), 1.001);
+   
+   glVertex3d(0.2 * Cos(318), 0.2 * Sin(318), 1.001);
+   glVertex3d(0.47 * Cos(318), 0.47 * Sin(318), 1.001);
+   glVertex3d(0.47 * Cos(357), 0.47 * Sin(357), 1.001);
+   glVertex3d(0.2 * Cos(357), 0.2 * Sin(357), 1.001);
+   
+   glEnd();
+   
+   // Center window
+   glBegin(GL_POLYGON);
+   glColor3d(0, 0, 0);
+   glVertex3d(0.17 * Cos(0), 0.17 * Sin(0), 1.001);
+   glVertex3d(0.17 * Cos(45), 0.17 * Sin(45), 1.001);
+   glVertex3d(0.17 * Cos(90), 0.17 * Sin(90), 1.001);
+   glVertex3d(0.17 * Cos(135), 0.17 * Sin(135), 1.001);
+   glVertex3d(0.17 * Cos(180), 0.17 * Sin(180), 1.001);
+   glVertex3d(0.17 * Cos(225), 0.17 * Sin(225), 1.001);
+   glVertex3d(0.17 * Cos(270), 0.17 * Sin(270), 1.001);
+   glVertex3d(0.17 * Cos(315), 0.17 * Sin(315), 1.001);
+   glVertex3d(0.17 * Cos(315), 0.17 * Sin(315), 1.001);
+   glVertex3d(0.17 * Cos(360), 0.17 * Sin(360), 1.001);
+   glEnd();
+   
+   
+   // Lasers - Positioning
+   
+   glPushMatrix();
+   glTranslated(0, -0.8, 0.9);
+   
+   // Laser - Starboard
+   
+   glPushMatrix();
+   glTranslated(-0.27, 0.18, 0);
+   glScaled(0.05, 0.05, 0.05);
+   
+   for (ph=-90;ph<90;ph+=d)
+   {
+      
+      glColor3d(1, 0, 0);
+      
+      glBegin(GL_QUAD_STRIP);
+      for (th=0;th<=360;th+=d)
+      {
+         Vertex(th,ph);
+         Vertex(th,ph+d);
+         
+      }
+      glEnd();
+      
+   }
+   
+   glPopMatrix();
+   
+   glBegin(GL_TRIANGLES);
+   glColor3d(0.15, 0.15, 0.15);
+   glVertex3d(-0.1, 0.2, 0);
+   glVertex3d(-0.3, 0, 0);
+   glVertex3d(-0.5, 0.4, 0);
+   glEnd();
+   
+   glBegin(GL_QUADS);
+   glColor3d(0.35, 0.35, 0.35);
+   glVertex3d(-0.1, 0.2, -0.5);
+   glVertex3d(-0.1, 0.2, 0);
+   glVertex3d(-0.5, 0.4, 0);
+   glVertex3d(-0.5, 0.4, -0.5);
+   glEnd();
+   
+   glBegin(GL_QUADS);
+   glColor3d(0.35, 0.35, 0.35);
+   glVertex3d(-0.5, 0.4, -0.5);
+   glVertex3d(-0.5, 0.4, 0);
+   glVertex3d(-0.3, 0, 0);
+   glVertex3d(-0.3, 0, -0.5);
+   glEnd();
+   
+   glBegin(GL_QUADS);
+   glColor3d(0.35, 0.35, 0.35);
+   glVertex3d(-0.3, 0, -0.5);
+   glVertex3d(-0.3, 0, 0);
+   glVertex3d(-0.1, 0.2, 0);
+   glVertex3d(-0.1, 0.2, -0.5);
+   glEnd();
+   
+   // Laser - Port
+   
+   glPushMatrix();
+   glTranslated(0.27, 0.18, 0);
+   glScaled(0.05, 0.05, 0.05);
+   
+   for (ph=-90;ph<90;ph+=d)
+   {
+      
+      glColor3d(1, 0, 0);
+      
+      glBegin(GL_QUAD_STRIP);
+      for (th=0;th<=360;th+=d)
+      {
+         Vertex(th,ph);
+         Vertex(th,ph+d);
+         
+      }
+      glEnd();
+      
+   }
+   glPopMatrix();
+   
+   glBegin(GL_TRIANGLES);
+   glColor3d(0.15, 0.15, 0.15);
+   glVertex3d(0.1, 0.2, 0);
+   glVertex3d(0.3, 0, 0);
+   glVertex3d(0.5, 0.4, 0);
+   glEnd();
+   
+   glBegin(GL_QUADS);
+   glColor3d(0.35, 0.35, 0.35);
+   glVertex3d(0.1, 0.2, -0.5);
+   glVertex3d(0.1, 0.2, 0);
+   glVertex3d(0.5, 0.4, 0);
+   glVertex3d(0.5, 0.4, -0.5);
+   glEnd();
+   
+   glBegin(GL_QUADS);
+   glColor3d(0.35, 0.35, 0.35);
+   glVertex3d(0.5, 0.4, -0.5);
+   glVertex3d(0.5, 0.4, 0);
+   glVertex3d(0.3, 0, 0);
+   glVertex3d(0.3, 0, -0.5);
+   glEnd();
+   
+   glBegin(GL_QUADS);
+   glColor3d(0.35, 0.35, 0.35);
+   glVertex3d(0.3, 0, -0.5);
+   glVertex3d(0.3, 0, 0);
+   glVertex3d(0.1, 0.2, 0);
+   glVertex3d(0.1, 0.2, -0.5);
+   glEnd();
+   
+   /* Beams*/
+   
+   /*
+   if (beamPos < 4) {
+      
+      glLineWidth(2);
+      glBegin(GL_LINES);
+      glColor3d(0, 1, 0);
+      glVertex3d(-0.27, 0.18, 0);
+      glVertex3d(-0.27, 0.18, beamPos);
+      
+      glVertex3d(0.27, 0.18, 0);
+      glVertex3d(0.27, 0.18, beamPos);
+      glEnd();
+      glLineWidth(1);
+   }
+   else {
+      
+      glLineWidth(2);
+      glBegin(GL_LINES);
+      glColor3d(0, 1, 0);
+      glVertex3d(-0.27, 0.18, beamPos - 2);
+      glVertex3d(-0.27, 0.18, 2 + beamPos);
+      
+      glVertex3d(0.27, 0.18, beamPos - 2);
+      glVertex3d(0.27, 0.18, 2 + beamPos);
+      glEnd();
+      glLineWidth(1);
+   }
+   */
+   
+   
+   
+   glPopMatrix();
+   
+   
+   
+   // End lasers
+   
+   
+   // Front windscreen border trim (joins windscreen to fuselage)
+   glBegin(GL_QUAD_STRIP);
+   
+   color = 0.5;
+   for (th = 0; th <= 360; th += 45, color += 0.015)
+   {
+      glColor3d(color, color, color);
+      
+      // x = sin(t)
+      // y = cos(t)
+      glVertex3d(0.5 * Cos(th), 0.5 * Sin(th), 1);
+      glVertex3d(0.5 * Cos(th), 0.5 * Sin(th), 0.7);
+      
+   }
+   glEnd();
+   /* End front windscreen */
+   
+   /* Sponsons */
+   
+   // Forward-Top face starboard
+   glBegin(GL_QUADS);
+   glColor3d(0.7, 0.7, 0.7);
+   glVertex3d(0, 0, 0.7);
+   glVertex3d(0, 0.7, 0);
+   glVertex3d(-2.3, 0.3, 0);
+   glVertex3d(-2.3, 0, 0.3);
+   glEnd();
+   
+   // Forward-Bottom face starboard
+   glBegin(GL_QUADS);
+   glColor3d(0.5, 0.5, 0.5);
+   glVertex3d(0, -0.7, 0);
+   glVertex3d(0, 0, 0.7);
+   glVertex3d(-2.3, 0, 0.3);
+   glVertex3d(-2.3, -0.3, 0);
+   glEnd();
+   
+   // Aft-Bottom face starboard
+   glBegin(GL_QUADS);
+   glColor3d(0.38, 0.38, 0.38);
+   glVertex3d(-2.3, -0.3, 0);
+   glVertex3d(-2.3, 0, -0.3);
+   glVertex3d(0, 0, -0.7);
+   glVertex3d(0, -0.7, 0);
+   glEnd();
+   
+   // Aft-Top face starboard
+   glBegin(GL_QUADS);
+   glColor3d(0.5, 0.5, 0.5);
+   glVertex3d(-2.3, 0, -0.3);
+   glVertex3d(-2.3, 0.3, 0);
+   glVertex3d(0, 0.7, 0);
+   glVertex3d(0, 0, -0.7);
+   glEnd();
+   
+   
+   /* Sponson fuel cylinders */
+   
+   glPushMatrix();
+   
+   glTranslated(-2, 0, 0.3);
+   glRotated(90, 0, 1, 0);
+   
+   
+   glBegin(GL_TRIANGLE_FAN);
+   glColor3d(0.43, 0.43, 0.43);
+   
+   glVertex3d(0, 0, 4);
+   for (th = 0; th <= 360; th += 5)
+   {
+      
+      // x = sin(t)
+      // y = cos(t)
+      glVertex3d(0.2 * Cos(th), 0.2 * Sin(th), 4);
+      
+   }
+   glEnd();
+   
+   glBegin(GL_TRIANGLE_FAN);
+   glVertex3d(0, 0, 3);
+   for (th = 0; th <= 360; th += 5)
+   {
+      
+      // x = sin(t)
+      // y = cos(t)
+      glVertex3d(0.3 * Cos(th), 0.3 * Sin(th), 3);
+      
+   }
+   glEnd();
+   
+   color = 0.7;
+   glBegin(GL_QUAD_STRIP);
+   
+   for (th = 0; th <= 360; th += 5)
+   {
+      
+      glColor3d(color, color, color);
+      
+      // x = sin(t)
+      // y = cos(t)
+      glVertex3d(0.3 * Cos(th), 0.3 * Sin(th), 3);
+      glVertex3d(0.2 * Cos(th), 0.2 * Sin(th), 4);
+      
+      color -= 0.007;
+      
+   }
+   
+   glEnd();
+   
+   glBegin(GL_TRIANGLE_FAN);
+   glColor3d(0.43, 0.43, 0.43);
+   
+   glVertex3d(0, 0, 1);
+   for (th = 0; th <= 360; th += 5)
+   {
+      
+      // x = sin(t)
+      // y = cos(t)
+      glVertex3d(0.3 * Cos(th), 0.3 * Sin(th), 1);
+      
+   }
+   glEnd();
+   
+   glBegin(GL_TRIANGLE_FAN);
+   glVertex3d(0, 0, 0);
+   for (th = 0; th <= 360; th += 5)
+   {
+      
+      // x = sin(t)
+      // y = cos(t)
+      glVertex3d(0.2 * Cos(th), 0.2 * Sin(th), 0);
+      
+   }
+   glEnd();
+   
+   color = 0.7;
+   glBegin(GL_QUAD_STRIP);
+   
+   for (th = 0; th <= 360; th += 5)
+   {
+      
+      glColor3d(color, color, color);
+      
+      // x = sin(t)
+      // y = cos(t)
+      glVertex3d(0.3 * Cos(th), 0.3 * Sin(th), 1);
+      glVertex3d(0.2 * Cos(th), 0.2 * Sin(th), 0);
+      
+      color -= 0.007;
+      
+   }
+   
+   glEnd();
+   glPopMatrix();
+   /* End sponson fuel cylinders */
+   
+   
+   
+   // Forward-Top face port
+   glBegin(GL_QUADS);
+   glColor3d(0.7, 0.7, 0.7);
+   glVertex3d(0, 0, 0.7);
+   glVertex3d(0, 0.7, 0);
+   glVertex3d(2.3, 0.3, 0);
+   glVertex3d(2.3, 0, 0.3);
+   glEnd();
+   
+   // Forward-Bottom face port
+   glBegin(GL_QUADS);
+   glColor3d(0.5, 0.5, 0.5);
+   glVertex3d(0, -0.7, 0);
+   glVertex3d(0, 0, 0.7);
+   glVertex3d(2.3, 0, 0.3);
+   glVertex3d(2.3, -0.3, 0);
+   glEnd();
+   
+   // Aft-Bottom face port
+   glBegin(GL_QUADS);
+   glColor3d(0.38, 0.38, 0.38);
+   glVertex3d(2.3, -0.3, 0);
+   glVertex3d(2.3, 0, -0.3);
+   glVertex3d(0, 0, -0.7);
+   glVertex3d(0, -0.7, 0);
+   glEnd();
+   
+   // Aft-Top face port
+   glBegin(GL_QUADS);
+   glColor3d(0.5, 0.5, 0.5);
+   glVertex3d(2.3, 0, -0.3);
+   glVertex3d(2.3, 0.3, 0);
+   glVertex3d(0, 0.7, 0);
+   glVertex3d(0, 0, -0.7);
+   glEnd();
+   
+   /* End sponsons */
+   
+   /* Wings */
+   
+   glBegin(GL_QUADS);
+   
+   // Center panel starboard
+   // Inner
+   glColor3d(0.3, 0.3, 0.3);
+   glVertex3d(-2.3, -1, 2);
+   glVertex3d(-2.3, 1, 2);
+   glVertex3d(-2.3, 1, -6);
+   glVertex3d(-2.3, -1, -6);
+   
+   //Outer
+   glVertex3d(-2.4, -1, 2);
+   glVertex3d(-2.4, 1, 2);
+   glVertex3d(-2.4, 1, -6);
+   glVertex3d(-2.4, -1, -6);
+   
+   // Forward edge center
+   glColor3d(0.32, 0.32, 0.32);
+   glVertex3d(-2.3, -1, 2);
+   glVertex3d(-2.3, 1, 2);
+   glVertex3d(-2.4, 1, 2);
+   glVertex3d(-2.4, -1, 2);
+   
+   // Aft edge center
+   glColor3d(0.32, 0.32, 0.32);
+   glVertex3d(-2.4, -1, -6);
+   glVertex3d(-2.4, 1, -6);
+   glVertex3d(-2.3, 1, -6);
+   glVertex3d(-2.3, -1, -6);
+   
+   //Top-tilted panel starboard
+   // Inner
+   glColor3d(0.2, 0.2, 0.2);
+   glVertex3d(-2.3, 1, 2);
+   glVertex3d(-1.8, 2, 1.25);
+   glVertex3d(-1.8, 2, -4.75);
+   glVertex3d(-2.3, 1, -6);
+   
+   // Outer
+   glColor3d(0.4, 0.4, 0.4);
+   glVertex3d(-2.4, 1, 2);
+   glVertex3d(-1.9, 2, 1.25);
+   glVertex3d(-1.9, 2, -4.75);
+   glVertex3d(-2.4, 1, -6);
+   
+   // Forward edge top
+   glColor3d(0.38, 0.38, 0.38);
+   glVertex3d(-2.3, 1, 2);
+   glVertex3d(-1.8, 2, 1.25);
+   glVertex3d(-1.9, 2, 1.25);
+   glVertex3d(-2.4, 1, 2);
+   
+   // Aft edge top
+   glColor3d(0.38, 0.38, 0.38);
+   glVertex3d(-2.4, 1, -6);
+   glVertex3d(-1.9, 2, -4.75);
+   glVertex3d(-1.8, 2, -4.75);
+   glVertex3d(-2.3, 1, -6);
+   
+   // Top edge
+   glColor3d(0.42, 0.42, 0.42);
+   glVertex3d(-1.8, 2, 1.25);
+   glVertex3d(-1.8, 2, -4.75);
+   glVertex3d(-1.9, 2, -4.75);
+   glVertex3d(-1.9, 2, 1.25);
+   
+   
+   
+   
+   
+   
+   //Bottom-tilted panel starboard
+   // Inner
+   glColor3d(0.4, 0.4, 0.4);
+   glVertex3d(-1.8, -2, 1.25);
+   glVertex3d(-2.3, -1, 2);
+   glVertex3d(-2.3, -1, -6);
+   glVertex3d(-1.8, -2, -4.75);
+   
+   // Outer
+   glColor3d(0.2, 0.2, 0.2);
+   glVertex3d(-1.9, -2, 1.25);
+   glVertex3d(-2.4, -1, 2);
+   glVertex3d(-2.4, -1, -6);
+   glVertex3d(-1.9, -2, -4.75);
+   
+   // Forward edge bottom
+   glColor3d(0.23, 0.23, 0.23);
+   glVertex3d(-1.8, -2, 1.25);
+   glVertex3d(-2.3, -1, 2);
+   glVertex3d(-2.4, -1, 2);
+   glVertex3d(-1.9, -2, 1.25);
+   
+   // Aft edge bottom
+   glColor3d(0.23, 0.23, 0.23);
+   glVertex3d(-1.9, -2, -4.75);
+   glVertex3d(-2.4, -1, -6);
+   glVertex3d(-2.3, -1, -6);
+   glVertex3d(-1.8, -2, -4.75);
+   
+   // Bottom edge
+   glColor3d(0.21, 0.21, 0.21);
+   glVertex3d(-1.8, -2, -4.75);
+   glVertex3d(-1.8, -2, 1.25);
+   glVertex3d(-1.9, -2, 1.25);
+   glVertex3d(-1.9, -2, -4.75);
+   
+   
+   // Center panel port
+   glBegin(GL_QUADS);
+   
+   // Inner
+   glColor3d(0.3, 0.3, 0.3);
+   glVertex3d(2.3, -1, 2);
+   glVertex3d(2.3, 1, 2);
+   glVertex3d(2.3, 1, -6);
+   glVertex3d(2.3, -1, -6);
+   
+   // Outer
+   glColor3d(0.3, 0.3, 0.3);
+   glVertex3d(2.4, -1, 2);
+   glVertex3d(2.4, 1, 2);
+   glVertex3d(2.4, 1, -6);
+   glVertex3d(2.4, -1, -6);
+   
+   // Forward edge center
+   glColor3d(0.32, 0.32, 0.32);
+   glVertex3d(2.3, -1, 2);
+   glVertex3d(2.3, 1, 2);
+   glVertex3d(2.4, 1, 2);
+   glVertex3d(2.4, -1, 2);
+   
+   // Aft edge center
+   glColor3d(0.32, 0.32, 0.32);
+   glVertex3d(2.4, -1, -6);
+   glVertex3d(2.4, 1, -6);
+   glVertex3d(2.3, 1, -6);
+   glVertex3d(2.3, -1, -6);
+   
+   // Top-tilted panel port
+   // Inner
+   glColor3d(0.2, 0.2, 0.2);
+   glVertex3d(2.3, 1, 2);
+   glVertex3d(1.8, 2, 1.25);
+   glVertex3d(1.8, 2, -4.75);
+   glVertex3d(2.3, 1, -6);
+   
+   // Outer
+   glColor3d(0.4, 0.4, 0.4);
+   glVertex3d(2.4, 1, 2);
+   glVertex3d(1.9, 2, 1.25);
+   glVertex3d(1.9, 2, -4.75);
+   glVertex3d(2.4, 1, -6);
+   
+   // Forward edge top
+   glColor3d(0.38, 0.38, 0.38);
+   glVertex3d(2.3, 1, 2);
+   glVertex3d(1.8, 2, 1.25);
+   glVertex3d(1.9, 2, 1.25);
+   glVertex3d(2.4, 1, 2);
+   
+   // Aft edge top
+   glColor3d(0.38, 0.38, 0.38);
+   glVertex3d(2.4, 1, -6);
+   glVertex3d(1.9, 2, -4.75);
+   glVertex3d(1.8, 2, -4.75);
+   glVertex3d(2.3, 1, -6);
+   
+   // Top edge
+   glColor3d(0.42, 0.42, 0.42);
+   glVertex3d(1.8, 2, 1.25);
+   glVertex3d(1.8, 2, -4.75);
+   glVertex3d(1.9, 2, -4.75);
+   glVertex3d(1.9, 2, 1.25);
+   
+   //Bottom-tilted panel port
+   // Inner
+   glColor3d(0.4, 0.4, 0.4);
+   glVertex3d(1.8, -2, 1.25);
+   glVertex3d(2.3, -1, 2);
+   glVertex3d(2.3, -1, -6);
+   glVertex3d(1.8, -2, -4.75);
+   
+   //Outer
+   glColor3d(0.2, 0.2, 0.2);
+   glVertex3d(1.9, -2, 1.25);
+   glVertex3d(2.4, -1, 2);
+   glVertex3d(2.4, -1, -6);
+   glVertex3d(1.9, -2, -4.75);
+   
+   // Forward edge bottom
+   glColor3d(0.23, 0.23, 0.23);
+   glVertex3d(1.8, -2, 1.25);
+   glVertex3d(2.3, -1, 2);
+   glVertex3d(2.4, -1, 2);
+   glVertex3d(1.9, -2, 1.25);
+   
+   // Aft edge bottom
+   glColor3d(0.23, 0.23, 0.23);
+   glVertex3d(1.9, -2, -4.75);
+   glVertex3d(2.4, -1, -6);
+   glVertex3d(2.3, -1, -6);
+   glVertex3d(1.8, -2, -4.75);
+   
+   // Bottom edge
+   glColor3d(0.21, 0.21, 0.21);
+   glVertex3d(1.8, -2, -4.75);
+   glVertex3d(1.8, -2, 1.25);
+   glVertex3d(1.9, -2, 1.25);
+   glVertex3d(1.9, -2, -4.75);
+   
+   glEnd();
+   
+   /* End wings */
+   
+   
+   /* Rear elevator */
+   
+   glPushMatrix();
+   
+   glTranslated(0, 0.15, 0);
+   glRotated(-90, 1, 0, 0);
+   
+   
+   // Top panel
+   glBegin(GL_TRIANGLE_FAN);
+   glColor3d(0.6, 0.6, 0.6);
+   
+   glVertex3d(0, 0, 0);
+   for (th = 45; th <= 135; th += 5)
+   {
+      
+      // x = sin(t)
+      // y = cos(t)
+      glVertex3d((4.6 * Cos(45)) * Cos(th), (4.6 * Cos(45)) * Sin(th), 0);
+      
+   }
+   
+   glBegin(GL_QUADS);
+   glVertex3d(2.3, 0, 0);
+   glVertex3d(2.3, 2.3, 0);
+   glVertex3d(-2.3, 2.3, 0);
+   glVertex3d(-2.3, 0, 0);
+   glEnd();
+   
+   // Bottom panel
+   glBegin(GL_TRIANGLE_FAN);
+   glColor3d(0.4, 0.4, 0.4);
+   
+   glVertex3d(0, 0, -0.3);
+   for (th = 45; th <= 135; th += 5)
+   {
+      
+      // x = sin(t)
+      // y = cos(t)
+      glVertex3d((4.6 * Cos(45)) * Cos(th), (4.6 * Cos(45)) * Sin(th), -0.3);
+      
+   }
+   glBegin(GL_QUADS);
+   glVertex3d(2.3, 0, -0.3);
+   glVertex3d(2.3, 2.3, -0.3);
+   glVertex3d(-2.3, 2.3, -0.3);
+   glVertex3d(-2.3, 0, -0.3);
+   glEnd();
+   
+   // Arc strip (joins top and bottom panel on aft edge)
+   glBegin(GL_QUAD_STRIP);
+   glColor3d(0.42, 0.42, 0.42);
+   
+   for (th = 45; th <= 135; th += 5)
+   {
+      
+      // x = sin(t)
+      // y = cos(t)
+      glVertex3d((4.6 * Cos(45)) * Cos(th), (4.6 * Cos(45)) * Sin(th), 0);
+      glVertex3d((4.6 * Cos(45)) * Cos(th), (4.6 * Cos(45)) * Sin(th), -0.3);
+      
+   }
+   glEnd();
+   
+   // Engine compartment - top panel
+   glBegin(GL_QUADS);
+   glColor3d(0.35, 0.35, 0.35);
+   glVertex3d(0.3, 1, 0.15);
+   glVertex3d(0.3, 3.5, 0.15);
+   glVertex3d(-0.3, 3.5, 0.15);
+   glVertex3d(-0.3, 1, 0.15);
+   glEnd();
+   
+   // Engine compartment - bottom panel
+   glBegin(GL_QUADS);
+   glColor3d(0.3, 0.3, 0.3);
+   glVertex3d(-0.3, 1, -0.45);
+   glVertex3d(-0.3, 3.5, -0.45);
+   glVertex3d(0.3, 3.5, -0.45);
+   glVertex3d(0.3, 1, -0.45);
+   glEnd();
+   
+   // Engine compartment - starboard panel
+   glBegin(GL_QUADS);
+   glColor3d(0.32, 0.32, 0.32);
+   glVertex3d(-0.3, 1, 0.15);
+   glVertex3d(-0.3, 3.5, 0.15);
+   glVertex3d(-0.3, 3.5, -0.45);
+   glVertex3d(-0.3, 1, -0.45);
+   glEnd();
+   
+   // Engine compartment - port panel
+   glBegin(GL_QUADS);
+   glColor3d(0.34, 0.34, 0.34);
+   glVertex3d(0.3, 1, -0.45);
+   glVertex3d(0.3, 3.5, -0.45);
+   glVertex3d(0.3, 3.5, 0.15);
+   glVertex3d(0.3, 1, 0.15);
+   glEnd();
+   
+   // Engine compartment - end cap
+   glBegin(GL_QUADS);
+   glColor3d(0.33, 0.33, 0.33);
+   glVertex3d(-0.3, 3.5, -0.45);
+   glVertex3d(-0.3, 3.5, 0.15);
+   glVertex3d(0.3, 3.5, 0.15);
+   glVertex3d(0.3, 3.5, -0.45);
+   glEnd();
+   
+   
+   
+   
+   glPopMatrix();
+   /* End rear elevator */
+   
+   
+   
+   
+   //  Undo transformations
+   glPopMatrix();
 }
 
 /*
@@ -1890,14 +2758,26 @@ void display()
    glLightfv(GL_LIGHT0,GL_SPECULAR,Specular);
    glLightfv(GL_LIGHT0,GL_POSITION,Position);
 
+   // Create Trench
+   trench(0, -100, 0);
+
    // Create XWING
-   xWing(0,0,0, 1,1,1, 0,0,0, 0);
+   xWing(0,0,100, 1,1,1, 0,0,1, 15);
+
+   vader(0, 0, -25, 6);
 
    // Create Tie-Fighter
-   //tFighter(0,0,0, 1,1,1, 0,0,0, 0);
+   tFighter(-50,-20,-100, 1,1,1, 0,0,0, 0);
+   tFighter(50,0,-100, 1,1,1, 0,0,0, 0);
+
 
    // Create turret
-   tTurret(0,0,0, 1,1,1, 0,0,0, 0, 0);
+   tTurret(-100, -100, 200, 4,4,4, 0,0,0, 0, 0);
+   tTurret(-100, -100, -200, 4,4,4, 0,0,0, 0, 0);
+   tTurret(100, -100, 200, 4,4,4, 0,0,0, 0, 0);
+   tTurret(100, -100, -200, 4,4,4, 0,0,0, 0, 0);
+
+
 
    //  Done - disable lighting
    glDisable(GL_LIGHTING);
@@ -1944,11 +2824,11 @@ void special(int key,int x,int y)
    
    //  PageUp key - increase dim
    else if (key == GLUT_KEY_PAGE_DOWN)
-      dim += 0.1;
+      dim += 5;
    
    //  PageDown key - decrease dim
    else if (key == GLUT_KEY_PAGE_UP && dim>1)
-      dim -= 0.1;
+      dim -= 5;
    
    //  Smooth color model
    else if (key == GLUT_KEY_F1)
@@ -2085,6 +2965,8 @@ int main(int argc,char* argv[])
    space[3] = LoadTexBMP("pos-x.bmp");
    space[4] = LoadTexBMP("pos-y.bmp");
    space[5] = LoadTexBMP("neg-y.bmp");
+
+   trenchTex[0] = LoadTexBMP("trench_face.bmp");
 
    // Set clock
    ot = clock();
