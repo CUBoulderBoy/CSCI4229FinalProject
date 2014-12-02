@@ -27,7 +27,7 @@ GLuint trenchTex[6];
 
 // Light values
 int one       =   1;  // Unit value
-int distance  =  15;  // Light distance
+int distance  =  50;  // Light distance
 int inc       =  10;  // Ball increment
 int smooth    =   1;  // Smooth/Flat shading
 int local     =   0;  // Local Viewer Model
@@ -263,7 +263,7 @@ static void vader(double x,double y,double z,double r)
       color += (d / 250.0);
    }
 
-
+   /*
    glPushMatrix();
 
    glTranslated(0, -1, 0);
@@ -285,11 +285,13 @@ static void vader(double x,double y,double z,double r)
    }
 
    glPopMatrix();
+   */
 
    
    /* Front windscreen */
    glBegin(GL_TRIANGLE_FAN);
    glColor3d(0.5, 0.5, 0.5);
+   glNormal3d(0, 0, 1);
    glVertex3d(0, 0, 1);
    
    for (th = 0; th <= 360; th += 45)
@@ -527,6 +529,7 @@ static void vader(double x,double y,double z,double r)
       
       // x = sin(t)
       // y = cos(t)
+      glNormal3d(Cos(th), Sin(th), 0);
       glVertex3d(0.5 * Cos(th), 0.5 * Sin(th), 1);
       glVertex3d(0.5 * Cos(th), 0.5 * Sin(th), 0.7);
       
@@ -538,6 +541,7 @@ static void vader(double x,double y,double z,double r)
    
    // Forward-Top face starboard
    glBegin(GL_QUADS);
+   glNormal3d(0, 1, 1);
    glColor3d(0.7, 0.7, 0.7);
    glVertex3d(0, 0, 0.7);
    glVertex3d(0, 0.7, 0);
@@ -547,6 +551,7 @@ static void vader(double x,double y,double z,double r)
    
    // Forward-Bottom face starboard
    glBegin(GL_QUADS);
+   glNormal3d(0, -1, 1);
    glColor3d(0.5, 0.5, 0.5);
    glVertex3d(0, -0.7, 0);
    glVertex3d(0, 0, 0.7);
@@ -556,6 +561,7 @@ static void vader(double x,double y,double z,double r)
    
    // Aft-Bottom face starboard
    glBegin(GL_QUADS);
+   glNormal3d(0, -1, -1);
    glColor3d(0.38, 0.38, 0.38);
    glVertex3d(-2.3, -0.3, 0);
    glVertex3d(-2.3, 0, -0.3);
@@ -565,6 +571,7 @@ static void vader(double x,double y,double z,double r)
    
    // Aft-Top face starboard
    glBegin(GL_QUADS);
+   glNormal3d(0, 1, -1);
    glColor3d(0.5, 0.5, 0.5);
    glVertex3d(-2.3, 0, -0.3);
    glVertex3d(-2.3, 0.3, 0);
@@ -583,7 +590,7 @@ static void vader(double x,double y,double z,double r)
    
    glBegin(GL_TRIANGLE_FAN);
    glColor3d(0.43, 0.43, 0.43);
-   
+   glNormal3d(-1, 0, 0);
    glVertex3d(0, 0, 4);
    for (th = 0; th <= 360; th += 5)
    {
@@ -596,6 +603,7 @@ static void vader(double x,double y,double z,double r)
    glEnd();
    
    glBegin(GL_TRIANGLE_FAN);
+   glNormal3d(1, 0, 0);
    glVertex3d(0, 0, 3);
    for (th = 0; th <= 360; th += 5)
    {
@@ -617,6 +625,7 @@ static void vader(double x,double y,double z,double r)
       
       // x = sin(t)
       // y = cos(t)
+      glNormal3d(Cos(th), Sin(th), 0);
       glVertex3d(0.3 * Cos(th), 0.3 * Sin(th), 3);
       glVertex3d(0.2 * Cos(th), 0.2 * Sin(th), 4);
       
@@ -628,7 +637,6 @@ static void vader(double x,double y,double z,double r)
    
    glBegin(GL_TRIANGLE_FAN);
    glColor3d(0.43, 0.43, 0.43);
-   
    glVertex3d(0, 0, 1);
    for (th = 0; th <= 360; th += 5)
    {
@@ -677,6 +685,7 @@ static void vader(double x,double y,double z,double r)
    
    // Forward-Top face port
    glBegin(GL_QUADS);
+   glNormal3d(0, 1, 1);
    glColor3d(0.7, 0.7, 0.7);
    glVertex3d(0, 0, 0.7);
    glVertex3d(0, 0.7, 0);
@@ -686,6 +695,7 @@ static void vader(double x,double y,double z,double r)
    
    // Forward-Bottom face port
    glBegin(GL_QUADS);
+   glNormal3d(0, -1, 1);
    glColor3d(0.5, 0.5, 0.5);
    glVertex3d(0, -0.7, 0);
    glVertex3d(0, 0, 0.7);
@@ -695,6 +705,7 @@ static void vader(double x,double y,double z,double r)
    
    // Aft-Bottom face port
    glBegin(GL_QUADS);
+   glNormal3d(0, -1, -1);
    glColor3d(0.38, 0.38, 0.38);
    glVertex3d(2.3, -0.3, 0);
    glVertex3d(2.3, 0, -0.3);
@@ -704,6 +715,7 @@ static void vader(double x,double y,double z,double r)
    
    // Aft-Top face port
    glBegin(GL_QUADS);
+   glNormal3d(0, 1, -1);
    glColor3d(0.5, 0.5, 0.5);
    glVertex3d(2.3, 0, -0.3);
    glVertex3d(2.3, 0.3, 0);
@@ -2783,7 +2795,7 @@ void display()
    glDisable(GL_LIGHTING);
    
    //  Render the scene and make it visible
-   ErrCheck("display");
+   //ErrCheck("display");
    glFlush();
    glutSwapBuffers();
 }
