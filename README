@@ -1,24 +1,19 @@
-Lab 7: X-Wing with Lighting and Textures
+Final Project: Death Star Chase scene from Star Wars IV: A New Hope
 
-Christopher Jordan
+Jeremy Granger and Christopher Jordan
 CSCI4229 Fall 2014
 
-Utilizing code provided from William Schreuder via the ex9 and ex13 programs
+Utilizing code provided from William Schreuder via the ex9, ex13, ex15, ex17, and ex25 programs
 
-Approximate time: 30 hours
+Approximate time: (TBD) hours
 
-Notes:
-This is a work in progress and an attempt to make progress towards our
-final project. I still intend to add a lot more detail to the x-wing fighter.
-However, as I built this from the ground up for this lab, time limited my
-ability to add details while learning textures and ensuring the appropriate
-normal vectors for all planes on the fighter.
-
-There are also textures here that are not utilized. I have kept them since
-I might use them in future iterations of this code.
+What's left:
+  Still needs a bit of work, but we're on schedule.  The Vader fighter needs normals finished up and textures added to the wings (Will stick with colors only for the body).  We are having some minor issues with camera clipping when zooming in on the fighters (the trench is being cut off), but should be able to figure that out.  We need to add rotation and and dynamic laser-firing to the turrets, add the rest of the body of the death star, and implement our movement scheme for the fighters through the trench.  Lighting needs some work (no rotation, fixed, with emission from the fighters/lasers and specular to imitate sunlight of some sort).  From there, the scene just needs minor adjustments to sharpen edges and add details to our models.  We are relying solely on our modeling skills for the models; we will not be using any type of OBJ file.  Please provide any and all feedback that you deem necessary!  Some tips on preventing the trench from being clipped would help too, although I think it's being caused by our FOV settings.  Will continue to work to make our deadline in a week.  We'll make it!
 
 Building: "make"
-Running: "./hw7"
+Running: "./final"
+Cleaning up: "make clean"
+Chaining: "make clean && make && ./final"
 
 Key bindings
   l          Toggles lighting
