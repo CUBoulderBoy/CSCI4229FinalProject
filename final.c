@@ -858,6 +858,7 @@ static void vader(double x,double y,double z,double r)
    
    // Inner
    glColor3d(0.3, 0.3, 0.3);
+   glNormal3d(-1,0,0);
    glVertex3d(2.3, -1, 2);
    glVertex3d(2.3, 1, 2);
    glVertex3d(2.3, 1, -6);
@@ -865,6 +866,7 @@ static void vader(double x,double y,double z,double r)
    
    // Outer
    glColor3d(0.3, 0.3, 0.3);
+   glNormal3d(1,0,0);
    glVertex3d(2.4, -1, 2);
    glVertex3d(2.4, 1, 2);
    glVertex3d(2.4, 1, -6);
@@ -872,6 +874,7 @@ static void vader(double x,double y,double z,double r)
    
    // Forward edge center
    glColor3d(0.32, 0.32, 0.32);
+   glNormal3d(0,0,1);
    glVertex3d(2.3, -1, 2);
    glVertex3d(2.3, 1, 2);
    glVertex3d(2.4, 1, 2);
@@ -879,14 +882,16 @@ static void vader(double x,double y,double z,double r)
    
    // Aft edge center
    glColor3d(0.32, 0.32, 0.32);
+   glNormal3d(0,0,-1);
    glVertex3d(2.4, -1, -6);
    glVertex3d(2.4, 1, -6);
    glVertex3d(2.3, 1, -6);
    glVertex3d(2.3, -1, -6);
    
-   // Top-tilted panel port
+   // ----------------------------- Top-tilted panel port ----------------------------
    // Inner
    glColor3d(0.2, 0.2, 0.2);
+   normal(1.8,2,1.25, 1.8,2,-4.75, 2.3,1,2);
    glVertex3d(2.3, 1, 2);
    glVertex3d(1.8, 2, 1.25);
    glVertex3d(1.8, 2, -4.75);
@@ -894,6 +899,7 @@ static void vader(double x,double y,double z,double r)
    
    // Outer
    glColor3d(0.4, 0.4, 0.4);
+   normal(1.9,2,1.25, 2.4,1,2, 1.9,2,-4.75);
    glVertex3d(2.4, 1, 2);
    glVertex3d(1.9, 2, 1.25);
    glVertex3d(1.9, 2, -4.75);
@@ -901,6 +907,7 @@ static void vader(double x,double y,double z,double r)
    
    // Forward edge top
    glColor3d(0.38, 0.38, 0.38);
+   normal(2.3,1,2, 2.4,1,2, 1.8,2,1.25);
    glVertex3d(2.3, 1, 2);
    glVertex3d(1.8, 2, 1.25);
    glVertex3d(1.9, 2, 1.25);
@@ -908,6 +915,7 @@ static void vader(double x,double y,double z,double r)
    
    // Aft edge top
    glColor3d(0.38, 0.38, 0.38);
+   normal(2.3,1,-6, 1.9,2,-4.75, 2.4,1,-6);
    glVertex3d(2.4, 1, -6);
    glVertex3d(1.9, 2, -4.75);
    glVertex3d(1.8, 2, -4.75);
@@ -915,14 +923,16 @@ static void vader(double x,double y,double z,double r)
    
    // Top edge
    glColor3d(0.42, 0.42, 0.42);
+   glNormal3d(0,1,0);
    glVertex3d(1.8, 2, 1.25);
    glVertex3d(1.8, 2, -4.75);
    glVertex3d(1.9, 2, -4.75);
    glVertex3d(1.9, 2, 1.25);
    
-   //Bottom-tilted panel port
+   // --------------------------------- Bottom-tilted panel port ---------------------------
    // Inner
    glColor3d(0.4, 0.4, 0.4);
+   normal(1.8,-2,1.25, 2.3,-1,2, 1.8,-2,-4.75);
    glVertex3d(1.8, -2, 1.25);
    glVertex3d(2.3, -1, 2);
    glVertex3d(2.3, -1, -6);
@@ -930,6 +940,7 @@ static void vader(double x,double y,double z,double r)
    
    //Outer
    glColor3d(0.2, 0.2, 0.2);
+   normal(1.9,-2,1.25, 1.9,-2,-4.75, 2.4,-1,2);
    glVertex3d(1.9, -2, 1.25);
    glVertex3d(2.4, -1, 2);
    glVertex3d(2.4, -1, -6);
@@ -937,6 +948,7 @@ static void vader(double x,double y,double z,double r)
    
    // Forward edge bottom
    glColor3d(0.23, 0.23, 0.23);
+   normal(1.8,-2,1.25, 1.9,-2,1.25, 2.3,-1,2);
    glVertex3d(1.8, -2, 1.25);
    glVertex3d(2.3, -1, 2);
    glVertex3d(2.4, -1, 2);
@@ -944,6 +956,7 @@ static void vader(double x,double y,double z,double r)
    
    // Aft edge bottom
    glColor3d(0.23, 0.23, 0.23);
+   normal(1.8,-2,-4.75, 2.3,-1,-6, 1.9,-2,-4.75);
    glVertex3d(1.9, -2, -4.75);
    glVertex3d(2.4, -1, -6);
    glVertex3d(2.3, -1, -6);
@@ -951,6 +964,7 @@ static void vader(double x,double y,double z,double r)
    
    // Bottom edge
    glColor3d(0.21, 0.21, 0.21);
+   glNormal3d(0,-1,0);
    glVertex3d(1.8, -2, -4.75);
    glVertex3d(1.8, -2, 1.25);
    glVertex3d(1.9, -2, 1.25);
