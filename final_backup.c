@@ -252,6 +252,7 @@ static void vader(double x,double y,double z,double r)
    // Fuselage - Sphere
    for (ph=-90;ph<90;ph+=d)
    {
+      
       glColor3d(color, color, color);
       
       glBegin(GL_QUAD_STRIP);
@@ -265,6 +266,31 @@ static void vader(double x,double y,double z,double r)
       glEnd();
       color += (d / 250.0);
    }
+
+   /*
+   glPushMatrix();
+
+   glTranslated(0, -1, 0);
+
+   for (ph=-90;ph<0;ph+=d)
+   {
+      
+      glColor3d(0.3, 0.3, 0.2);
+      
+      glBegin(GL_QUAD_STRIP);
+      for (th=0;th<=360;th+=d)
+      {
+         Vertex(th, ph);
+         Vertex(th, ph+d);
+         
+      }
+      glEnd();
+      color += (d / 250.0);
+   }
+
+   glPopMatrix();
+   */
+
    
    /* Front windscreen */
    glBegin(GL_TRIANGLE_FAN);
@@ -274,82 +300,61 @@ static void vader(double x,double y,double z,double r)
    
    for (th = 0; th <= 360; th += 45)
    {
+
       glVertex3d(0.5 * Cos(th), 0.5 * Sin(th), 1);
       
    }
    glEnd();
    
    // Octa-windows, outside
-   glColor3d(0, 0, 0);
-
    glBegin(GL_QUADS);
-   normal(0.2 * Cos(3),0.2 * Sin(3),1.001, 0.47 * Cos(3),0.47 * Sin(3),1.001, 0.47 * Cos(42),0.47 * Sin(42),1.001);
+   glColor3d(0, 0, 0);
+   
    glVertex3d(0.2 * Cos(3), 0.2 * Sin(3), 1.001);
    glVertex3d(0.47 * Cos(3), 0.47 * Sin(3), 1.001);
    glVertex3d(0.47 * Cos(42), 0.47 * Sin(42), 1.001);
    glVertex3d(0.2 * Cos(42), 0.2 * Sin(42), 1.001);
-   glEnd();
    
-   glBegin(GL_QUADS);
-   normal(0.2 * Cos(48),0.2 * Sin(48),1.001, 0.47 * Cos(48),0.47 * Sin(48),1.001, 0.47 * Cos(87),0.47 * Sin(87),1.001);
    glVertex3d(0.2 * Cos(48), 0.2 * Sin(48), 1.001);
    glVertex3d(0.47 * Cos(48), 0.47 * Sin(48), 1.001);
    glVertex3d(0.47 * Cos(87), 0.47 * Sin(87), 1.001);
    glVertex3d(0.2 * Cos(87), 0.2 * Sin(87), 1.001);
-   glEnd();
    
-   glBegin(GL_QUADS);
-   normal(0.2 * Cos(93),0.2 * Sin(93),1.001, 0.47 * Cos(93),0.47 * Sin(93),1.001, 0.47 * Cos(132),0.47 * Sin(132),1.001);
    glVertex3d(0.2 * Cos(93), 0.2 * Sin(93), 1.001);
    glVertex3d(0.47 * Cos(93), 0.47 * Sin(93), 1.001);
    glVertex3d(0.47 * Cos(132), 0.47 * Sin(132), 1.001);
    glVertex3d(0.2 * Cos(132), 0.2 * Sin(132), 1.001);
-   glEnd();
-
-   glBegin(GL_QUADS);
-   normal(0.2 * Cos(138),0.2 * Sin(138),1.001, 0.47 * Cos(138),0.47 * Sin(138),1.001, 0.47 * Cos(177),0.47 * Sin(177),1.001);
+   
    glVertex3d(0.2 * Cos(138), 0.2 * Sin(138), 1.001);
    glVertex3d(0.47 * Cos(138), 0.47 * Sin(138), 1.001);
    glVertex3d(0.47 * Cos(177), 0.47 * Sin(177), 1.001);
    glVertex3d(0.2 * Cos(177), 0.2 * Sin(177), 1.001);
-   glEnd();
-
-   glBegin(GL_QUADS);
-   normal(0.2 * Cos(183),0.2 * Sin(183),1.001, 0.47 * Cos(183),0.47 * Sin(183),1.001, 0.47 * Cos(222),0.47 * Sin(222),1.001);
+   
    glVertex3d(0.2 * Cos(183), 0.2 * Sin(183), 1.001);
    glVertex3d(0.47 * Cos(183), 0.47 * Sin(183), 1.001);
    glVertex3d(0.47 * Cos(222), 0.47 * Sin(222), 1.001);
    glVertex3d(0.2 * Cos(222), 0.2 * Sin(222), 1.001);
-   glEnd();
-
-   glBegin(GL_QUADS);
-   normal(0.2 * Cos(228),0.2 * Sin(228),1.001, 0.47 * Cos(228),0.47 * Sin(228),1.001, 0.47 * Cos(267),0.47 * Sin(267),1.001);
+   
    glVertex3d(0.2 * Cos(228), 0.2 * Sin(228), 1.001);
    glVertex3d(0.47 * Cos(228), 0.47 * Sin(228), 1.001);
    glVertex3d(0.47 * Cos(267), 0.47 * Sin(267), 1.001);
    glVertex3d(0.2 * Cos(267), 0.2 * Sin(267), 1.001);
-   glEnd();
-
-   glBegin(GL_QUADS);
-   normal(0.2 * Cos(273),0.2 * Sin(273),1.001, 0.47 * Cos(273),0.47 * Sin(273),1.001, 0.47 * Cos(312),0.47 * Sin(312),1.001);
+   
    glVertex3d(0.2 * Cos(273), 0.2 * Sin(273), 1.001);
    glVertex3d(0.47 * Cos(273), 0.47 * Sin(273), 1.001);
    glVertex3d(0.47 * Cos(312), 0.47 * Sin(312), 1.001);
    glVertex3d(0.2 * Cos(312), 0.2 * Sin(312), 1.001);
-   glEnd();
-
-   glBegin(GL_QUADS);
-   normal(0.2 * Cos(318),0.2 * Sin(318),1.001, 0.47 * Cos(318),0.47 * Sin(318),1.001, 0.47 * Cos(357),0.47 * Sin(357),1.001);
+   
    glVertex3d(0.2 * Cos(318), 0.2 * Sin(318), 1.001);
    glVertex3d(0.47 * Cos(318), 0.47 * Sin(318), 1.001);
    glVertex3d(0.47 * Cos(357), 0.47 * Sin(357), 1.001);
    glVertex3d(0.2 * Cos(357), 0.2 * Sin(357), 1.001);
+   
    glEnd();
    
    // Center window
    glBegin(GL_POLYGON);
    glColor3d(0, 0, 0);
-   glNormal3d(0,0,1);
    glVertex3d(0.17 * Cos(0), 0.17 * Sin(0), 1.001);
    glVertex3d(0.17 * Cos(45), 0.17 * Sin(45), 1.001);
    glVertex3d(0.17 * Cos(90), 0.17 * Sin(90), 1.001);
@@ -394,7 +399,6 @@ static void vader(double x,double y,double z,double r)
    
    glBegin(GL_TRIANGLES);
    glColor3d(0.15, 0.15, 0.15);
-   glNormal3d(0, 0, 1);
    glVertex3d(-0.1, 0.2, 0);
    glVertex3d(-0.3, 0, 0);
    glVertex3d(-0.5, 0.4, 0);
@@ -402,7 +406,6 @@ static void vader(double x,double y,double z,double r)
    
    glBegin(GL_QUADS);
    glColor3d(0.35, 0.35, 0.35);
-   normal(-0.1,0.2,0, -0.1,0.2,-0.5, -0.5,0.4,0);
    glVertex3d(-0.1, 0.2, -0.5);
    glVertex3d(-0.1, 0.2, 0);
    glVertex3d(-0.5, 0.4, 0);
@@ -411,7 +414,6 @@ static void vader(double x,double y,double z,double r)
    
    glBegin(GL_QUADS);
    glColor3d(0.35, 0.35, 0.35);
-   normal(-0.3,0,0, -0.3,0,-0.5, -0.5,0.4,0);
    glVertex3d(-0.5, 0.4, -0.5);
    glVertex3d(-0.5, 0.4, 0);
    glVertex3d(-0.3, 0, 0);
@@ -420,7 +422,6 @@ static void vader(double x,double y,double z,double r)
    
    glBegin(GL_QUADS);
    glColor3d(0.35, 0.35, 0.35);
-   normal(-0.3,0,0, -0.3,0,-0.5, -0.1,0.2,-0.5);
    glVertex3d(-0.3, 0, -0.5);
    glVertex3d(-0.3, 0, 0);
    glVertex3d(-0.1, 0.2, 0);
@@ -452,7 +453,6 @@ static void vader(double x,double y,double z,double r)
    
    glBegin(GL_TRIANGLES);
    glColor3d(0.15, 0.15, 0.15);
-   glNormal3d(0,0,1);
    glVertex3d(0.1, 0.2, 0);
    glVertex3d(0.3, 0, 0);
    glVertex3d(0.5, 0.4, 0);
@@ -460,7 +460,6 @@ static void vader(double x,double y,double z,double r)
    
    glBegin(GL_QUADS);
    glColor3d(0.35, 0.35, 0.35);
-   normal(0.1,0.2,0, 0.5,0.4,0, 0.1,0.2,-0.5);
    glVertex3d(0.1, 0.2, -0.5);
    glVertex3d(0.1, 0.2, 0);
    glVertex3d(0.5, 0.4, 0);
@@ -469,7 +468,6 @@ static void vader(double x,double y,double z,double r)
    
    glBegin(GL_QUADS);
    glColor3d(0.35, 0.35, 0.35);
-   normal(0.3,0,0, 0.3,0,-0.5, 0.5,0.4,0);
    glVertex3d(0.5, 0.4, -0.5);
    glVertex3d(0.5, 0.4, 0);
    glVertex3d(0.3, 0, 0);
@@ -478,7 +476,6 @@ static void vader(double x,double y,double z,double r)
    
    glBegin(GL_QUADS);
    glColor3d(0.35, 0.35, 0.35);
-   normal(0.3,0,0, 0.1,0.2,0, 0.3,0,-0.5);
    glVertex3d(0.3, 0, -0.5);
    glVertex3d(0.3, 0, 0);
    glVertex3d(0.1, 0.2, 0);
@@ -643,7 +640,6 @@ static void vader(double x,double y,double z,double r)
    
    glBegin(GL_TRIANGLE_FAN);
    glColor3d(0.43, 0.43, 0.43);
-   glNormal3d(0, 0, 1);
    glVertex3d(0, 0, 1);
    for (th = 0; th <= 360; th += 5)
    {
@@ -656,7 +652,6 @@ static void vader(double x,double y,double z,double r)
    glEnd();
    
    glBegin(GL_TRIANGLE_FAN);
-   glNormal3d(0, 0, 1);
    glVertex3d(0, 0, 0);
    for (th = 0; th <= 360; th += 5)
    {
@@ -678,7 +673,6 @@ static void vader(double x,double y,double z,double r)
       
       // x = sin(t)
       // y = cos(t)
-      glNormal3d(Cos(th), Sin(th), 0);
       glVertex3d(0.3 * Cos(th), 0.3 * Sin(th), 1);
       glVertex3d(0.2 * Cos(th), 0.2 * Sin(th), 0);
       
