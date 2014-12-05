@@ -188,6 +188,53 @@ static void skybox(double D)
    glDisable(GL_TEXTURE_2D);
 }
 
+static void scaffoldBridge(double x, double y, double z) {
+   glPushMatrix();
+
+   // Main horizontal cross members
+   glNormal3d(0, 0, -1);
+   glBegin(GL_POLYGON);
+   glVertex3d(-30, 39, 0);
+   glVertex3d(30, 39, 0);
+   glVertex3d(30, 40, 0);
+   glVertex3d(-30, 40, 0);
+   glEnd();
+
+   glBegin(GL_POLYGON);
+   glVertex3d(-30, 33, 0);
+   glVertex3d(30, 33, 0);
+   glVertex3d(30, 34, 0);
+   glVertex3d(-30, 34, 0);
+   glEnd();
+
+   for (int i = -30; i < 30; i += 7.5) {
+      // Vertical bars
+      glBegin(GL_QUADS);
+      glVertex3d(i, 34, 0);
+      glVertex3d(i + 1, 34, 0);
+      glVertex3d(i + 1, 39, 0);
+      glVertex3d(i, 39, 0);
+      glEnd();
+   }
+
+   for (int i = -30; i < 30; i += 7.5) {
+      // Diagonal bars
+      glBegin(GL_POLYGON);
+      glVertex3d(i, 34.5, 0);
+      glVertex3d(i, 34, 0);
+      glVertex3d(i + 0.5, 34, 0);
+      glVertex3d(i + 7.5, 38.5, 0);
+      glVertex3d(i + 7.5, 39, 0);
+      glVertex3d(i + 7, 39, 0);
+      glEnd();
+   }
+
+
+
+
+   glPopMatrix();
+}
+
 static void trench(double x, double y, double z) {
 
    glEnable(GL_TEXTURE_2D);
@@ -228,11 +275,15 @@ static void trench(double x, double y, double z) {
    glTexCoord2f(0, rep); glVertex3d(-30, 40, 10000);
    glEnd();
 
+   scaffoldBridge(0, 0, 0);
+
    glPopMatrix();
 
    glDisable(GL_TEXTURE_2D);
 
 }
+
+
 
 static void vader(double x,double y,double z,double r)
 {
