@@ -207,7 +207,7 @@ static void scaffoldBridge(double x, double y, double z) {
    glVertex3d(-30, 34, 0);
    glEnd();
 
-   for (int i = -30; i < 30; i += 7.5) {
+   for (double i = -30.0; i <= 30.0; i += 7.5) {
       // Vertical bars
       glBegin(GL_QUADS);
       glVertex3d(i, 34, 0);
@@ -217,7 +217,7 @@ static void scaffoldBridge(double x, double y, double z) {
       glEnd();
    }
 
-   for (int i = -30; i < 30; i += 7.5) {
+   for (double i = -30.0; i < 30.0; i += 7.5) {
       // Diagonal bars
       glBegin(GL_POLYGON);
       glVertex3d(i, 34.5, 0);
@@ -2824,9 +2824,9 @@ void display()
 
    if (camera == 0) {
 
-      Ex = -2*dim*Sin(th)*Cos(ph);
-      Ey = +2*dim        *Sin(ph);
-      Ez = +2*dim*Cos(th)*Cos(ph);
+      Ex = -0.01 * dim*Sin(th)*Cos(ph);
+      Ey = 0.01 * dim        *Sin(ph);
+      Ez = 0.01 * dim*Cos(th)*Cos(ph);
 
    } else if (camera == 1) {
 
@@ -2954,11 +2954,11 @@ void special(int key,int x,int y)
    
    //  PageUp key - increase dim
    else if (key == GLUT_KEY_PAGE_DOWN)
-      dim += 5;
+      dim += 100;
    
    //  PageDown key - decrease dim
    else if (key == GLUT_KEY_PAGE_UP && dim>1)
-      dim -= 5;
+      dim -= 100;
    
    //  Smooth color model
    else if (key == GLUT_KEY_F1)
