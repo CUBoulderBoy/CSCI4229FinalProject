@@ -191,6 +191,8 @@ static void skybox(double D)
 static void scaffoldBridge(double x, double y, double z) {
    glPushMatrix();
 
+   double i; 
+
    // Main horizontal cross members
    glNormal3d(0, 0, -1);
    glBegin(GL_POLYGON);
@@ -207,7 +209,7 @@ static void scaffoldBridge(double x, double y, double z) {
    glVertex3d(-30, 34, 0);
    glEnd();
 
-   for (double i = -30.0; i <= 30.0; i += 7.5) {
+   for (i = -30.0; i <= 30.0; i += 7.5) {
       // Vertical bars
       glBegin(GL_QUADS);
       glVertex3d(i, 34, 0);
@@ -217,7 +219,7 @@ static void scaffoldBridge(double x, double y, double z) {
       glEnd();
    }
 
-   for (double i = -30.0; i < 30.0; i += 7.5) {
+   for (i = -30.0; i < 30.0; i += 7.5) {
       // Diagonal bars
       glBegin(GL_POLYGON);
       glVertex3d(i, 34.5, 0);
