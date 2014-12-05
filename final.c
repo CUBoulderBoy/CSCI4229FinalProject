@@ -859,119 +859,119 @@ static void vader(double x,double y,double z,double r)
    //glBegin(GL_QUADS);
    
    // Inner
-
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(-1,0,0);
-   glVertex3d(2.3, -1, 2);
-   glVertex3d(2.3, 1, 2);
-   glVertex3d(2.3, 1, -6);
-   glVertex3d(2.3, -1, -6);
+   glTexCoord2f(1,0); glVertex3d(2.3, -1, 2);
+   glTexCoord2f(1,0.25); glVertex3d(2.3, 1, 2);
+   glTexCoord2f(0,0.25); glVertex3d(2.3, 1, -6);
+   glTexCoord2f(0,0); glVertex3d(2.3, -1, -6);
    
    // Outer
-
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(1,0,0);
-   glVertex3d(2.4, -1, 2);
-   glVertex3d(2.4, 1, 2);
-   glVertex3d(2.4, 1, -6);
-   glVertex3d(2.4, -1, -6);
+   glTexCoord2f(1,0); glVertex3d(2.4, -1, 2);
+   glTexCoord2f(1,0.25); glVertex3d(2.4, 1, 2);
+   glTexCoord2f(0,0.25); glVertex3d(2.4, 1, -6);
+   glTexCoord2f(0,0); glVertex3d(2.4, -1, -6);
    
    // Forward edge center
-
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(0,0,1);
-   glVertex3d(2.3, -1, 2);
-   glVertex3d(2.3, 1, 2);
-   glVertex3d(2.4, 1, 2);
-   glVertex3d(2.4, -1, 2);
+   glTexCoord2f(0.05,0); glVertex3d(2.3, -1, 2);
+   glTexCoord2f(0.05,1); glVertex3d(2.3, 1, 2);
+   glTexCoord2f(0,1); glVertex3d(2.4, 1, 2);
+   glTexCoord2f(0,0); glVertex3d(2.4, -1, 2);
    
    // Aft edge center
-
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(0,0,-1);
-   glVertex3d(2.4, -1, -6);
-   glVertex3d(2.4, 1, -6);
-   glVertex3d(2.3, 1, -6);
-   glVertex3d(2.3, -1, -6);
+   glTexCoord2f(0.05,0); glVertex3d(2.4, -1, -6);
+   glTexCoord2f(0.05,1); glVertex3d(2.4, 1, -6);
+   glTexCoord2f(0,1); glVertex3d(2.3, 1, -6);
+   glTexCoord2f(0,0); glVertex3d(2.3, -1, -6);
    
    // ----------------------------- Top-tilted panel port ----------------------------
    // Inner
-   //glColor3d(0.2, 0.2, 0.2);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(1.8,2,1.25, 1.8,2,-4.75, 2.3,1,2);
-   glVertex3d(2.3, 1, 2);
-   glVertex3d(1.8, 2, 1.25);
-   glVertex3d(1.8, 2, -4.75);
-   glVertex3d(2.3, 1, -6);
+   glTexCoord2f(0,0); glVertex3d(2.3, 1, 2);
+   glTexCoord2f(0.125,0.125); glVertex3d(1.8, 2, 1.25);
+   glTexCoord2f(0.875,0.125); glVertex3d(1.8, 2, -4.75);
+   glTexCoord2f(1,0); glVertex3d(2.3, 1, -6);
    
    // Outer
-   //glColor3d(0.4, 0.4, 0.4);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(1.9,2,1.25, 2.4,1,2, 1.9,2,-4.75);
-   glVertex3d(2.4, 1, 2);
-   glVertex3d(1.9, 2, 1.25);
-   glVertex3d(1.9, 2, -4.75);
-   glVertex3d(2.4, 1, -6);
+   glTexCoord2f(0,0); glVertex3d(2.4, 1, 2);
+   glTexCoord2f(0.125,0.125); glVertex3d(1.9, 2, 1.25);
+   glTexCoord2f(0.875,0.125); glVertex3d(1.9, 2, -4.75);
+   glTexCoord2f(1,0); glVertex3d(2.4, 1, -6);
    
    // Forward edge top
-   //glColor3d(0.38, 0.38, 0.38);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(2.3,1,2, 2.4,1,2, 1.8,2,1.25);
-   glVertex3d(2.3, 1, 2);
-   glVertex3d(1.8, 2, 1.25);
-   glVertex3d(1.9, 2, 1.25);
-   glVertex3d(2.4, 1, 2);
+   glTexCoord2f(0.1,0); glVertex3d(2.3, 1, 2);
+   glTexCoord2f(0.6,1); glVertex3d(1.8, 2, 1.25);
+   glTexCoord2f(0.5,1); glVertex3d(1.9, 2, 1.25);
+   glTexCoord2f(0,0); glVertex3d(2.4, 1, 2);
    
    // Aft edge top
-   //glColor3d(0.38, 0.38, 0.38);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(2.3,1,-6, 1.9,2,-4.75, 2.4,1,-6);
-   glVertex3d(2.4, 1, -6);
-   glVertex3d(1.9, 2, -4.75);
-   glVertex3d(1.8, 2, -4.75);
-   glVertex3d(2.3, 1, -6);
+   glTexCoord2f(0,0); glVertex3d(2.4, 1, -6);
+   glTexCoord2f(0.5,1); glVertex3d(1.9, 2, -4.75);
+   glTexCoord2f(0.6,1); glVertex3d(1.8, 2, -4.75);
+   glTexCoord2f(0.1,0); glVertex3d(2.3, 1, -6);
    
    // Top edge
-   //glColor3d(0.42, 0.42, 0.42);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(0,1,0);
-   glVertex3d(1.8, 2, 1.25);
-   glVertex3d(1.8, 2, -4.75);
-   glVertex3d(1.9, 2, -4.75);
-   glVertex3d(1.9, 2, 1.25);
-   
+   glTexCoord2f(0.017,1); glVertex3d(1.8, 2, 1.25);
+   glTexCoord2f(0.017,0); glVertex3d(1.8, 2, -4.75);
+   glTexCoord2f(0,0); glVertex3d(1.9, 2, -4.75);
+   glTexCoord2f(0,1); glVertex3d(1.9, 2, 1.25);
+
    // --------------------------------- Bottom-tilted panel port ---------------------------
    // Inner
-   //glColor3d(0.4, 0.4, 0.4);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(1.8,-2,1.25, 2.3,-1,2, 1.8,-2,-4.75);
-   glVertex3d(1.8, -2, 1.25);
-   glVertex3d(2.3, -1, 2);
-   glVertex3d(2.3, -1, -6);
-   glVertex3d(1.8, -2, -4.75);
-   
+   glTexCoord2f(0.125,0.125); glVertex3d(1.8, -2, 1.25);
+   glTexCoord2f(0,0); glVertex3d(2.3, -1, 2);
+   glTexCoord2f(1,0); glVertex3d(2.3, -1, -6);
+   glTexCoord2f(0.875,0.125); glVertex3d(1.8, -2, -4.75);
+
    //Outer
-   //glColor3d(0.2, 0.2, 0.2);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(1.9,-2,1.25, 1.9,-2,-4.75, 2.4,-1,2);
-   glVertex3d(1.9, -2, 1.25);
-   glVertex3d(2.4, -1, 2);
-   glVertex3d(2.4, -1, -6);
-   glVertex3d(1.9, -2, -4.75);
+   glTexCoord2f(0.125,0.125); glVertex3d(1.9, -2, 1.25);
+   glTexCoord2f(0,0); glVertex3d(2.4, -1, 2);
+   glTexCoord2f(1,0); glVertex3d(2.4, -1, -6);
+   glTexCoord2f(0.875,0.125); glVertex3d(1.9, -2, -4.75);
    
    // Forward edge bottom
-   //glColor3d(0.23, 0.23, 0.23);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(1.8,-2,1.25, 1.9,-2,1.25, 2.3,-1,2);
-   glVertex3d(1.8, -2, 1.25);
-   glVertex3d(2.3, -1, 2);
-   glVertex3d(2.4, -1, 2);
-   glVertex3d(1.9, -2, 1.25);
+   glTexCoord2f(0.6,1); glVertex3d(1.8, -2, 1.25);
+   glTexCoord2f(0.1,0); glVertex3d(2.3, -1, 2);
+   glTexCoord2f(0,0); glVertex3d(2.4, -1, 2);
+   glTexCoord2f(0.5,1); glVertex3d(1.9, -2, 1.25);
    
    // Aft edge bottom
-   //glColor3d(0.23, 0.23, 0.23);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(1.8,-2,-4.75, 2.3,-1,-6, 1.9,-2,-4.75);
-   glVertex3d(1.9, -2, -4.75);
-   glVertex3d(2.4, -1, -6);
-   glVertex3d(2.3, -1, -6);
-   glVertex3d(1.8, -2, -4.75);
+   glTexCoord2f(0.5,1); glVertex3d(1.9, -2, -4.75);
+   glTexCoord2f(0,0); glVertex3d(2.4, -1, -6);
+   glTexCoord2f(0.1,0); glVertex3d(2.3, -1, -6);
+   glTexCoord2f(0.6,1); glVertex3d(1.8, -2, -4.75);
    
    // Bottom edge
-   //glColor3d(0.21, 0.21, 0.21);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(0,-1,0);
-   glVertex3d(1.8, -2, -4.75);
-   glVertex3d(1.8, -2, 1.25);
-   glVertex3d(1.9, -2, 1.25);
-   glVertex3d(1.9, -2, -4.75);
-   
+   glTexCoord2f(0.017,0); glVertex3d(1.8, -2, -4.75);
+   glTexCoord2f(0.017,1); glVertex3d(1.8, -2, 1.25);
+   glTexCoord2f(0,1); glVertex3d(1.9, -2, 1.25);
+   glTexCoord2f(0,0); glVertex3d(1.9, -2, -4.75);
+
    glEnd();
    
    // Disable Textures
