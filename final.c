@@ -17,7 +17,7 @@ int th=0;         //  Azimuth of view angle
 int ph=0;         //  Elevation of view angle
 int fov=55;       //  Field of view (for perspective)
 double asp=1;     //  Aspect ratio
-double dim=300.0;   //  Size of world
+double dim=100.0;   //  Size of world
 
 // Texture array
 unsigned int texture[16]; // Texture names
@@ -39,6 +39,8 @@ int shininess =   0;  // Shininess (power of two)
 float shinyvec[1];    // Shininess (value)
 int zh        =  90;  // Light azimuth
 float ylight  =   0;  // Elevation of light
+
+int camera = 1;       // Camera selector
 
 // For idle function
 unsigned long ot;
@@ -202,28 +204,28 @@ static void trench(double x, double y, double z) {
    // Trench floor
    glBegin(GL_POLYGON);
    glNormal3d(0, 1, 0);
-   glTexCoord2f(0, 0); glVertex3d(-150, 0, 300);
-   glTexCoord2f(2 * rep, 0); glVertex3d(150, 0, 300);
-   glTexCoord2f(2 * rep, 7 * rep); glVertex3d(150, 0, -300);
-   glTexCoord2f(0, 7 * rep); glVertex3d(-150, 0, -300);
+   glTexCoord2f(0, 0); glVertex3d(-30, 0, 300);
+   glTexCoord2f(2 * rep, 0); glVertex3d(30, 0, 300);
+   glTexCoord2f(2 * rep, 7 * rep); glVertex3d(30, 0, -300);
+   glTexCoord2f(0, 7 * rep); glVertex3d(-30, 0, -300);
    glEnd();
 
    // Trench port side
    glBegin(GL_POLYGON);
    glNormal3d(-1, 0, 0);
-   glTexCoord2f(0, 0); glVertex3d(150, 0, -300);
-   glTexCoord2f(9.5 * rep, 0); glVertex3d(150, 0, 300);
-   glTexCoord2f(9.5 * rep, rep); glVertex3d(150, 200, 300);
-   glTexCoord2f(0, rep); glVertex3d(150, 200, -300);
+   glTexCoord2f(0, 0); glVertex3d(30, 0, -300);
+   glTexCoord2f(9.5 * rep, 0); glVertex3d(30, 0, 300);
+   glTexCoord2f(9.5 * rep, rep); glVertex3d(30, 40, 300);
+   glTexCoord2f(0, rep); glVertex3d(30, 40, -300);
    glEnd();
 
    // Trench starboard side
    glBegin(GL_POLYGON);
    glNormal3d(1, 0, 0);
-   glTexCoord2f(0, 0); glVertex3d(-150, 0, 300);
-   glTexCoord2f(9.5 * rep, 0); glVertex3d(-150, 0, -300);
-   glTexCoord2f(9.5 * rep, rep); glVertex3d(-150, 200, -300);
-   glTexCoord2f(0, rep); glVertex3d(-150, 200, 300);
+   glTexCoord2f(0, 0); glVertex3d(-30, 0, 300);
+   glTexCoord2f(9.5 * rep, 0); glVertex3d(-30, 0, -300);
+   glTexCoord2f(9.5 * rep, rep); glVertex3d(-30, 40, -300);
+   glTexCoord2f(0, rep); glVertex3d(-30, 40, 300);
    glEnd();
 
    glPopMatrix();
@@ -1736,7 +1738,7 @@ static void createWings(){
  *     
  */
 static void xWing(double x, double y, double z,
-                 double dx, double dy, double dz,
+                 double s,
                  double rx, double ry, double rz,
                  double th)
 {
@@ -1745,7 +1747,7 @@ static void xWing(double x, double y, double z,
    
    //  Offset
    glTranslated(x,y,z);
-   glScaled(dx,dy,dz);
+   glScaled(s,s,s);
    glRotated(th,rx,ry,rz);
 
    //  Enable textures
@@ -2330,7 +2332,7 @@ static void tFighterCockpit(double size)
  *     
  */
 static void tFighter(double x, double y, double z,
-                 double dx, double dy, double dz,
+                 double s,
                  double rx, double ry, double rz,
                  double th)
 {
@@ -2339,7 +2341,7 @@ static void tFighter(double x, double y, double z,
    
    //  Offset
    glTranslated(x,y,z);
-   glScaled(dx,dy,dz);
+   glScaled(s,s,s);
    glRotated(th,rx,ry,rz);
 
    //  Enable textures
@@ -2729,7 +2731,7 @@ static void turretBase()
  *     
  */
 static void tTurret(double x, double y, double z,
-                 double dx, double dy, double dz,
+                 double s,
                  double rx, double ry, double rz,
                  double th, double rt)
 {
@@ -2737,8 +2739,8 @@ static void tTurret(double x, double y, double z,
    glPushMatrix();
    
    //  Offset
-   glTranslated(x,y,z);
-   glScaled(dx,dy,dz);
+   glTranslated(x,y, z);
+   glScaled(s,s,s);
    glRotated(th,rx,ry,rz);
 
    //  Enable textures
@@ -2771,13 +2773,30 @@ void display()
 
    //  Undo previous transformations
    glLoadIdentity();
-   
-   double Ex = -2*dim*Sin(th)*Cos(ph);
-   double Ey = +2*dim        *Sin(ph);
-   double Ez = +2*dim*Cos(th)*Cos(ph);
+
+      double Ex = 0.0;
+      double Ey = 0.0;
+      double Ez = 0.0;
+
+   if (camera == 0) {
+
+      Ex = -2*dim*Sin(th)*Cos(ph);
+      Ey = +2*dim        *Sin(ph);
+      Ez = +2*dim*Cos(th)*Cos(ph);
+
+   } else if (camera == 1) {
+
+      Ex = 0;
+      Ey = 12.155372;
+      Ez = -68.936543;
+
+   } 
 
    // Call gluLookAt
    gluLookAt(Ex,Ey,Ez, 0,0,0 , 0,Cos(ph),0);
+   
+
+   printf("Camera X: %f, Camera Y: %f, Camera Z: %f", Ex, Ey, Ez);
 
    // Draw skybox
    skybox(3.5*dim);
@@ -2820,25 +2839,31 @@ void display()
    glLightfv(GL_LIGHT0,GL_POSITION,Position);
 
    // Create Trench
-   trench(0, -100, 0);
+   trench(0, -10, 0);
 
    // Create XWING
-   xWing(0,0,100, 1,1,1, 0,0,1, 15);
+   xWing(0,0,10, 0.2, 0,0,1, 15);
 
-   vader(0, 0, -25, 6);
+   vader(0, 0, -20, 6/5);
 
    // Create Tie-Fighter
-   tFighter(-50,-20,-100, 1,1,1, 0,0,0, 0);
-   tFighter(50,0,-100, 1,1,1, 0,0,0, 0);
+   tFighter(-10,-2,-40, 0.2, 0,0,0, 0);
+   tFighter(10,0,-40, 0.2, 0,0,0, 0);
 
 
    // Create turret
-   tTurret(-100, -100, 200, 4,4,4, 0,0,0, 0, 0);
-   tTurret(-100, -100, -200, 4,4,4, 0,0,0, 0, 0);
-   tTurret(100, -100, 200, 4,4,4, 0,0,0, 0, 0);
-   tTurret(100, -100, -200, 4,4,4, 0,0,0, 0, 0);
-
-
+   tTurret(-35, 30, 50, 1, 0,0,0, 0, 0);
+   tTurret(-35, 30, -50, 1, 0,0,0, 0, 0);
+   tTurret(35, 30, 50, 1, 0,0,0, 0, 0);
+   tTurret(35, 30, -50, 1, 0,0,0, 0, 0);
+   tTurret(-35, 30, 150, 1, 0,0,0, 0, 0);
+   tTurret(-35, 30, -150, 1, 0,0,0, 0, 0);
+   tTurret(35, 30, 150, 1, 0,0,0, 0, 0);
+   tTurret(35, 30, -150, 1, 0,0,0, 0, 0);
+   tTurret(-35, 30, 250, 1, 0,0,0, 0, 0);
+   tTurret(-35, 30, -250, 1, 0,0,0, 0, 0);
+   tTurret(35, 30, 250, 1, 0,0,0, 0, 0);
+   tTurret(35, 30, -250, 1, 0,0,0, 0, 0);
 
    //  Done - disable lighting
    glDisable(GL_LIGHTING);
@@ -2930,7 +2955,7 @@ void key(unsigned char ch,int x,int y)
       exit(0);
    
    //  Reset view angle
-   else if (ch == '0')
+   else if (ch == 'r')
       th = ph = 0;
    
    //  Toggle light movement
@@ -2952,6 +2977,12 @@ void key(unsigned char ch,int x,int y)
       ylight -= 0.1;
    else if (ch==']')
       ylight += 0.1;
+   else if (ch == '0') {
+      camera = 0;
+   }
+   else if (ch == '1') {
+      camera = 1;
+   }
 
    //  Translate shininess power to value (-1 => 0)
    shinyvec[0] = shininess<0 ? 0 : pow(2.0,shininess);
