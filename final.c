@@ -558,7 +558,7 @@ static void vader(double x,double y,double z,double r)
    // Forward-Bottom face starboard
    glBegin(GL_QUADS);
    glNormal3d(0, -1, 1);
-   glColor3d(0.5, 0.5, 0.5);
+   //glColor3d(0.5, 0.5, 0.5);
    glVertex3d(0, -0.7, 0);
    glVertex3d(0, 0, 0.7);
    glVertex3d(-2.3, 0, 0.3);
@@ -568,7 +568,7 @@ static void vader(double x,double y,double z,double r)
    // Aft-Bottom face starboard
    glBegin(GL_QUADS);
    glNormal3d(0, -1, -1);
-   glColor3d(0.38, 0.38, 0.38);
+   //glColor3d(0.38, 0.38, 0.38);
    glVertex3d(-2.3, -0.3, 0);
    glVertex3d(-2.3, 0, -0.3);
    glVertex3d(0, 0, -0.7);
@@ -578,7 +578,7 @@ static void vader(double x,double y,double z,double r)
    // Aft-Top face starboard
    glBegin(GL_QUADS);
    glNormal3d(0, 1, -1);
-   glColor3d(0.5, 0.5, 0.5);
+   //glColor3d(0.5, 0.5, 0.5);
    glVertex3d(-2.3, 0, -0.3);
    glVertex3d(-2.3, 0.3, 0);
    glVertex3d(0, 0.7, 0);
@@ -734,18 +734,26 @@ static void vader(double x,double y,double z,double r)
    
    /* End sponsons */
    
-   /* Wings */
-   
+   /* ------------------------------------------- Wings ---------------------------------------- */
+   //  Enable textures
+   //glEnable(GL_TEXTURE_2D);
+   //glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
+
+
    glBegin(GL_QUADS);
    
    // Center panel starboard
    // Inner
    glColor3d(0.3, 0.3, 0.3);
+   //glBindTexture(GL_TEXTURE_2D,texture[0]);
    glNormal3d(1,0,0);
-   glVertex3d(-2.3, -1, 2);
-   glVertex3d(-2.3, 1, 2);
-   glVertex3d(-2.3, 1, -6);
-   glVertex3d(-2.3, -1, -6);
+   glTexCoord2f(1,0); glVertex3d(-2.3, -1, 2);
+   glTexCoord2f(1,0.25); glVertex3d(-2.3, 1, 2);
+   glTexCoord2f(0,0.25); glVertex3d(-2.3, 1, -6);
+   glTexCoord2f(0,0); glVertex3d(-2.3, -1, -6);
+
+   // Disable Textures
+   glDisable(GL_TEXTURE_2D);
    
    //Outer
    glNormal3d(-1,0,0);
