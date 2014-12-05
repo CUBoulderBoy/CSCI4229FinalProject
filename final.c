@@ -17,7 +17,7 @@ int th=0;         //  Azimuth of view angle
 int ph=0;         //  Elevation of view angle
 int fov=55;       //  Field of view (for perspective)
 double asp=1;     //  Aspect ratio
-double dim=100.0;   //  Size of world
+double dim=10000.0;   //  Size of world
 
 // Texture array
 unsigned int texture[16]; // Texture names
@@ -204,28 +204,28 @@ static void trench(double x, double y, double z) {
    // Trench floor
    glBegin(GL_POLYGON);
    glNormal3d(0, 1, 0);
-   glTexCoord2f(0, 0); glVertex3d(-30, 0, 300);
-   glTexCoord2f(2 * rep, 0); glVertex3d(30, 0, 300);
-   glTexCoord2f(2 * rep, 7 * rep); glVertex3d(30, 0, -300);
-   glTexCoord2f(0, 7 * rep); glVertex3d(-30, 0, -300);
+   glTexCoord2f(0, 0); glVertex3d(-30, 0, 10000);
+   glTexCoord2f(2 * rep, 0); glVertex3d(30, 0, 10000);
+   glTexCoord2f(2 * rep, 7 * rep); glVertex3d(30, 0, -10000);
+   glTexCoord2f(0, 7 * rep); glVertex3d(-30, 0, -10000);
    glEnd();
 
    // Trench port side
    glBegin(GL_POLYGON);
    glNormal3d(-1, 0, 0);
-   glTexCoord2f(0, 0); glVertex3d(30, 0, -300);
-   glTexCoord2f(9.5 * rep, 0); glVertex3d(30, 0, 300);
-   glTexCoord2f(9.5 * rep, rep); glVertex3d(30, 40, 300);
-   glTexCoord2f(0, rep); glVertex3d(30, 40, -300);
+   glTexCoord2f(0, 0); glVertex3d(30, 0, -10000);
+   glTexCoord2f(9.5 * rep, 0); glVertex3d(30, 0, 10000);
+   glTexCoord2f(9.5 * rep, rep); glVertex3d(30, 40, 10000);
+   glTexCoord2f(0, rep); glVertex3d(30, 40, -10000);
    glEnd();
 
    // Trench starboard side
    glBegin(GL_POLYGON);
    glNormal3d(1, 0, 0);
-   glTexCoord2f(0, 0); glVertex3d(-30, 0, 300);
-   glTexCoord2f(9.5 * rep, 0); glVertex3d(-30, 0, -300);
-   glTexCoord2f(9.5 * rep, rep); glVertex3d(-30, 40, -300);
-   glTexCoord2f(0, rep); glVertex3d(-30, 40, 300);
+   glTexCoord2f(0, 0); glVertex3d(-30, 0, 10000);
+   glTexCoord2f(9.5 * rep, 0); glVertex3d(-30, 0, -10000);
+   glTexCoord2f(9.5 * rep, rep); glVertex3d(-30, 40, -10000);
+   glTexCoord2f(0, rep); glVertex3d(-30, 40, 10000);
    glEnd();
 
    glPopMatrix();
