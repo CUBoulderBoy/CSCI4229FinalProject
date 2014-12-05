@@ -740,55 +740,54 @@ static void vader(double x,double y,double z,double r)
    glPopMatrix();
    /* End sponson fuel cylinders */
    
-   
+   //  Enable textures
+   glEnable(GL_TEXTURE_2D);
+   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
    
    // Forward-Top face port
-   glBegin(GL_QUADS);
-   glNormal3d(0, 1, 1);
    glColor3d(0.7, 0.7, 0.7);
-   glVertex3d(0, 0, 0.7);
-   glVertex3d(0, 0.7, 0);
-   glVertex3d(2.3, 0.3, 0);
-   glVertex3d(2.3, 0, 0.3);
+   glBegin(GL_QUADS);
+   normal(0,0.7,0, 2.3,0,0.3, 2.3,0.3,0);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
+   glTexCoord2f(0.43,0); glVertex3d(0, 0, 0.7);
+   glTexCoord2f(0,0); glVertex3d(0, 0.7, 0);
+   glTexCoord2f(1,0.26); glVertex3d(2.3, 0.3, 0);
+   glTexCoord2f(1,0.17); glVertex3d(2.3, 0, 0.3);
    glEnd();
    
    // Forward-Bottom face port
    glBegin(GL_QUADS);
    glNormal3d(0, -1, 1);
-   glColor3d(0.5, 0.5, 0.5);
-   glVertex3d(0, -0.7, 0);
-   glVertex3d(0, 0, 0.7);
-   glVertex3d(2.3, 0, 0.3);
-   glVertex3d(2.3, -0.3, 0);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
+   glTexCoord2f(0,0); glVertex3d(0, -0.7, 0);
+   glTexCoord2f(0.43,0); glVertex3d(0, 0, 0.7);
+   glTexCoord2f(1,0.17); glVertex3d(2.3, 0, 0.3);
+   glTexCoord2f(1,0.26); glVertex3d(2.3, -0.3, 0);
    glEnd();
    
    // Aft-Bottom face port
    glBegin(GL_QUADS);
    glNormal3d(0, -1, -1);
-   glColor3d(0.38, 0.38, 0.38);
-   glVertex3d(2.3, -0.3, 0);
-   glVertex3d(2.3, 0, -0.3);
-   glVertex3d(0, 0, -0.7);
-   glVertex3d(0, -0.7, 0);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
+   glTexCoord2f(1,0.26); glVertex3d(2.3, -0.3, 0);
+   glTexCoord2f(1,0.17); glVertex3d(2.3, 0, -0.3);
+   glTexCoord2f(0.43,0); glVertex3d(0, 0, -0.7);
+   glTexCoord2f(0,0); glVertex3d(0, -0.7, 0);
    glEnd();
    
    // Aft-Top face port
    glBegin(GL_QUADS);
    glNormal3d(0, 1, -1);
-   glColor3d(0.5, 0.5, 0.5);
-   glVertex3d(2.3, 0, -0.3);
-   glVertex3d(2.3, 0.3, 0);
-   glVertex3d(0, 0.7, 0);
-   glVertex3d(0, 0, -0.7);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
+   glTexCoord2f(1,0.17); glVertex3d(2.3, 0, -0.3);
+   glTexCoord2f(1,0.26); glVertex3d(2.3, 0.3, 0);
+   glTexCoord2f(0,0); glVertex3d(0, 0.7, 0);
+   glTexCoord2f(0.43,0); glVertex3d(0, 0, -0.7);
    glEnd();
    
    /* End sponsons */
    
    /* ------------------------------------------- Wings ---------------------------------------- */
-   //  Enable textures
-   glEnable(GL_TEXTURE_2D);
-   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
-   
    // Center panel starboard
    // Inner
    glBegin(GL_QUADS);
