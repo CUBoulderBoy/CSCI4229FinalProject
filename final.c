@@ -222,12 +222,10 @@ static void scaffoldBridge(double x, double y, double z) {
    for (i = -30.0; i < 30.0; i += 7.5) {
       // Diagonal bars
       glBegin(GL_POLYGON);
-      glVertex3d(i, 34.5, 0);
-      glVertex3d(i, 34, 0);
-      glVertex3d(i + 0.5, 34, 0);
-      glVertex3d(i + 7.5, 38.5, 0);
-      glVertex3d(i + 7.5, 39, 0);
-      glVertex3d(i + 7, 39, 0);
+      glVertex3d(i, 39, 0);
+      glVertex3d(i + 1, 39, 0);
+      glVertex3d(i + 8.5, 34, 0);
+      glVertex3d(i + 7.5, 34, 0);
       glEnd();
    }
 
