@@ -315,37 +315,41 @@ static void trench(double x, double y, double z) {
    double rep = 14;
 
    // Builds trench in panels for animation
-   for (int x = 10000; x >= -10000; x-=1000) {
+   for (int z = 10000; z >= -10000; z-=1000) {
 
       glBindTexture(GL_TEXTURE_2D, texture[7]);
       // Floor
       glBegin(GL_QUADS);
-      glTexCoord2f(0, 0); glVertex3d(-30, 0, x + trenchAnim);
-      glTexCoord2f(1, 0); glVertex3d(30, 0, x + trenchAnim);
-      glTexCoord2f(1, 4); glVertex3d(30, 0, x - 1000 + trenchAnim);
-      glTexCoord2f(0, 4); glVertex3d(-30, 0, x - 1000 + trenchAnim);
+      glTexCoord2f(0, 0); glVertex3d(-30, 0, z + trenchAnim);
+      glTexCoord2f(1, 0); glVertex3d(30, 0, z + trenchAnim);
+      glTexCoord2f(1, 4); glVertex3d(30, 0, z - 1000 + trenchAnim);
+      glTexCoord2f(0, 4); glVertex3d(-30, 0, z - 1000 + trenchAnim);
       glEnd();
 
       glBindTexture(GL_TEXTURE_2D, trenchTex[0]);
 
       // Port side
       glBegin(GL_QUADS);
-      glTexCoord2f(0, 0); glVertex3d(30, 0, x - 1000 + trenchAnim);
-      glTexCoord2f(rep * 1, 0); glVertex3d(30, 0, x + trenchAnim);
-      glTexCoord2f(rep * 1, 1); glVertex3d(30, 40, x + trenchAnim);
-      glTexCoord2f(0, 1); glVertex3d(30, 40, x - 1000 + trenchAnim);
+      glTexCoord2f(0, 0); glVertex3d(30, 0, z - 1000 + trenchAnim);
+      glTexCoord2f(rep * 1, 0); glVertex3d(30, 0, z + trenchAnim);
+      glTexCoord2f(rep * 1, 1); glVertex3d(30, 40, z + trenchAnim);
+      glTexCoord2f(0, 1); glVertex3d(30, 40, z - 1000 + trenchAnim);
       glEnd();
 
       // Starboard side
       glBegin(GL_QUADS);
-      glTexCoord2f(0, 0); glVertex3d(-30, 0, x + trenchAnim);
-      glTexCoord2f(rep * 1, 0); glVertex3d(-30, 0, x - 1000 + trenchAnim);
-      glTexCoord2f(rep * 1, 1); glVertex3d(-30, 40, x - 1000 + trenchAnim);
-      glTexCoord2f(0, 1); glVertex3d(-30, 40, x + trenchAnim);
+      glTexCoord2f(0, 0); glVertex3d(-30, 0, z + trenchAnim);
+      glTexCoord2f(rep * 1, 0); glVertex3d(-30, 0, z - 1000 + trenchAnim);
+      glTexCoord2f(rep * 1, 1); glVertex3d(-30, 40, z - 1000 + trenchAnim);
+      glTexCoord2f(0, 1); glVertex3d(-30, 40, z + trenchAnim);
       glEnd();
 
 
-      scaffoldBridge(0, 0, x + trenchAnim);
+      scaffoldBridge(0, 0, z + trenchAnim);
+
+      // Create turret
+      //tTurret(-30, 30, z + 500 +trenchAnim, 1, 0,0,0, 0, 0);
+      //tTurret(30, 30, z + 500 +trenchAnim, 1, 0,0,0, 0, 0);
 
    }
 
@@ -2974,22 +2978,7 @@ void display()
    // Create Tie-Fighter
    tFighter(-10,-2,-40, 0.2, 0,0,0, 0);
    tFighter(10,0,-40, 0.2, 0,0,0, 0);
-
-
-   // Create turret
-   tTurret(-35, 30, 50, 1, 0,0,0, 0, 0);
-   tTurret(-35, 30, -50, 1, 0,0,0, 0, 0);
-   tTurret(35, 30, 50, 1, 0,0,0, 0, 0);
-   tTurret(35, 30, -50, 1, 0,0,0, 0, 0);
-   tTurret(-35, 30, 150, 1, 0,0,0, 0, 0);
-   tTurret(-35, 30, -150, 1, 0,0,0, 0, 0);
-   tTurret(35, 30, 150, 1, 0,0,0, 0, 0);
-   tTurret(35, 30, -150, 1, 0,0,0, 0, 0);
-   tTurret(-35, 30, 250, 1, 0,0,0, 0, 0);
-   tTurret(-35, 30, -250, 1, 0,0,0, 0, 0);
-   tTurret(35, 30, 250, 1, 0,0,0, 0, 0);
-   tTurret(35, 30, -250, 1, 0,0,0, 0, 0);
-
+   
    //  Done - disable lighting
    glDisable(GL_LIGHTING);
    
