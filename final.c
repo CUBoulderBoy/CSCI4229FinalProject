@@ -8,6 +8,7 @@
  */
 #include "CSCIx229.h"
 #include <math.h>
+ #include <stdlib.h>
 #include <time.h>
 
 // World variables
@@ -42,6 +43,7 @@ int zh        =  90;  // Light azimuth
 float ylight  =   0;  // Elevation of light
 
 int camera = 1;       // Camera selector
+int trenchAnim = 0;
 
 // For idle function
 unsigned long ot;
@@ -191,112 +193,115 @@ static void skybox(double D)
 
 static void scaffoldBridge(double x, double y, double z) {
    glPushMatrix();
+   glTranslated(x, y, z);
 
    double i; 
+   int draw = rand() % 2;
+
+
+   glBindTexture(GL_TEXTURE_2D, texture[11]);
+
+
 
    // Main horizontal cross members
    // Backface
    // Top
    glNormal3d(0, 0, -1);
    glBegin(GL_POLYGON);
-   glVertex3d(-30, 39, 0);
-   glVertex3d(31, 39, 0);
-   glVertex3d(31, 40, 0);
-   glVertex3d(-30, 40, 0);
+   glTexCoord2f(0, 0); glVertex3d(-30, 39, 0);
+   glTexCoord2f(3 * 1, 0); glVertex3d(31, 39, 0);
+   glTexCoord2f(3 * 1, 0.5); glVertex3d(31, 40, 0);
+   glTexCoord2f(0, 0.5); glVertex3d(-30, 40, 0);
    glEnd();
 
    // Bottom
    glBegin(GL_POLYGON);
-   glVertex3d(-30, 33, 0);
-   glVertex3d(31, 33, 0);
-   glVertex3d(31, 34, 0);
-   glVertex3d(-30, 34, 0);
+   glTexCoord2f(0, 0); glVertex3d(-30, 33, 0);
+   glTexCoord2f(3 * 1, 0); glVertex3d(31, 33, 0);
+   glTexCoord2f(3 * 1, 0.5); glVertex3d(31, 34, 0);
+   glTexCoord2f(0, 0.5); glVertex3d(-30, 34, 0);
    glEnd();
 
    for (i = -30.5; i <= 29.5; i += 7.5) {
       // Vertical bars
       glBegin(GL_QUADS);
-      glVertex3d(i, 34, 0);
-      glVertex3d(i + 1, 34, 0);
-      glVertex3d(i + 1, 39, 0);
-      glVertex3d(i, 39, 0);
+      glTexCoord2f(0, 0); glVertex3d(i, 34, 0);
+      glTexCoord2f(0.1, 0); glVertex3d(i + 1, 34, 0);
+      glTexCoord2f(0.1, 1); glVertex3d(i + 1, 39, 0);
+      glTexCoord2f(0, 1); glVertex3d(i, 39, 0);
       glEnd();
 
       // Diagonal bars
       glBegin(GL_POLYGON);
-      glVertex3d(i + 1, 34 + sqrt(2)/2, 0);
-      glVertex3d(i + 1, 34, 0);
-      glVertex3d(i + 1 + sqrt(2)/2, 34, 0);
-      glVertex3d(i + 7.5, 39 - sqrt(2)/2, 0);
-      glVertex3d(i + 7.5, 39, 0);
-      glVertex3d(i + 7.5 - sqrt(2)/2, 39, 0);
+      glTexCoord2f(0, 0.1); glVertex3d(i + 1, 34 + sqrt(2)/2, 0);
+      glTexCoord2f(0, 0); glVertex3d(i + 1, 34, 0);
+      glTexCoord2f(0.1, 0); glVertex3d(i + 1 + sqrt(2)/2, 34, 0);
+      glTexCoord2f(0.7 * 1, 0.7 * 0.6); glVertex3d(i + 7.5, 39 - sqrt(2)/2, 0);
+      glTexCoord2f(0.7 * 1, 0.7 * 0.7); glVertex3d(i + 7.5, 39, 0);
+      glTexCoord2f(0.7 * 0.7, 0.7 * 0.7); glVertex3d(i + 7.5 - sqrt(2)/2, 39, 0);
       glEnd();
    }
 
    // Main horizontal cross members
    // Frontface
    // Top
-   glNormal3d(0, 0, 1);
+   glNormal3d(0, 0, -1);
    glBegin(GL_POLYGON);
-   glVertex3d(-30, 39, 7);
-   glVertex3d(31, 39, 7);
-   glVertex3d(31, 40, 7);
-   glVertex3d(-30, 40, 7);
+   glTexCoord2f(0, 0); glVertex3d(-30, 39, 7);
+   glTexCoord2f(3 * 1, 0); glVertex3d(31, 39, 7);
+   glTexCoord2f(3 * 1, 0.5); glVertex3d(31, 40, 7);
+   glTexCoord2f(0, 0.5); glVertex3d(-30, 40, 7);
    glEnd();
 
    // Bottom
    glBegin(GL_POLYGON);
-   glVertex3d(-30, 33, 7);
-   glVertex3d(31, 33, 7);
-   glVertex3d(31, 34, 7);
-   glVertex3d(-30, 34, 7);
+   glTexCoord2f(0, 0); glVertex3d(-30, 33, 7);
+   glTexCoord2f(3 * 1, 0); glVertex3d(31, 33, 7);
+   glTexCoord2f(3 * 1, 0.5); glVertex3d(31, 34, 7);
+   glTexCoord2f(0, 0.5); glVertex3d(-30, 34, 7);
    glEnd();
 
    for (i = -30.5; i <= 29.5; i += 7.5) {
       // Vertical bars
       glBegin(GL_QUADS);
-      glVertex3d(i, 34, 7);
-      glVertex3d(i + 1, 34, 7);
-      glVertex3d(i + 1, 39, 7);
-      glVertex3d(i, 39, 7);
+      glTexCoord2f(0, 0); glVertex3d(i, 34, 7);
+      glTexCoord2f(0.1, 0); glVertex3d(i + 1, 34, 7);
+      glTexCoord2f(0.1, 1); glVertex3d(i + 1, 39, 7);
+      glTexCoord2f(0, 1); glVertex3d(i, 39, 7);
       glEnd();
 
       // Diagonal bars
       glBegin(GL_POLYGON);
-      glVertex3d(i + 1, 34 + sqrt(2)/2, 7);
-      glVertex3d(i + 1, 34, 7);
-      glVertex3d(i + 1 + sqrt(2)/2, 34, 7);
-      glVertex3d(i + 7.5, 39 - sqrt(2)/2, 7);
-      glVertex3d(i + 7.5, 39, 7);
-      glVertex3d(i + 7.5 - sqrt(2)/2, 39, 7);
+      glTexCoord2f(0, 0.1); glVertex3d(i + 1, 34 + sqrt(2)/2, 7);
+      glTexCoord2f(0, 0); glVertex3d(i + 1, 34, 7);
+      glTexCoord2f(0.1, 0); glVertex3d(i + 1 + sqrt(2)/2, 34, 7);
+      glTexCoord2f(0.7 * 1, 0.7 * 0.6); glVertex3d(i + 7.5, 39 - sqrt(2)/2, 7);
+      glTexCoord2f(0.7 * 1, 0.7 * 0.7); glVertex3d(i + 7.5, 39, 7);
+      glTexCoord2f(0.7 * 0.7, 0.7 * 0.7); glVertex3d(i + 7.5 - sqrt(2)/2, 39, 7);
       glEnd();
    }
 
    // Top closure
    glNormal3d(0, 1, 0);
    glBegin(GL_QUADS);
-   glVertex3d(-30, 40, 7);
-   glVertex3d(30, 40, 7);
-   glVertex3d(30, 40, 0);
-   glVertex3d(-30, 40, 0);
+   glTexCoord2f(0, 0); glVertex3d(-30, 40, 7);
+   glTexCoord2f(3 * 1, 0); glVertex3d(30, 40, 7);
+   glTexCoord2f(3 * 1, 1); glVertex3d(30, 40, 0);
+   glTexCoord2f(0, 1); glVertex3d(-30, 40, 0);
    glEnd();
 
    // Bottom closure
    glNormal3d(0, -1, 0);
    glBegin(GL_QUADS);
-   glVertex3d(-30, 33, 7);
-   glVertex3d(30, 33, 7);
-   glVertex3d(30, 33, 0);
-   glVertex3d(-30, 33, 0);
+   glTexCoord2f(0, 0); glVertex3d(-30, 33, 7);
+   glTexCoord2f(3 * 1, 0); glVertex3d(30, 33, 7);
+   glTexCoord2f(3 * 1, 1); glVertex3d(30, 33, 0);
+   glTexCoord2f(0, 1); glVertex3d(-30, 33, 0);
    glEnd();
-
- 
-
-
-
 
    glPopMatrix();
 }
+
 
 static void trench(double x, double y, double z) {
 
@@ -306,37 +311,41 @@ static void trench(double x, double y, double z) {
    glPushMatrix();
    glTranslated(x, y, z);
 
-   glColor3d(1, 1, 1);
-   glBindTexture(GL_TEXTURE_2D, trenchTex[0]);
+   
 
-   double rep = 1.5;
+   double rep = 14;
 
-   // Trench floor
-   glBegin(GL_POLYGON);
-   glNormal3d(0, 1, 0);
-   glTexCoord2f(0, 0); glVertex3d(-30, 0, 10000);
-   glTexCoord2f(2 * rep, 0); glVertex3d(30, 0, 10000);
-   glTexCoord2f(2 * rep, 7 * rep); glVertex3d(30, 0, -10000);
-   glTexCoord2f(0, 7 * rep); glVertex3d(-30, 0, -10000);
-   glEnd();
+   for (int x = 10000; x >= -10000; x-=1000) {
 
-   // Trench port side
-   glBegin(GL_POLYGON);
-   glNormal3d(-1, 0, 0);
-   glTexCoord2f(0, 0); glVertex3d(30, 0, -10000);
-   glTexCoord2f(9.5 * rep, 0); glVertex3d(30, 0, 10000);
-   glTexCoord2f(9.5 * rep, rep); glVertex3d(30, 40, 10000);
-   glTexCoord2f(0, rep); glVertex3d(30, 40, -10000);
-   glEnd();
+      glBindTexture(GL_TEXTURE_2D, texture[7]);
+      // Floor
+      glBegin(GL_QUADS);
+      glTexCoord2f(0, 0); glVertex3d(-30, 0, x + trenchAnim);
+      glTexCoord2f(1, 0); glVertex3d(30, 0, x + trenchAnim);
+      glTexCoord2f(1, 4); glVertex3d(30, 0, x - 1000 + trenchAnim);
+      glTexCoord2f(0, 4); glVertex3d(-30, 0, x - 1000 + trenchAnim);
+      glEnd();
 
-   // Trench starboard side
-   glBegin(GL_POLYGON);
-   glNormal3d(1, 0, 0);
-   glTexCoord2f(0, 0); glVertex3d(-30, 0, 10000);
-   glTexCoord2f(9.5 * rep, 0); glVertex3d(-30, 0, -10000);
-   glTexCoord2f(9.5 * rep, rep); glVertex3d(-30, 40, -10000);
-   glTexCoord2f(0, rep); glVertex3d(-30, 40, 10000);
-   glEnd();
+      glBindTexture(GL_TEXTURE_2D, trenchTex[0]);
+
+      // Port side
+      glBegin(GL_QUADS);
+      glTexCoord2f(0, 0); glVertex3d(30, 0, x - 1000 + trenchAnim);
+      glTexCoord2f(rep * 1, 0); glVertex3d(30, 0, x + trenchAnim);
+      glTexCoord2f(rep * 1, 1); glVertex3d(30, 40, x + trenchAnim);
+      glTexCoord2f(0, 1); glVertex3d(30, 40, x - 1000 + trenchAnim);
+      glEnd();
+
+      // Starboard side
+      glBegin(GL_QUADS);
+      glTexCoord2f(0, 0); glVertex3d(-30, 0, x + trenchAnim);
+      glTexCoord2f(rep * 1, 0); glVertex3d(-30, 0, x - 1000 + trenchAnim);
+      glTexCoord2f(rep * 1, 1); glVertex3d(-30, 40, x - 1000 + trenchAnim);
+      glTexCoord2f(0, 1); glVertex3d(-30, 40, x + trenchAnim);
+      glEnd();
+
+
+   }
 
    scaffoldBridge(0, 0, 0);
 
@@ -2996,8 +3005,17 @@ void idle()
    double t = glutGet(GLUT_ELAPSED_TIME)/1000.0;
    zh = fmod(90*t,360.0);
 
+   if (trenchAnim > 0 || trenchAnim < -10000)
+      trenchAnim = 0;
+
+   trenchAnim -= 3;
+
    //  Tell GLUT it is necessary to redisplay the scene
    glutPostRedisplay();
+}
+
+void timer(int value) {
+
 }
 
 /*
@@ -3128,6 +3146,10 @@ void reshape(int width,int height)
  */
 int main(int argc,char* argv[])
 {
+
+   // Random number seed for trench attribute generation
+   srand(time(NULL));
+
    //  Initialize GLUT
    glutInit(&argc,argv);
    
