@@ -311,10 +311,10 @@ static void trench(double x, double y, double z) {
    glPushMatrix();
    glTranslated(x, y, z);
 
-   
-
+   // Repeat factor of trench texture
    double rep = 14;
 
+   // Builds trench in panels for animation
    for (int x = 10000; x >= -10000; x-=1000) {
 
       glBindTexture(GL_TEXTURE_2D, texture[7]);
@@ -345,9 +345,12 @@ static void trench(double x, double y, double z) {
       glEnd();
 
 
+      scaffoldBridge(0, 0, x + trenchAnim);
+
    }
 
-   scaffoldBridge(0, 0, 0);
+
+   
 
    glPopMatrix();
 
