@@ -3102,12 +3102,15 @@ void key(unsigned char ch,int x,int y)
       ylight += 0.1;
    else if (ch == '0') {
       camera = 0;
+      move = 1;
    }
    else if (ch == '1') {
       camera = 1;
+      move = 1;
    } 
    else if (ch == '2') {
       camera = 2;
+      move = 1;
    }
 
    //  Translate shininess power to value (-1 => 0)
