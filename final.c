@@ -7,6 +7,7 @@
  *  Key bindings:
  */
 #include "CSCIx229.h"
+#include <math.h>
 #include <time.h>
 
 // World variables
@@ -194,22 +195,25 @@ static void scaffoldBridge(double x, double y, double z) {
    double i; 
 
    // Main horizontal cross members
+   // Backface
+   // Top
    glNormal3d(0, 0, -1);
    glBegin(GL_POLYGON);
    glVertex3d(-30, 39, 0);
-   glVertex3d(30, 39, 0);
-   glVertex3d(30, 40, 0);
+   glVertex3d(31, 39, 0);
+   glVertex3d(31, 40, 0);
    glVertex3d(-30, 40, 0);
    glEnd();
 
+   // Bottom
    glBegin(GL_POLYGON);
    glVertex3d(-30, 33, 0);
-   glVertex3d(30, 33, 0);
-   glVertex3d(30, 34, 0);
+   glVertex3d(31, 33, 0);
+   glVertex3d(31, 34, 0);
    glVertex3d(-30, 34, 0);
    glEnd();
 
-   for (i = -30.0; i <= 30.0; i += 7.5) {
+   for (i = -30.5; i <= 29.5; i += 7.5) {
       // Vertical bars
       glBegin(GL_QUADS);
       glVertex3d(i, 34, 0);
@@ -217,17 +221,76 @@ static void scaffoldBridge(double x, double y, double z) {
       glVertex3d(i + 1, 39, 0);
       glVertex3d(i, 39, 0);
       glEnd();
-   }
 
-   for (i = -30.0; i < 30.0; i += 7.5) {
       // Diagonal bars
       glBegin(GL_POLYGON);
-      glVertex3d(i, 39, 0);
-      glVertex3d(i + 1, 39, 0);
-      glVertex3d(i + 8.5, 34, 0);
-      glVertex3d(i + 7.5, 34, 0);
+      glVertex3d(i + 1, 34 + sqrt(2)/2, 0);
+      glVertex3d(i + 1, 34, 0);
+      glVertex3d(i + 1 + sqrt(2)/2, 34, 0);
+      glVertex3d(i + 7.5, 39 - sqrt(2)/2, 0);
+      glVertex3d(i + 7.5, 39, 0);
+      glVertex3d(i + 7.5 - sqrt(2)/2, 39, 0);
       glEnd();
    }
+
+   // Main horizontal cross members
+   // Frontface
+   // Top
+   glNormal3d(0, 0, 1);
+   glBegin(GL_POLYGON);
+   glVertex3d(-30, 39, 7);
+   glVertex3d(31, 39, 7);
+   glVertex3d(31, 40, 7);
+   glVertex3d(-30, 40, 7);
+   glEnd();
+
+   // Bottom
+   glBegin(GL_POLYGON);
+   glVertex3d(-30, 33, 7);
+   glVertex3d(31, 33, 7);
+   glVertex3d(31, 34, 7);
+   glVertex3d(-30, 34, 7);
+   glEnd();
+
+   for (i = -30.5; i <= 29.5; i += 7.5) {
+      // Vertical bars
+      glBegin(GL_QUADS);
+      glVertex3d(i, 34, 7);
+      glVertex3d(i + 1, 34, 7);
+      glVertex3d(i + 1, 39, 7);
+      glVertex3d(i, 39, 7);
+      glEnd();
+
+      // Diagonal bars
+      glBegin(GL_POLYGON);
+      glVertex3d(i + 1, 34 + sqrt(2)/2, 7);
+      glVertex3d(i + 1, 34, 7);
+      glVertex3d(i + 1 + sqrt(2)/2, 34, 7);
+      glVertex3d(i + 7.5, 39 - sqrt(2)/2, 7);
+      glVertex3d(i + 7.5, 39, 7);
+      glVertex3d(i + 7.5 - sqrt(2)/2, 39, 7);
+      glEnd();
+   }
+
+   // Top closure
+   glNormal3d(0, 1, 0);
+   glBegin(GL_QUADS);
+   glVertex3d(-30, 40, 7);
+   glVertex3d(30, 40, 7);
+   glVertex3d(30, 40, 0);
+   glVertex3d(-30, 40, 0);
+   glEnd();
+
+   // Bottom closure
+   glNormal3d(0, -1, 0);
+   glBegin(GL_QUADS);
+   glVertex3d(-30, 33, 7);
+   glVertex3d(30, 33, 7);
+   glVertex3d(30, 33, 0);
+   glVertex3d(-30, 33, 0);
+   glEnd();
+
+ 
 
 
 
@@ -2833,7 +2896,14 @@ void display()
       Ey = 12.155372;
       Ez = -68.936543;
 
+   } else if (camera == 2) {
+
+      Ex = 0.0;
+      Ey =  18.9;
+      Ez =  70.5;
+
    } 
+
 
    // Call gluLookAt
    gluLookAt(Ex,Ey,Ez, 0,0,0 , 0,Cos(ph),0);
@@ -3025,6 +3095,9 @@ void key(unsigned char ch,int x,int y)
    }
    else if (ch == '1') {
       camera = 1;
+   } 
+   else if (ch == '2') {
+      camera = 2;
    }
 
    //  Translate shininess power to value (-1 => 0)
