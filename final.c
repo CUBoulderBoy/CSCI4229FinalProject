@@ -311,45 +311,47 @@ static void trench(double x, double y, double z) {
    glPushMatrix();
    glTranslated(x, y, z);
 
+   int i;
+
    // Repeat factor of trench texture
    double rep = 14;
 
    // Builds trench in panels for animation
-   for (int z = 10000; z >= -10000; z-=1000) {
+   for (i = 10000; i >= -10000; i-=1000) {
 
       glBindTexture(GL_TEXTURE_2D, texture[7]);
       // Floor
       glBegin(GL_QUADS);
-      glTexCoord2f(0, 0); glVertex3d(-30, 0, z + trenchAnim);
-      glTexCoord2f(1, 0); glVertex3d(30, 0, z + trenchAnim);
-      glTexCoord2f(1, 4); glVertex3d(30, 0, z - 1000 + trenchAnim);
-      glTexCoord2f(0, 4); glVertex3d(-30, 0, z - 1000 + trenchAnim);
+      glTexCoord2f(0, 0); glVertex3d(-30, 0, i + trenchAnim);
+      glTexCoord2f(1, 0); glVertex3d(30, 0, i + trenchAnim);
+      glTexCoord2f(1, 4); glVertex3d(30, 0, i - 1000 + trenchAnim);
+      glTexCoord2f(0, 4); glVertex3d(-30, 0, i - 1000 + trenchAnim);
       glEnd();
 
       glBindTexture(GL_TEXTURE_2D, trenchTex[0]);
 
       // Port side
       glBegin(GL_QUADS);
-      glTexCoord2f(0, 0); glVertex3d(30, 0, z - 1000 + trenchAnim);
-      glTexCoord2f(rep * 1, 0); glVertex3d(30, 0, z + trenchAnim);
-      glTexCoord2f(rep * 1, 1); glVertex3d(30, 40, z + trenchAnim);
-      glTexCoord2f(0, 1); glVertex3d(30, 40, z - 1000 + trenchAnim);
+      glTexCoord2f(0, 0); glVertex3d(30, 0, i - 1000 + trenchAnim);
+      glTexCoord2f(rep * 1, 0); glVertex3d(30, 0, i + trenchAnim);
+      glTexCoord2f(rep * 1, 1); glVertex3d(30, 40, i + trenchAnim);
+      glTexCoord2f(0, 1); glVertex3d(30, 40, i - 1000 + trenchAnim);
       glEnd();
 
       // Starboard side
       glBegin(GL_QUADS);
-      glTexCoord2f(0, 0); glVertex3d(-30, 0, z + trenchAnim);
-      glTexCoord2f(rep * 1, 0); glVertex3d(-30, 0, z - 1000 + trenchAnim);
-      glTexCoord2f(rep * 1, 1); glVertex3d(-30, 40, z - 1000 + trenchAnim);
-      glTexCoord2f(0, 1); glVertex3d(-30, 40, z + trenchAnim);
+      glTexCoord2f(0, 0); glVertex3d(-30, 0, i + trenchAnim);
+      glTexCoord2f(rep * 1, 0); glVertex3d(-30, 0, i - 1000 + trenchAnim);
+      glTexCoord2f(rep * 1, 1); glVertex3d(-30, 40, i - 1000 + trenchAnim);
+      glTexCoord2f(0, 1); glVertex3d(-30, 40, i + trenchAnim);
       glEnd();
 
 
-      scaffoldBridge(0, 0, z + trenchAnim);
+      scaffoldBridge(0, 0, i + trenchAnim);
 
       // Create turret
-      //tTurret(-30, 30, z + 500 +trenchAnim, 1, 0,0,0, 0, 0);
-      //tTurret(30, 30, z + 500 +trenchAnim, 1, 0,0,0, 0, 0);
+      //tTurret(-30, 30, i + 500 +trenchAnim, 1, 0,0,0, 0, 0);
+      //tTurret(30, 30, i + 500 +trenchAnim, 1, 0,0,0, 0, 0);
 
    }
 
@@ -2496,8 +2498,7 @@ static void turretTop(double rt)
    glRotated(rt,0,1,0);
 
    //  Enable textures
-   glEnable(GL_TEXTURE_2D);
-   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
+   //glEnable(GL_TEXTURE_2D);
 
    // Top panel
    glBindTexture(GL_TEXTURE_2D,texture[11]);
@@ -2769,7 +2770,7 @@ static void turretTop(double rt)
    glPopMatrix();
 
    // Disable Textures
-   glDisable(GL_TEXTURE_2D);
+   //glDisable(GL_TEXTURE_2D);
 
    //  Undo transofrmations
    glPopMatrix();
@@ -2867,7 +2868,6 @@ static void tTurret(double x, double y, double z,
 
    //  Enable textures
    glEnable(GL_TEXTURE_2D);
-   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
 
    // Create turret base
    turretBase();
