@@ -191,181 +191,6 @@ static void skybox(double D)
    glDisable(GL_TEXTURE_2D);
 }
 
-static void scaffoldBridge(double x, double y, double z) {
-   glPushMatrix();
-   glTranslated(x, y, z);
-
-   double i; 
-   int draw = rand() % 2;
-
-
-   glBindTexture(GL_TEXTURE_2D, texture[11]);
-
-
-
-   // Main horizontal cross members
-   // Backface
-   // Top
-   glNormal3d(0, 0, -1);
-   glBegin(GL_POLYGON);
-   glTexCoord2f(0, 0); glVertex3d(-30, 39, 0);
-   glTexCoord2f(3 * 1, 0); glVertex3d(31, 39, 0);
-   glTexCoord2f(3 * 1, 0.5); glVertex3d(31, 40, 0);
-   glTexCoord2f(0, 0.5); glVertex3d(-30, 40, 0);
-   glEnd();
-
-   // Bottom
-   glBegin(GL_POLYGON);
-   glTexCoord2f(0, 0); glVertex3d(-30, 33, 0);
-   glTexCoord2f(3 * 1, 0); glVertex3d(31, 33, 0);
-   glTexCoord2f(3 * 1, 0.5); glVertex3d(31, 34, 0);
-   glTexCoord2f(0, 0.5); glVertex3d(-30, 34, 0);
-   glEnd();
-
-   for (i = -30.5; i <= 29.5; i += 7.5) {
-      // Vertical bars
-      glBegin(GL_QUADS);
-      glTexCoord2f(0, 0); glVertex3d(i, 34, 0);
-      glTexCoord2f(0.1, 0); glVertex3d(i + 1, 34, 0);
-      glTexCoord2f(0.1, 1); glVertex3d(i + 1, 39, 0);
-      glTexCoord2f(0, 1); glVertex3d(i, 39, 0);
-      glEnd();
-
-      // Diagonal bars
-      glBegin(GL_POLYGON);
-      glTexCoord2f(0, 0.1); glVertex3d(i + 1, 34 + sqrt(2)/2, 0);
-      glTexCoord2f(0, 0); glVertex3d(i + 1, 34, 0);
-      glTexCoord2f(0.1, 0); glVertex3d(i + 1 + sqrt(2)/2, 34, 0);
-      glTexCoord2f(0.7 * 1, 0.7 * 0.6); glVertex3d(i + 7.5, 39 - sqrt(2)/2, 0);
-      glTexCoord2f(0.7 * 1, 0.7 * 0.7); glVertex3d(i + 7.5, 39, 0);
-      glTexCoord2f(0.7 * 0.7, 0.7 * 0.7); glVertex3d(i + 7.5 - sqrt(2)/2, 39, 0);
-      glEnd();
-   }
-
-   // Main horizontal cross members
-   // Frontface
-   // Top
-   glNormal3d(0, 0, -1);
-   glBegin(GL_POLYGON);
-   glTexCoord2f(0, 0); glVertex3d(-30, 39, 7);
-   glTexCoord2f(3 * 1, 0); glVertex3d(31, 39, 7);
-   glTexCoord2f(3 * 1, 0.5); glVertex3d(31, 40, 7);
-   glTexCoord2f(0, 0.5); glVertex3d(-30, 40, 7);
-   glEnd();
-
-   // Bottom
-   glBegin(GL_POLYGON);
-   glTexCoord2f(0, 0); glVertex3d(-30, 33, 7);
-   glTexCoord2f(3 * 1, 0); glVertex3d(31, 33, 7);
-   glTexCoord2f(3 * 1, 0.5); glVertex3d(31, 34, 7);
-   glTexCoord2f(0, 0.5); glVertex3d(-30, 34, 7);
-   glEnd();
-
-   for (i = -30.5; i <= 29.5; i += 7.5) {
-      // Vertical bars
-      glBegin(GL_QUADS);
-      glTexCoord2f(0, 0); glVertex3d(i, 34, 7);
-      glTexCoord2f(0.1, 0); glVertex3d(i + 1, 34, 7);
-      glTexCoord2f(0.1, 1); glVertex3d(i + 1, 39, 7);
-      glTexCoord2f(0, 1); glVertex3d(i, 39, 7);
-      glEnd();
-
-      // Diagonal bars
-      glBegin(GL_POLYGON);
-      glTexCoord2f(0, 0.1); glVertex3d(i + 1, 34 + sqrt(2)/2, 7);
-      glTexCoord2f(0, 0); glVertex3d(i + 1, 34, 7);
-      glTexCoord2f(0.1, 0); glVertex3d(i + 1 + sqrt(2)/2, 34, 7);
-      glTexCoord2f(0.7 * 1, 0.7 * 0.6); glVertex3d(i + 7.5, 39 - sqrt(2)/2, 7);
-      glTexCoord2f(0.7 * 1, 0.7 * 0.7); glVertex3d(i + 7.5, 39, 7);
-      glTexCoord2f(0.7 * 0.7, 0.7 * 0.7); glVertex3d(i + 7.5 - sqrt(2)/2, 39, 7);
-      glEnd();
-   }
-
-   // Top closure
-   glNormal3d(0, 1, 0);
-   glBegin(GL_QUADS);
-   glTexCoord2f(0, 0); glVertex3d(-30, 40, 7);
-   glTexCoord2f(3 * 1, 0); glVertex3d(30, 40, 7);
-   glTexCoord2f(3 * 1, 1); glVertex3d(30, 40, 0);
-   glTexCoord2f(0, 1); glVertex3d(-30, 40, 0);
-   glEnd();
-
-   // Bottom closure
-   glNormal3d(0, -1, 0);
-   glBegin(GL_QUADS);
-   glTexCoord2f(0, 0); glVertex3d(-30, 33, 7);
-   glTexCoord2f(3 * 1, 0); glVertex3d(30, 33, 7);
-   glTexCoord2f(3 * 1, 1); glVertex3d(30, 33, 0);
-   glTexCoord2f(0, 1); glVertex3d(-30, 33, 0);
-   glEnd();
-
-   glPopMatrix();
-}
-
-
-static void trench(double x, double y, double z) {
-
-   glEnable(GL_TEXTURE_2D);
-
-   // Save matrix and adjust position
-   glPushMatrix();
-   glTranslated(x, y, z);
-
-   int i;
-
-   // Repeat factor of trench texture
-   double rep = 14;
-
-   // Builds trench in panels for animation
-   for (i = 10000; i >= -10000; i-=1000) {
-
-      glBindTexture(GL_TEXTURE_2D, texture[7]);
-      // Floor
-      glBegin(GL_QUADS);
-      glTexCoord2f(0, 0); glVertex3d(-30, 0, i + trenchAnim);
-      glTexCoord2f(1, 0); glVertex3d(30, 0, i + trenchAnim);
-      glTexCoord2f(1, 4); glVertex3d(30, 0, i - 1000 + trenchAnim);
-      glTexCoord2f(0, 4); glVertex3d(-30, 0, i - 1000 + trenchAnim);
-      glEnd();
-
-      glBindTexture(GL_TEXTURE_2D, trenchTex[0]);
-
-      // Port side
-      glBegin(GL_QUADS);
-      glTexCoord2f(0, 0); glVertex3d(30, 0, i - 1000 + trenchAnim);
-      glTexCoord2f(rep * 1, 0); glVertex3d(30, 0, i + trenchAnim);
-      glTexCoord2f(rep * 1, 1); glVertex3d(30, 40, i + trenchAnim);
-      glTexCoord2f(0, 1); glVertex3d(30, 40, i - 1000 + trenchAnim);
-      glEnd();
-
-      // Starboard side
-      glBegin(GL_QUADS);
-      glTexCoord2f(0, 0); glVertex3d(-30, 0, i + trenchAnim);
-      glTexCoord2f(rep * 1, 0); glVertex3d(-30, 0, i - 1000 + trenchAnim);
-      glTexCoord2f(rep * 1, 1); glVertex3d(-30, 40, i - 1000 + trenchAnim);
-      glTexCoord2f(0, 1); glVertex3d(-30, 40, i + trenchAnim);
-      glEnd();
-
-
-      scaffoldBridge(0, 0, i + trenchAnim);
-
-      // Create turret
-      //tTurret(-30, 30, i + 500 +trenchAnim, 1, 0,0,0, 0, 0);
-      //tTurret(30, 30, i + 500 +trenchAnim, 1, 0,0,0, 0, 0);
-
-   }
-
-
-   
-
-   glPopMatrix();
-
-   glDisable(GL_TEXTURE_2D);
-
-}
-
-
-
 static void vader(double x,double y,double z,double r)
 {
    int d = 5;
@@ -2856,7 +2681,7 @@ static void turretBase()
 static void tTurret(double x, double y, double z,
                  double s,
                  double rx, double ry, double rz,
-                 double th, double rt)
+                 double th, double rt, double topRot)
 {
    //  Save transformation
    glPushMatrix();
@@ -2866,20 +2691,187 @@ static void tTurret(double x, double y, double z,
    glScaled(s,s,s);
    glRotated(th,rx,ry,rz);
 
-   //  Enable textures
-   glEnable(GL_TEXTURE_2D);
-
    // Create turret base
    turretBase();
 
    // Create turret top
-   turretTop(0);
-
-   // Disable Textures
-   glDisable(GL_TEXTURE_2D);
+   turretTop(topRot);
 
    //  Undo transofrmations
    glPopMatrix();
+}
+
+static void scaffoldBridge(double x, double y, double z) {
+   glPushMatrix();
+   glTranslated(x, y, z);
+
+   double i; 
+   int draw = rand() % 2;
+
+
+   glBindTexture(GL_TEXTURE_2D, texture[11]);
+
+
+
+   // Main horizontal cross members
+   // Backface
+   // Top
+   glNormal3d(0, 0, -1);
+   glBegin(GL_POLYGON);
+   glTexCoord2f(0, 0); glVertex3d(-30, 39, 0);
+   glTexCoord2f(3 * 1, 0); glVertex3d(31, 39, 0);
+   glTexCoord2f(3 * 1, 0.5); glVertex3d(31, 40, 0);
+   glTexCoord2f(0, 0.5); glVertex3d(-30, 40, 0);
+   glEnd();
+
+   // Bottom
+   glBegin(GL_POLYGON);
+   glTexCoord2f(0, 0); glVertex3d(-30, 33, 0);
+   glTexCoord2f(3 * 1, 0); glVertex3d(31, 33, 0);
+   glTexCoord2f(3 * 1, 0.5); glVertex3d(31, 34, 0);
+   glTexCoord2f(0, 0.5); glVertex3d(-30, 34, 0);
+   glEnd();
+
+   for (i = -30.5; i <= 29.5; i += 7.5) {
+      // Vertical bars
+      glBegin(GL_QUADS);
+      glTexCoord2f(0, 0); glVertex3d(i, 34, 0);
+      glTexCoord2f(0.1, 0); glVertex3d(i + 1, 34, 0);
+      glTexCoord2f(0.1, 1); glVertex3d(i + 1, 39, 0);
+      glTexCoord2f(0, 1); glVertex3d(i, 39, 0);
+      glEnd();
+
+      // Diagonal bars
+      glBegin(GL_POLYGON);
+      glTexCoord2f(0, 0.1); glVertex3d(i + 1, 34 + sqrt(2)/2, 0);
+      glTexCoord2f(0, 0); glVertex3d(i + 1, 34, 0);
+      glTexCoord2f(0.1, 0); glVertex3d(i + 1 + sqrt(2)/2, 34, 0);
+      glTexCoord2f(0.7 * 1, 0.7 * 0.6); glVertex3d(i + 7.5, 39 - sqrt(2)/2, 0);
+      glTexCoord2f(0.7 * 1, 0.7 * 0.7); glVertex3d(i + 7.5, 39, 0);
+      glTexCoord2f(0.7 * 0.7, 0.7 * 0.7); glVertex3d(i + 7.5 - sqrt(2)/2, 39, 0);
+      glEnd();
+   }
+
+   // Main horizontal cross members
+   // Frontface
+   // Top
+   glNormal3d(0, 0, -1);
+   glBegin(GL_POLYGON);
+   glTexCoord2f(0, 0); glVertex3d(-30, 39, 7);
+   glTexCoord2f(3 * 1, 0); glVertex3d(31, 39, 7);
+   glTexCoord2f(3 * 1, 0.5); glVertex3d(31, 40, 7);
+   glTexCoord2f(0, 0.5); glVertex3d(-30, 40, 7);
+   glEnd();
+
+   // Bottom
+   glBegin(GL_POLYGON);
+   glTexCoord2f(0, 0); glVertex3d(-30, 33, 7);
+   glTexCoord2f(3 * 1, 0); glVertex3d(31, 33, 7);
+   glTexCoord2f(3 * 1, 0.5); glVertex3d(31, 34, 7);
+   glTexCoord2f(0, 0.5); glVertex3d(-30, 34, 7);
+   glEnd();
+
+   for (i = -30.5; i <= 29.5; i += 7.5) {
+      // Vertical bars
+      glBegin(GL_QUADS);
+      glTexCoord2f(0, 0); glVertex3d(i, 34, 7);
+      glTexCoord2f(0.1, 0); glVertex3d(i + 1, 34, 7);
+      glTexCoord2f(0.1, 1); glVertex3d(i + 1, 39, 7);
+      glTexCoord2f(0, 1); glVertex3d(i, 39, 7);
+      glEnd();
+
+      // Diagonal bars
+      glBegin(GL_POLYGON);
+      glTexCoord2f(0, 0.1); glVertex3d(i + 1, 34 + sqrt(2)/2, 7);
+      glTexCoord2f(0, 0); glVertex3d(i + 1, 34, 7);
+      glTexCoord2f(0.1, 0); glVertex3d(i + 1 + sqrt(2)/2, 34, 7);
+      glTexCoord2f(0.7 * 1, 0.7 * 0.6); glVertex3d(i + 7.5, 39 - sqrt(2)/2, 7);
+      glTexCoord2f(0.7 * 1, 0.7 * 0.7); glVertex3d(i + 7.5, 39, 7);
+      glTexCoord2f(0.7 * 0.7, 0.7 * 0.7); glVertex3d(i + 7.5 - sqrt(2)/2, 39, 7);
+      glEnd();
+   }
+
+   // Top closure
+   glNormal3d(0, 1, 0);
+   glBegin(GL_QUADS);
+   glTexCoord2f(0, 0); glVertex3d(-30, 40, 7);
+   glTexCoord2f(3 * 1, 0); glVertex3d(30, 40, 7);
+   glTexCoord2f(3 * 1, 1); glVertex3d(30, 40, 0);
+   glTexCoord2f(0, 1); glVertex3d(-30, 40, 0);
+   glEnd();
+
+   // Bottom closure
+   glNormal3d(0, -1, 0);
+   glBegin(GL_QUADS);
+   glTexCoord2f(0, 0); glVertex3d(-30, 33, 7);
+   glTexCoord2f(3 * 1, 0); glVertex3d(30, 33, 7);
+   glTexCoord2f(3 * 1, 1); glVertex3d(30, 33, 0);
+   glTexCoord2f(0, 1); glVertex3d(-30, 33, 0);
+   glEnd();
+
+   glPopMatrix();
+}
+
+
+static void trench(double x, double y, double z) {
+
+   glEnable(GL_TEXTURE_2D);
+
+   // Save matrix and adjust position
+   glPushMatrix();
+   glTranslated(x, y, z);
+
+   int i;
+
+   // Repeat factor of trench texture
+   double rep = 14;
+
+   // Builds trench in panels for animation
+   for (i = 10000; i >= -10000; i-=1000) {
+
+      glBindTexture(GL_TEXTURE_2D, texture[7]);
+      // Floor
+      glBegin(GL_QUADS);
+      glTexCoord2f(0, 0); glVertex3d(-30, 0, i + trenchAnim);
+      glTexCoord2f(1, 0); glVertex3d(30, 0, i + trenchAnim);
+      glTexCoord2f(1, 4); glVertex3d(30, 0, i - 1000 + trenchAnim);
+      glTexCoord2f(0, 4); glVertex3d(-30, 0, i - 1000 + trenchAnim);
+      glEnd();
+
+      glBindTexture(GL_TEXTURE_2D, trenchTex[0]);
+
+      // Port side
+      glBegin(GL_QUADS);
+      glTexCoord2f(0, 0); glVertex3d(30, 0, i - 1000 + trenchAnim);
+      glTexCoord2f(rep * 1, 0); glVertex3d(30, 0, i + trenchAnim);
+      glTexCoord2f(rep * 1, 1); glVertex3d(30, 40, i + trenchAnim);
+      glTexCoord2f(0, 1); glVertex3d(30, 40, i - 1000 + trenchAnim);
+      glEnd();
+
+      // Starboard side
+      glBegin(GL_QUADS);
+      glTexCoord2f(0, 0); glVertex3d(-30, 0, i + trenchAnim);
+      glTexCoord2f(rep * 1, 0); glVertex3d(-30, 0, i - 1000 + trenchAnim);
+      glTexCoord2f(rep * 1, 1); glVertex3d(-30, 40, i - 1000 + trenchAnim);
+      glTexCoord2f(0, 1); glVertex3d(-30, 40, i + trenchAnim);
+      glEnd();
+
+
+      scaffoldBridge(0, 0, i + trenchAnim);
+
+      // Create turret
+      tTurret(-40, 40, i + 500 +trenchAnim, 1, 0,0,0, 0, 0, 90);
+      tTurret(40, 40, i + 500 +trenchAnim, 1, 0,0,0, 0, 0, -90);
+
+   }
+
+
+   
+
+   glPopMatrix();
+
+   glDisable(GL_TEXTURE_2D);
+
 }
 
 /*
