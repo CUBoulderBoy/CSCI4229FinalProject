@@ -501,7 +501,12 @@ static void vader(double x,double y,double z,double r)
    }
    */
    
+   
+   
    glPopMatrix();
+   
+   
+   
    // End lasers
    
    
@@ -724,6 +729,9 @@ static void vader(double x,double y,double z,double r)
    // Inner
    glColor3d(0.9, 0.9, 0.9);
 
+   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(1,1);
    glBegin(GL_POLYGON);
    glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(1,0,0);
@@ -732,10 +740,12 @@ static void vader(double x,double y,double z,double r)
    glTexCoord2f(0,0.25); glVertex3d(-2.3, 1, -6);
    glTexCoord2f(0,0); glVertex3d(-2.3, -1, -6);
    glEnd();
+   glDisable(GL_POLYGON_OFFSET_FILL);
    
    //Outer
-   //glEnable(GL_POLYGON_OFFSET_FILL);
-   //glPolygonOffset(1,1);
+   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(1,1);
    glBegin(GL_POLYGON);
    glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(-1,0,0);
@@ -744,33 +754,35 @@ static void vader(double x,double y,double z,double r)
    glTexCoord2f(1,0.25); glVertex3d(-2.4, 1, -6);
    glTexCoord2f(1,0); glVertex3d(-2.4, -1, -6);
    glEnd();
-   //glDisable(GL_POLYGON_OFFSET_FILL);
+   glDisable(GL_POLYGON_OFFSET_FILL);
 
    // Center Startboard Panels
-   //glEnable(GL_POLYGON_OFFSET_FILL);
-   //glPolygonOffset(-1,-1);
+   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(-1,-1);
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[10]);
+   glBindTexture(GL_TEXTURE_2D,texture[17]);
    glNormal3d(-1,0,0);
    glTexCoord2f(1,0); glVertex3d(-2.4, -0.75, -0.92);
    glTexCoord2f(1,0.25); glVertex3d(-2.4, 0.75, -0.92);
    glTexCoord2f(0,0.25); glVertex3d(-2.4, 0.75, -5.75);
    glTexCoord2f(0,0); glVertex3d(-2.4, -0.75, -5.75);
    glEnd();
-   //glDisable(GL_POLYGON_OFFSET_FILL);
+   glDisable(GL_POLYGON_OFFSET_FILL);
 
-   //glEnable(GL_POLYGON_OFFSET_FILL);
-   //glPolygonOffset(-1,-1);
+   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(-1,-1);
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[10]);
+   glBindTexture(GL_TEXTURE_2D,texture[17]);
    glNormal3d(-1,0,0);
    glTexCoord2f(1,0); glVertex3d(-2.4, -0.75, 1.75);
    glTexCoord2f(1,0.62); glVertex3d(-2.4, 0.75, 1.75);
    glTexCoord2f(0,0.62); glVertex3d(-2.4, 0.75, -0.67);
    glTexCoord2f(0,0); glVertex3d(-2.4, -0.75, -0.67);
    glEnd();
-   //glDisable(GL_POLYGON_OFFSET_FILL);
-
+   glDisable(GL_POLYGON_OFFSET_FILL);
+   
    // Forward edge center
    glBegin(GL_POLYGON);
    glBindTexture(GL_TEXTURE_2D,texture[4]);
@@ -790,7 +802,7 @@ static void vader(double x,double y,double z,double r)
    glTexCoord2f(0,1); glVertex3d(-2.3, 1, -6);
    glTexCoord2f(0,0); glVertex3d(-2.3, -1, -6);
    glEnd();
-
+   
    // ---------------------------- Top-tilted panel starboard --------------------------
    // Inner
    glBegin(GL_POLYGON);
@@ -1078,7 +1090,6 @@ static void vader(double x,double y,double z,double r)
       glTexCoord2f(0.5 + cos(th), 0.5 + sin(th)); glVertex3d((4.6 * Cos(45)) * Cos(th), (4.6 * Cos(45)) * Sin(th), 0);
       
    }
-   glEnd();
    
    glBegin(GL_QUADS);
    glNormal3d(0,0,1);
@@ -1102,8 +1113,6 @@ static void vader(double x,double y,double z,double r)
       glTexCoord2f(0.5 + cos(th), 0.5 + sin(th)); glVertex3d((4.6 * Cos(45)) * Cos(th), (4.6 * Cos(45)) * Sin(th), -0.3);
       
    }
-   glEnd();
-
    glBegin(GL_QUADS);
    glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(0,0,1);
@@ -1115,7 +1124,8 @@ static void vader(double x,double y,double z,double r)
    
    // Arc strip (joins top and bottom panel on aft edge)
    glBegin(GL_QUAD_STRIP);
-   glBindTexture(GL_TEXTURE_2D,texture[4]); 
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
+   
    for (th = 45; th <= 135; th += 5)
    {
       
@@ -2968,17 +2978,14 @@ static void trench(double x, double y, double z) {
 
    int i;
 
-   // Repeat factor of trench texture (walls)
+   // Repeat factor of trench texture
    double rep = 14;
 
    // Builds trench in panels for animation
-   for (i = 5000; i >= -5000; i-=1000) {
-
-      trenchAnim = 0;
+   for (i = 10000; i >= -10000; i-=1000) {
 
       glBindTexture(GL_TEXTURE_2D, texture[7]);
       // Floor
-      glNormal3d(0, 1, 0);
       glBegin(GL_QUADS);
       glTexCoord2f(0, 0); glVertex3d(-30, 0, i + trenchAnim);
       glTexCoord2f(1, 0); glVertex3d(30, 0, i + trenchAnim);
@@ -2989,7 +2996,6 @@ static void trench(double x, double y, double z) {
       glBindTexture(GL_TEXTURE_2D, trenchTex[0]);
 
       // Port side
-      glNormal3d(-1, 0, 0);
       glBegin(GL_QUADS);
       glTexCoord2f(0, 0); glVertex3d(30, 0, i - 1000 + trenchAnim);
       glTexCoord2f(rep * 1, 0); glVertex3d(30, 0, i + trenchAnim);
@@ -2998,7 +3004,6 @@ static void trench(double x, double y, double z) {
       glEnd();
 
       // Starboard side
-      glNormal3d(1, 0, 0);
       glBegin(GL_QUADS);
       glTexCoord2f(0, 0); glVertex3d(-30, 0, i + trenchAnim);
       glTexCoord2f(rep * 1, 0); glVertex3d(-30, 0, i - 1000 + trenchAnim);
@@ -3069,7 +3074,7 @@ void display()
    gluLookAt(Ex,Ey,Ez, 0,0,0 , 0,Cos(ph),0);
    
 
-   //printf("Camera X: %f, Camera Y: %f, Camera Z: %f", Ex, Ey, Ez);
+   printf("Camera X: %f, Camera Y: %f, Camera Z: %f", Ex, Ey, Ez);
 
    // Draw skybox
    skybox(3.5*dim);
@@ -3083,11 +3088,11 @@ void display()
    float Specular[]  = {0.01*specular,0.01*specular,0.01*specular,1.0};
 
    //  Light position
-   float Position[]  = {-20,50,-50,1.0};
+   float Position[]  = {distance*Cos(zh),ylight,distance*Sin(zh),1.0};
 
    //  Draw light position as ball (still no lighting here)
    glColor3f(1,1,1);
-   ball(Position[0],Position[1],Position[2], 0.1);
+   ball(Position[0],Position[1],Position[2] , 0.1);
 
    //  OpenGL should normalize normal vectors
    glEnable(GL_NORMALIZE);
@@ -3142,10 +3147,11 @@ void idle()
    zh = fmod(90*t,360.0);
 
    if (!pause) {
+      if (trenchAnim < -10000)
+         trenchAnim = 0;
 
-      trenchAnim = -(fmod(100 * t, 20001) - 10000);
+      trenchAnim -= 3;
    }
-
    //  Tell GLUT it is necessary to redisplay the scene
    glutPostRedisplay();
 }
