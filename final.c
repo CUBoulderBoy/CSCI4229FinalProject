@@ -43,7 +43,8 @@ int zh        =  90;  // Light azimuth
 float ylight  =   0;  // Elevation of light
 
 int camera = 1;       // Camera selector
-int trenchAnim = 0;
+int trenchAnim = 0;   // Used to for trench animation (distance variable)
+int pause = 0;        // Pauses animations
 
 // For idle function
 unsigned long ot;
@@ -131,6 +132,8 @@ static void ball(double x,double y,double z,double r)
 // Draw skybox
 static void skybox(double D)
 {
+   glPushMatrix();
+   glRotated(180, 0, 1, 0);
    glColor3f(1,1,1);
    glEnable(GL_TEXTURE_2D);
    
@@ -189,6 +192,7 @@ static void skybox(double D)
    glEnd();
    
    glDisable(GL_TEXTURE_2D);
+   glPopMatrix();
 }
 
 static void vader(double x,double y,double z,double r)
@@ -3012,7 +3016,9 @@ static void trench(double x, double y, double z) {
 
       // Create turret
       tTurret(-40, 40, i + 500 +trenchAnim, 1, 0,0,0, 0, 0, 90);
+      tTurret(-40, 40, i + 1000 +trenchAnim, 1, 0,0,0, 0, 0, 90);
       tTurret(40, 40, i + 500 +trenchAnim, 1, 0,0,0, 0, 0, -90);
+      tTurret(40, 40, i + 1000 +trenchAnim, 1, 0,0,0, 0, 0, -90);
 
    }
 
@@ -3140,11 +3146,12 @@ void idle()
    double t = glutGet(GLUT_ELAPSED_TIME)/1000.0;
    zh = fmod(90*t,360.0);
 
-   if (trenchAnim > 0 || trenchAnim < -10000)
-      trenchAnim = 0;
+   if (!pause) {
+      if (trenchAnim < -10000)
+         trenchAnim = 0;
 
-   trenchAnim -= 3;
-
+      trenchAnim -= 3;
+   }
    //  Tell GLUT it is necessary to redisplay the scene
    glutPostRedisplay();
 }
@@ -3255,6 +3262,16 @@ void key(unsigned char ch,int x,int y)
       camera = 2;
       move = 1;
    }
+   else if (ch == ' ') {
+      pause = 1 - pause;
+
+      if (move && pause) {
+         move = 0;
+      } else if (!pause && !move) {
+         move = 1;
+      }
+   }
+
 
    //  Translate shininess power to value (-1 => 0)
    shinyvec[0] = shininess<0 ? 0 : pow(2.0,shininess);
@@ -3293,7 +3310,7 @@ int main(int argc,char* argv[])
    
    //  Request double buffered, true color window with Z buffering at 600x600
    glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
-   glutInitWindowSize(800,800);
+   glutInitWindowSize(1000,1000);
    glutCreateWindow("Chris Jordan & Jeremy Granger: Star Wars IV - Death Star Trench Scene");
    
    //  Set callbacks
