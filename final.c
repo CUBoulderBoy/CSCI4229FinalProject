@@ -501,12 +501,7 @@ static void vader(double x,double y,double z,double r)
    }
    */
    
-   
-   
    glPopMatrix();
-   
-   
-   
    // End lasers
    
    
@@ -729,9 +724,6 @@ static void vader(double x,double y,double z,double r)
    // Inner
    glColor3d(0.9, 0.9, 0.9);
 
-   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-   glEnable(GL_POLYGON_OFFSET_FILL);
-   glPolygonOffset(1,1);
    glBegin(GL_POLYGON);
    glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(1,0,0);
@@ -740,12 +732,10 @@ static void vader(double x,double y,double z,double r)
    glTexCoord2f(0,0.25); glVertex3d(-2.3, 1, -6);
    glTexCoord2f(0,0); glVertex3d(-2.3, -1, -6);
    glEnd();
-   glDisable(GL_POLYGON_OFFSET_FILL);
    
    //Outer
-   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-   glEnable(GL_POLYGON_OFFSET_FILL);
-   glPolygonOffset(1,1);
+   //glEnable(GL_POLYGON_OFFSET_FILL);
+   //glPolygonOffset(1,1);
    glBegin(GL_POLYGON);
    glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(-1,0,0);
@@ -754,35 +744,33 @@ static void vader(double x,double y,double z,double r)
    glTexCoord2f(1,0.25); glVertex3d(-2.4, 1, -6);
    glTexCoord2f(1,0); glVertex3d(-2.4, -1, -6);
    glEnd();
-   glDisable(GL_POLYGON_OFFSET_FILL);
+   //glDisable(GL_POLYGON_OFFSET_FILL);
 
    // Center Startboard Panels
-   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-   glEnable(GL_POLYGON_OFFSET_FILL);
-   glPolygonOffset(-1,-1);
+   //glEnable(GL_POLYGON_OFFSET_FILL);
+   //glPolygonOffset(-1,-1);
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[17]);
+   glBindTexture(GL_TEXTURE_2D,texture[10]);
    glNormal3d(-1,0,0);
    glTexCoord2f(1,0); glVertex3d(-2.4, -0.75, -0.92);
    glTexCoord2f(1,0.25); glVertex3d(-2.4, 0.75, -0.92);
    glTexCoord2f(0,0.25); glVertex3d(-2.4, 0.75, -5.75);
    glTexCoord2f(0,0); glVertex3d(-2.4, -0.75, -5.75);
    glEnd();
-   glDisable(GL_POLYGON_OFFSET_FILL);
+   //glDisable(GL_POLYGON_OFFSET_FILL);
 
-   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-   glEnable(GL_POLYGON_OFFSET_FILL);
-   glPolygonOffset(-1,-1);
+   //glEnable(GL_POLYGON_OFFSET_FILL);
+   //glPolygonOffset(-1,-1);
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[17]);
+   glBindTexture(GL_TEXTURE_2D,texture[10]);
    glNormal3d(-1,0,0);
    glTexCoord2f(1,0); glVertex3d(-2.4, -0.75, 1.75);
    glTexCoord2f(1,0.62); glVertex3d(-2.4, 0.75, 1.75);
    glTexCoord2f(0,0.62); glVertex3d(-2.4, 0.75, -0.67);
    glTexCoord2f(0,0); glVertex3d(-2.4, -0.75, -0.67);
    glEnd();
-   glDisable(GL_POLYGON_OFFSET_FILL);
-   
+   //glDisable(GL_POLYGON_OFFSET_FILL);
+
    // Forward edge center
    glBegin(GL_POLYGON);
    glBindTexture(GL_TEXTURE_2D,texture[4]);
@@ -802,7 +790,7 @@ static void vader(double x,double y,double z,double r)
    glTexCoord2f(0,1); glVertex3d(-2.3, 1, -6);
    glTexCoord2f(0,0); glVertex3d(-2.3, -1, -6);
    glEnd();
-   
+
    // ---------------------------- Top-tilted panel starboard --------------------------
    // Inner
    glBegin(GL_POLYGON);
@@ -1090,6 +1078,7 @@ static void vader(double x,double y,double z,double r)
       glTexCoord2f(0.5 + cos(th), 0.5 + sin(th)); glVertex3d((4.6 * Cos(45)) * Cos(th), (4.6 * Cos(45)) * Sin(th), 0);
       
    }
+   glEnd();
    
    glBegin(GL_QUADS);
    glNormal3d(0,0,1);
@@ -1113,6 +1102,8 @@ static void vader(double x,double y,double z,double r)
       glTexCoord2f(0.5 + cos(th), 0.5 + sin(th)); glVertex3d((4.6 * Cos(45)) * Cos(th), (4.6 * Cos(45)) * Sin(th), -0.3);
       
    }
+   glEnd();
+
    glBegin(GL_QUADS);
    glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(0,0,1);
@@ -1124,8 +1115,7 @@ static void vader(double x,double y,double z,double r)
    
    // Arc strip (joins top and bottom panel on aft edge)
    glBegin(GL_QUAD_STRIP);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
-   
+   glBindTexture(GL_TEXTURE_2D,texture[4]); 
    for (th = 45; th <= 135; th += 5)
    {
       
