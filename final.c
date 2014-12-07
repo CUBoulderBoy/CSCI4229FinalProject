@@ -2968,14 +2968,17 @@ static void trench(double x, double y, double z) {
 
    int i;
 
-   // Repeat factor of trench texture
+   // Repeat factor of trench texture (walls)
    double rep = 14;
 
    // Builds trench in panels for animation
-   for (i = 10000; i >= -10000; i-=1000) {
+   for (i = 5000; i >= -5000; i-=1000) {
+
+      trenchAnim = 0;
 
       glBindTexture(GL_TEXTURE_2D, texture[7]);
       // Floor
+      glNormal3d(0, 1, 0);
       glBegin(GL_QUADS);
       glTexCoord2f(0, 0); glVertex3d(-30, 0, i + trenchAnim);
       glTexCoord2f(1, 0); glVertex3d(30, 0, i + trenchAnim);
@@ -2986,6 +2989,7 @@ static void trench(double x, double y, double z) {
       glBindTexture(GL_TEXTURE_2D, trenchTex[0]);
 
       // Port side
+      glNormal3d(-1, 0, 0);
       glBegin(GL_QUADS);
       glTexCoord2f(0, 0); glVertex3d(30, 0, i - 1000 + trenchAnim);
       glTexCoord2f(rep * 1, 0); glVertex3d(30, 0, i + trenchAnim);
@@ -2994,6 +2998,7 @@ static void trench(double x, double y, double z) {
       glEnd();
 
       // Starboard side
+      glNormal3d(1, 0, 0);
       glBegin(GL_QUADS);
       glTexCoord2f(0, 0); glVertex3d(-30, 0, i + trenchAnim);
       glTexCoord2f(rep * 1, 0); glVertex3d(-30, 0, i - 1000 + trenchAnim);
@@ -3064,7 +3069,7 @@ void display()
    gluLookAt(Ex,Ey,Ez, 0,0,0 , 0,Cos(ph),0);
    
 
-   printf("Camera X: %f, Camera Y: %f, Camera Z: %f", Ex, Ey, Ez);
+   //printf("Camera X: %f, Camera Y: %f, Camera Z: %f", Ex, Ey, Ez);
 
    // Draw skybox
    skybox(3.5*dim);
@@ -3078,11 +3083,11 @@ void display()
    float Specular[]  = {0.01*specular,0.01*specular,0.01*specular,1.0};
 
    //  Light position
-   float Position[]  = {distance*Cos(zh),ylight,distance*Sin(zh),1.0};
+   float Position[]  = {-20,50,-50,1.0};
 
    //  Draw light position as ball (still no lighting here)
    glColor3f(1,1,1);
-   ball(Position[0],Position[1],Position[2] , 0.1);
+   ball(Position[0],Position[1],Position[2], 0.1);
 
    //  OpenGL should normalize normal vectors
    glEnable(GL_NORMALIZE);
@@ -3137,11 +3142,10 @@ void idle()
    zh = fmod(90*t,360.0);
 
    if (!pause) {
-      if (trenchAnim < -10000)
-         trenchAnim = 0;
 
-      trenchAnim -= 3;
+      trenchAnim = -(fmod(100 * t, 20001) - 10000);
    }
+
    //  Tell GLUT it is necessary to redisplay the scene
    glutPostRedisplay();
 }
