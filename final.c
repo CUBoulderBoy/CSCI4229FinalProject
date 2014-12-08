@@ -26,6 +26,7 @@ unsigned int texture[18]; // Texture names
 GLuint cockpitTex;
 GLuint space[6];
 GLuint trenchTex[6];
+GLuint laser[2];
 
 // Light values
 int one       =   1;  // Unit value
@@ -59,6 +60,8 @@ unsigned long dt;
 
 // For initclock
 int first=0;
+
+
 
 /*
  *  Determine normal for triangle using the first point as
@@ -2471,6 +2474,36 @@ static void tFighter(double x, double y, double z,
    glPopMatrix();
 }
 
+
+static void laserBeam(double x, double y, double z, double angle, double rx, double ry, double rz, char color) {
+
+   glPushMatrix();
+   glTranslated(x, y, z);
+   glRotated(angle, rx, ry, rz);
+
+   glDisable(GL_LIGHTING);
+
+   if (color == 'r')
+      glBindTexture(GL_TEXTURE_2D, laser[0]);
+else if (color == 'g')
+      glBindTexture(GL_TEXTURE_2D, laser[1]);
+
+   glBegin(GL_QUADS);
+   glTexCoord2f(0, 0); glVertex3d(5, -0.25, 0);
+   glTexCoord2f(1, 0); glVertex3d(-5, -0.25, 0);
+   glTexCoord2f(1, 1); glVertex3d(-5, 0.25, 0);
+   glTexCoord2f(0, 1); glVertex3d(5, 0.25, 0);
+
+   glTexCoord2f(0, 0); glVertex3d(5, 0, -0.25);
+   glTexCoord2f(1, 0); glVertex3d(-5, 0, -0.25);
+   glTexCoord2f(1, 1); glVertex3d(-5, 0, 0.25);
+   glTexCoord2f(0, 1); glVertex3d(5, 0, 0.25);
+   glEnd();
+
+
+   glEnable(GL_LIGHTING);
+   glPopMatrix();
+}
 /*
  *  Draw a trench turrent top
  *     
@@ -2484,8 +2517,6 @@ static void turretTop(double rt)
    glTranslated(0,0.1,0);
    glRotated(rt,0,1,0);
 
-   //  Enable textures
-   //glEnable(GL_TEXTURE_2D);
 
    // Top panel
    glBindTexture(GL_TEXTURE_2D,texture[11]);
@@ -2756,11 +2787,11 @@ static void turretTop(double rt)
    //  Undo transofrmations
    glPopMatrix();
 
-   // Disable Textures
-   //glDisable(GL_TEXTURE_2D);
+
 
    //  Undo transofrmations
    glPopMatrix();
+
 }
 
 /*
@@ -2984,6 +3015,8 @@ static void trench(double x, double y, double z) {
    glTranslated(x, y, z);
 
    int i;
+
+   laserBeam(0, 1, 0, -20, 0, 1, 0, 'r');
 
    // Repeat factor of trench texture
    double rep = 14;
@@ -3383,6 +3416,9 @@ int main(int argc,char* argv[])
    space[5] = LoadTexBMP("neg-y.bmp");
 
    trenchTex[0] = LoadTexBMP("trench_face.bmp");
+
+   laser[0] = LoadTexBMP("laserRed.bmp");
+   laser[1] = LoadTexBMP("laserGreen.bmp");
 
    // Set clock
    ot = clock();
