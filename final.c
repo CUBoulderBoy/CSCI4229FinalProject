@@ -46,6 +46,13 @@ int camera = 1;       // Camera selector
 int trenchAnim = 0;   // Used to for trench animation (distance variable)
 int pause = 0;        // Pauses animations
 
+// Xwing positioning
+int xwing_x = 0;
+int xwing_y = 0;
+int xwing_z = 10;
+int xwing_r = -15;
+int xwing_d = 1;
+
 // For idle function
 unsigned long ot;
 unsigned long dt;
@@ -3120,7 +3127,7 @@ void display()
    trench(0, -10, 0);
 
    // Create XWING
-   xWing(0,0,10, 0.2, 0,0,1, 15);
+   xWing(xwing_x,xwing_y,xwing_z, 0.2, 0,0,1, xwing_r);
 
    vader(0, 0, -20, 6/5);
 
@@ -3147,11 +3154,33 @@ void idle()
    zh = fmod(90*t,360.0);
 
    if (!pause) {
-      if (trenchAnim < -10000)
+      if (trenchAnim < -10000){
          trenchAnim = 0;
+      }
+
+      if (xwing_d == 1){
+         if (xwing_x == 15){
+            xwing_d = -1;
+            xwing_r = 15;
+         }
+         else{
+            xwing_x++;
+         }
+      }
+
+      if (xwing_d == -1){
+         if (xwing_x == -15){
+            xwing_d = 1;
+            xwing_r = -15;
+         }
+         else{
+            xwing_x--;
+         }
+      }
 
       trenchAnim -= 3;
    }
+
    //  Tell GLUT it is necessary to redisplay the scene
    glutPostRedisplay();
 }
