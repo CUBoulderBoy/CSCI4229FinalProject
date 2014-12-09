@@ -19,7 +19,7 @@ int th=0;         //  Azimuth of view angle
 int ph=0;         //  Elevation of view angle
 int fov=55;       //  Field of view (for perspective)
 double asp=1;     //  Aspect ratio
-double dim=10000.0;   //  Size of world
+double dim=5000.0;   //  Size of world
 
 // Texture array
 unsigned int texture[18]; // Texture names
@@ -47,8 +47,10 @@ int camera = 1;       // Camera selector
 int trenchAnim = 0;   // Used to for trench animation (distance variable)
 int laserAnim = 0;
 int pause = 0;        // Pauses animations
-int laserDelay[10] = {500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000};
+int laserDelay = 500;
+double rotateZ = 0;
 
+int laserFired = 0;
 // Xwing positioning
 int xwing_x = 0;
 int xwing_y = 0;
@@ -207,7 +209,7 @@ static void skybox(double D)
    glPopMatrix();
 }
 
-static void vader(double x,double y,double z,double r)
+static void vader(double x,double y,double z,double r, double angle, double rx, double ry, double rz)
 {
    int d = 5;
    int th, ph;
@@ -219,31 +221,12 @@ static void vader(double x,double y,double z,double r)
    //  Offset and scale
    glTranslated(x,y,z);
    glScaled(r,r,r);
-
-   /*if (roll) {
-      glRotated(10 * Cos(rotateZ), 0, 0, 1);
-   } */
+   glRotated(angle, rx, ry, rz);
    
-   /* Fuselage - Sphere
-   for (ph=-90;ph<90;ph+=d)
-   {
-      glColor3d(color, color, color);
-      
-      glBegin(GL_QUAD_STRIP);
-      for (th=0;th<=360;th+=d)
-      {
-         // Vertex call makes normals, not needed manually
-         Vertex(th,ph);
-         Vertex(th,ph+d);
-         
-      }
-      glEnd();
-      color += (d / 250.0);
-   }*/
+  
    
    //  Enable textures
    glEnable(GL_TEXTURE_2D);
-   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
    glBindTexture(GL_TEXTURE_2D, cockpitTex);
    
    //  Bands of latitude
@@ -543,7 +526,6 @@ static void vader(double x,double y,double z,double r)
    /* Sponsons */
    //  Enable textures
    glEnable(GL_TEXTURE_2D);
-   glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,mode?GL_REPLACE:GL_MODULATE);
 
    // Forward-Top face starboard
    glBegin(GL_QUADS);
@@ -751,8 +733,9 @@ static void vader(double x,double y,double z,double r)
    glTexCoord2f(1,0.25); glVertex3d(-2.3, 1, 2);
    glTexCoord2f(0,0.25); glVertex3d(-2.3, 1, -6);
    glTexCoord2f(0,0); glVertex3d(-2.3, -1, -6);
-   glEnd();
    glDisable(GL_POLYGON_OFFSET_FILL);
+   glEnd();
+   
    
    //Outer
    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -2494,18 +2477,18 @@ else if (color == 'g')
 
 
    glPushMatrix();
-   glRotated(45, 0, 0, 1);
+   //glRotated(0, 0, 0, 1);
 
    glBegin(GL_QUADS);
-   glTexCoord2f(0, 0); glVertex3d(25 + laserAnim, -1, 0);
-   glTexCoord2f(1, 0); glVertex3d(-25 + laserAnim, -1, 0);
-   glTexCoord2f(1, 1); glVertex3d(-25 + laserAnim, 1, 0);
-   glTexCoord2f(0, 1); glVertex3d(25 + laserAnim, 1, 0);
+   glTexCoord2f(0, 0); glVertex3d(-1, -25 + laserAnim, 0);
+   glTexCoord2f(1, 0); glVertex3d(-1, 25 + laserAnim, 0);
+   glTexCoord2f(1, 1); glVertex3d(1, 25 + laserAnim, 0);
+   glTexCoord2f(0, 1); glVertex3d(1, -25 + laserAnim, 0);
 
-   glTexCoord2f(0, 0); glVertex3d(25 + laserAnim, 0, -1);
-   glTexCoord2f(1, 0); glVertex3d(-25 + laserAnim, 0, -1);
-   glTexCoord2f(1, 1); glVertex3d(-25 + laserAnim, 0, 1);
-   glTexCoord2f(0, 1); glVertex3d(25 + laserAnim, 0, 1);
+   glTexCoord2f(0, 0); glVertex3d(0, -25 + laserAnim, 1);
+   glTexCoord2f(1, 0); glVertex3d(0, 25 + laserAnim, 1);
+   glTexCoord2f(1, 1); glVertex3d(0, 25 + laserAnim, -1);
+   glTexCoord2f(0, 1); glVertex3d(0, -25 + laserAnim, -1);
    glEnd();
 
    glPopMatrix();
@@ -3026,12 +3009,85 @@ static void trench(double x, double y, double z) {
 
    int i;
 
-   for (i = 0; i < 10, i++) {
-      
-      laserBeam(0, 0, 0, 0, 0, 0, 0, 'g');
-      //laserBeam(-(400 + 2 * i), 1 - 2 * i, 500 - 4 * i, 135 + i, 0, 0, 1, 'g');
 
-   }
+   // Starboard side lasers
+   // 1
+   laserBeam(-100, 0, 200, -45, 0, 0, 1, 'g');
+   // 2
+   laserBeam(-300, 0, 400, -45, 0, 0, 1, 'g');
+   // 3
+   laserBeam(-500, 0, 600, -45, 0, 0, 1, 'g');
+   // 4
+   laserBeam(-700, 0, 100, -45, 0, 0, 1, 'g');
+   // 5
+   laserBeam(-800, 0, 300, -45, 0, 0, 1, 'g');
+   // 6
+   laserBeam(-100, 0, 500, -60, 0, 0, 1, 'g');
+   // 7
+   laserBeam(-300, 0, 700, -60, 0, 0, 1, 'g');
+   // 8
+   laserBeam(-500, 0, 800, -70, 0, 0, 1, 'g');
+   // 9
+   laserBeam(-700, 0, 700, -50, 0, 0, 1, 'g');
+   // 10
+   laserBeam(-600, 0, 800, -60, 0, 0, 1, 'g');
+
+   // Port side lasers
+   // 1
+   laserBeam(800, 0, 400, 40, 0, 0, 1, 'g');
+   // 2
+   laserBeam(450, 0, 600, 45, 0, 0, 1, 'g');
+   // 3
+   laserBeam(650, 0, 800, 45, 0, 0, 1, 'g');
+   // 4
+   laserBeam(540, 0, 700, 45, 0, 0, 1, 'g');
+   // 5
+   laserBeam(680, 0, 300, 30, 0, 0, 1, 'g');
+   // 6
+   laserBeam(120, 0, 500, 60, 0, 0, 1, 'g');
+   // 7
+   laserBeam(390, 0, 700, 60, 0, 0, 1, 'g');
+   // 8
+   laserBeam(540, 0, 800, 70, 0, 0, 1, 'g');
+   // 9
+   laserBeam(720, 0, 100, 50, 0, 0, 1, 'g');
+   // 10
+   laserBeam(980, 0, 1200, 60, 0, 0, 1, 'g');
+   
+   // Forward lasers
+   // 1
+   laserBeam(0, 30, 400, -85, 1, 0, 0, 'g');
+   // 2
+   laserBeam(0, 30, 600, -76, 1, 0, 0, 'g');
+   // 3
+   laserBeam(0, 30, 800, -85, 1, 0, 0, 'g');
+   // 4
+   laserBeam(0, 30, 1000, -89, 1, 0, 0, 'g');
+   // 5
+   laserBeam(0, 30, 300, -78, 1, 0, 0, 'g');
+
+   // Red lasers counter
+   // 1
+   laserBeam(200, 1000, 800, 140, 0, 0, 1, 'r');
+   // 2
+   laserBeam(-450, 800, 800, -120, 0, 0, 1, 'r');
+   // 3
+   laserBeam(250, 600, 800, 130, 0, 0, 1, 'r');
+   // 4
+   laserBeam(-540, 1200, 800, -130, 0, 0, 1, 'r');
+   // 5
+   laserBeam(350, 400, 800, 125, 0, 0, 1, 'r');
+   // 6
+   laserBeam(-120, 700, 800, -140, 0, 0, 1, 'r');
+   // 7
+   laserBeam(390, 300, 800, 130, 0, 0, 1, 'r');
+   // 8
+   laserBeam(-540, 1400, 800, -134, 0, 0, 1, 'r');
+   // 9
+   laserBeam(500, 850, 800, 134, 0, 0, 1, 'r');
+   // 10
+   laserBeam(-400, 425, 800, -119, 0, 0, 1, 'r');
+
 
    // Repeat factor of trench texture
    double rep = 14;
@@ -3145,7 +3201,7 @@ void display()
    float Specular[]  = {0.01*specular,0.01*specular,0.01*specular,1.0};
 
    //  Light position
-   float Position[]  = {0,20,-30,1.0};
+   float Position[]  = {0,100,-100,1.0};
 
    //  Draw light position as ball (still no lighting here)
    glColor3f(1,1,1);
@@ -3177,9 +3233,9 @@ void display()
    trench(0, -10, 0);
 
    // Create XWING
-   xWing(xwing_x,xwing_y,xwing_z, 0.2, 0,0,1, xwing_r);
+   xWing(5 * Cos(zh) , 3 *  Sin(zh), 50, 0.3, 0,0,1, 20 * Cos(zh));
 
-   vader(0, 0, -20, 6/5);
+   vader(10 * Cos(zh), 4 * Sin(zh), -20, 6/5, 20 * Cos(zh), 0, 0, 1);
 
    // Create Tie-Fighter
    tFighter(-10,-2,-40, 0.2, 0,0,0, 0);
@@ -3202,6 +3258,9 @@ void idle()
    //  Elapsed time in seconds
    double t = glutGet(GLUT_ELAPSED_TIME)/1000.0;
    zh = fmod(90*t,360.0);
+
+   
+   rotateZ = fmod(60 * t/1000, 360.0);
 
 
    // Trench animation
@@ -3232,10 +3291,8 @@ void idle()
 
       trenchAnim -= 3;
    }
-
-   // Laser animation
-   laserAnim = fmod(400*t, 501);
-
+   
+   laserAnim = fmod(500*t, 819);
 
    //  Tell GLUT it is necessary to redisplay the scene
    glutPostRedisplay();
@@ -3395,7 +3452,7 @@ int main(int argc,char* argv[])
    
    //  Request double buffered, true color window with Z buffering at 600x600
    glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
-   glutInitWindowSize(1000,1000);
+   glutInitWindowSize(800,800);
    glutCreateWindow("Chris Jordan & Jeremy Granger: Star Wars IV - Death Star Trench Scene");
    
    //  Set callbacks
