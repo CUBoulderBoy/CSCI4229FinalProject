@@ -45,7 +45,9 @@ float ylight  =   0;  // Elevation of light
 
 int camera = 1;       // Camera selector
 int trenchAnim = 0;   // Used to for trench animation (distance variable)
+int laserAnim = 0;
 int pause = 0;        // Pauses animations
+int laserDelay[10] = {500, 1000, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000};
 
 // Xwing positioning
 int xwing_x = 0;
@@ -2481,6 +2483,8 @@ static void laserBeam(double x, double y, double z, double angle, double rx, dou
    glTranslated(x, y, z);
    glRotated(angle, rx, ry, rz);
 
+
+
    glDisable(GL_LIGHTING);
 
    if (color == 'r')
@@ -2488,17 +2492,23 @@ static void laserBeam(double x, double y, double z, double angle, double rx, dou
 else if (color == 'g')
       glBindTexture(GL_TEXTURE_2D, laser[1]);
 
-   glBegin(GL_QUADS);
-   glTexCoord2f(0, 0); glVertex3d(5, -0.25, 0);
-   glTexCoord2f(1, 0); glVertex3d(-5, -0.25, 0);
-   glTexCoord2f(1, 1); glVertex3d(-5, 0.25, 0);
-   glTexCoord2f(0, 1); glVertex3d(5, 0.25, 0);
 
-   glTexCoord2f(0, 0); glVertex3d(5, 0, -0.25);
-   glTexCoord2f(1, 0); glVertex3d(-5, 0, -0.25);
-   glTexCoord2f(1, 1); glVertex3d(-5, 0, 0.25);
-   glTexCoord2f(0, 1); glVertex3d(5, 0, 0.25);
+   glPushMatrix();
+   glRotated(45, 0, 0, 1);
+
+   glBegin(GL_QUADS);
+   glTexCoord2f(0, 0); glVertex3d(25 + laserAnim, -1, 0);
+   glTexCoord2f(1, 0); glVertex3d(-25 + laserAnim, -1, 0);
+   glTexCoord2f(1, 1); glVertex3d(-25 + laserAnim, 1, 0);
+   glTexCoord2f(0, 1); glVertex3d(25 + laserAnim, 1, 0);
+
+   glTexCoord2f(0, 0); glVertex3d(25 + laserAnim, 0, -1);
+   glTexCoord2f(1, 0); glVertex3d(-25 + laserAnim, 0, -1);
+   glTexCoord2f(1, 1); glVertex3d(-25 + laserAnim, 0, 1);
+   glTexCoord2f(0, 1); glVertex3d(25 + laserAnim, 0, 1);
    glEnd();
+
+   glPopMatrix();
 
 
    glEnable(GL_LIGHTING);
@@ -3016,7 +3026,12 @@ static void trench(double x, double y, double z) {
 
    int i;
 
-   laserBeam(0, 1, 0, -20, 0, 1, 0, 'r');
+   for (i = 0; i < 10, i++) {
+      
+      laserBeam(0, 0, 0, 0, 0, 0, 0, 'g');
+      //laserBeam(-(400 + 2 * i), 1 - 2 * i, 500 - 4 * i, 135 + i, 0, 0, 1, 'g');
+
+   }
 
    // Repeat factor of trench texture
    double rep = 14;
@@ -3027,6 +3042,7 @@ static void trench(double x, double y, double z) {
       glBindTexture(GL_TEXTURE_2D, texture[7]);
       // Floor
       glBegin(GL_QUADS);
+      glNormal3d(0, 1, 0);
       glTexCoord2f(0, 0); glVertex3d(-30, 0, i + trenchAnim);
       glTexCoord2f(1, 0); glVertex3d(30, 0, i + trenchAnim);
       glTexCoord2f(1, 4); glVertex3d(30, 0, i - 1000 + trenchAnim);
@@ -3037,6 +3053,7 @@ static void trench(double x, double y, double z) {
 
       // Port side
       glBegin(GL_QUADS);
+      glNormal3d(-1, 0, 0);
       glTexCoord2f(0, 0); glVertex3d(30, 0, i - 1000 + trenchAnim);
       glTexCoord2f(rep * 1, 0); glVertex3d(30, 0, i + trenchAnim);
       glTexCoord2f(rep * 1, 1); glVertex3d(30, 40, i + trenchAnim);
@@ -3045,6 +3062,7 @@ static void trench(double x, double y, double z) {
 
       // Starboard side
       glBegin(GL_QUADS);
+      glNormal3d(1, 0, 0);
       glTexCoord2f(0, 0); glVertex3d(-30, 0, i + trenchAnim);
       glTexCoord2f(rep * 1, 0); glVertex3d(-30, 0, i - 1000 + trenchAnim);
       glTexCoord2f(rep * 1, 1); glVertex3d(-30, 40, i - 1000 + trenchAnim);
@@ -3114,7 +3132,6 @@ void display()
    gluLookAt(Ex,Ey,Ez, 0,0,0 , 0,Cos(ph),0);
    
 
-   printf("Camera X: %f, Camera Y: %f, Camera Z: %f", Ex, Ey, Ez);
 
    // Draw skybox
    skybox(3.5*dim);
@@ -3128,7 +3145,7 @@ void display()
    float Specular[]  = {0.01*specular,0.01*specular,0.01*specular,1.0};
 
    //  Light position
-   float Position[]  = {distance*Cos(zh),ylight,distance*Sin(zh),1.0};
+   float Position[]  = {0,20,-30,1.0};
 
    //  Draw light position as ball (still no lighting here)
    glColor3f(1,1,1);
@@ -3186,8 +3203,10 @@ void idle()
    double t = glutGet(GLUT_ELAPSED_TIME)/1000.0;
    zh = fmod(90*t,360.0);
 
+
+   // Trench animation
    if (!pause) {
-      if (trenchAnim < -10000){
+      if (trenchAnim < -2000){
          trenchAnim = 0;
       }
 
@@ -3213,6 +3232,10 @@ void idle()
 
       trenchAnim -= 3;
    }
+
+   // Laser animation
+   laserAnim = fmod(400*t, 501);
+
 
    //  Tell GLUT it is necessary to redisplay the scene
    glutPostRedisplay();
