@@ -722,65 +722,47 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    // Center panel starboard
    // Inner
    glColor3d(0.9, 0.9, 0.9);
-
-   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-   glEnable(GL_POLYGON_OFFSET_FILL);
-   glPolygonOffset(1,1);
-   glBegin(GL_POLYGON);
    glBindTexture(GL_TEXTURE_2D,texture[4]);
+
+   glBegin(GL_POLYGON);
    glNormal3d(1,0,0);
    glTexCoord2f(1,0); glVertex3d(-2.3, -1, 2);
    glTexCoord2f(1,0.25); glVertex3d(-2.3, 1, 2);
    glTexCoord2f(0,0.25); glVertex3d(-2.3, 1, -6);
    glTexCoord2f(0,0); glVertex3d(-2.3, -1, -6);
-   glDisable(GL_POLYGON_OFFSET_FILL);
    glEnd();
    
    
    //Outer
-   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-   glEnable(GL_POLYGON_OFFSET_FILL);
-   glPolygonOffset(1,1);
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(-1,0,0);
    glTexCoord2f(0,0); glVertex3d(-2.4, -1, 2);
    glTexCoord2f(0,0.25); glVertex3d(-2.4, 1, 2);
    glTexCoord2f(1,0.25); glVertex3d(-2.4, 1, -6);
    glTexCoord2f(1,0); glVertex3d(-2.4, -1, -6);
    glEnd();
-   glDisable(GL_POLYGON_OFFSET_FILL);
 
-   // Center Startboard Panels
-   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-   glEnable(GL_POLYGON_OFFSET_FILL);
-   glPolygonOffset(-1,-1);
-   glBegin(GL_POLYGON);
+   
    glBindTexture(GL_TEXTURE_2D,texture[17]);
+   glBegin(GL_POLYGON);
    glNormal3d(-1,0,0);
-   glTexCoord2f(1,0); glVertex3d(-2.4, -0.75, -0.92);
-   glTexCoord2f(1,0.25); glVertex3d(-2.4, 0.75, -0.92);
-   glTexCoord2f(0,0.25); glVertex3d(-2.4, 0.75, -5.75);
-   glTexCoord2f(0,0); glVertex3d(-2.4, -0.75, -5.75);
+   glTexCoord2f(1,0); glVertex3d(-2.51, -0.75, -0.92);
+   glTexCoord2f(1,0.25); glVertex3d(-2.51, 0.75, -0.92);
+   glTexCoord2f(0,0.25); glVertex3d(-2.51, 0.75, -5.75);
+   glTexCoord2f(0,0); glVertex3d(-2.51, -0.75, -5.75);
    glEnd();
-   glDisable(GL_POLYGON_OFFSET_FILL);
 
-   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-   glEnable(GL_POLYGON_OFFSET_FILL);
-   glPolygonOffset(-1,-1);
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[17]);
    glNormal3d(-1,0,0);
    glTexCoord2f(1,0); glVertex3d(-2.4, -0.75, 1.75);
    glTexCoord2f(1,0.62); glVertex3d(-2.4, 0.75, 1.75);
    glTexCoord2f(0,0.62); glVertex3d(-2.4, 0.75, -0.67);
    glTexCoord2f(0,0); glVertex3d(-2.4, -0.75, -0.67);
    glEnd();
-   glDisable(GL_POLYGON_OFFSET_FILL);
    
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    // Forward edge center
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(0,0,1);
    glTexCoord2f(0.05,0); glVertex3d(-2.3, -1, 2);
    glTexCoord2f(0.05,1); glVertex3d(-2.3, 1, 2);
@@ -790,7 +772,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    // Aft edge center
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(0,0,-1);
    glTexCoord2f(0.05,0); glVertex3d(-2.4, -1, -6);
    glTexCoord2f(0.05,1); glVertex3d(-2.4, 1, -6);
@@ -801,7 +782,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    // ---------------------------- Top-tilted panel starboard --------------------------
    // Inner
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(-1.8,2,1.25, -2.3,1,2, -1.8,2,-4.75);
    glTexCoord2f(0,0); glVertex3d(-2.3, 1, 2);
    glTexCoord2f(0.125,0.125); glVertex3d(-1.8, 2, 1.25);
@@ -811,7 +791,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    // Outer
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(-1.9,2,1.25, -1.9,2,-4.75, -2.4,1,2);
    glTexCoord2f(0,0); glVertex3d(-2.4, 1, 2);
    glTexCoord2f(0.125,0.125); glVertex3d(-1.9, 2, 1.25);
@@ -821,7 +800,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    // Forward edge top
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(-2.4,1,2, -2.3,1,2, -1.8,2,1.25);
    glTexCoord2f(0.1,0); glVertex3d(-2.3, 1, 2);
    glTexCoord2f(0.6,1); glVertex3d(-1.8, 2, 1.25);
@@ -831,7 +809,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    // Aft edge top
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(-2.3,1,-6, -1.9,2,-4.75, -2.4,1,-6);
    glTexCoord2f(0.1,0); glVertex3d(-2.4, 1, -6);
    glTexCoord2f(0.6,1); glVertex3d(-1.9, 2, -4.75);
@@ -841,7 +818,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    // Top edge
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(0,1,0);
    glTexCoord2f(0.017,1); glVertex3d(-1.8, 2, 1.25);
    glTexCoord2f(0.017,0); glVertex3d(-1.8, 2, -4.75);
@@ -852,7 +828,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    // ------------------------- Bottom-tilted panel starboard -----------------------
    // Inner
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(-2.3,-1,2, -1.8,-2,1.25, -2.3,-1,-6);
    glTexCoord2f(0.125,0.125); glVertex3d(-1.8, -2, 1.25);
    glTexCoord2f(0,0); glVertex3d(-2.3, -1, 2);
@@ -862,7 +837,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    // Outer
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(-2.4,-1,2, -2.4,-1,-6, -1.9,-2,1.25);
    glTexCoord2f(0.125,0.125); glVertex3d(-1.9, -2, 1.25);
    glTexCoord2f(0,0); glVertex3d(-2.4, -1, 2);
@@ -872,7 +846,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    // Forward edge bottom
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(-1.9,-2,1.25, -1.8,-2,1.25, -2.3,-1,2);
    glTexCoord2f(0.6,1); glVertex3d(-1.8, -2, 1.25);
    glTexCoord2f(0.1,0); glVertex3d(-2.3, -1, 2);
@@ -882,7 +855,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    // Aft edge bottom
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(-1.8,-2,-4.75, -2.4,-1,-6, -1.9,-2,-4.75);
    glTexCoord2f(0.5,1); glVertex3d(-1.9, -2, -4.75);
    glTexCoord2f(0,0); glVertex3d(-2.4, -1, -6);
@@ -892,7 +864,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    // Bottom edge
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(0,-1,0);
    glTexCoord2f(0.017,0); glVertex3d(-1.8, -2, -4.75);
    glTexCoord2f(0.017,1); glVertex3d(-1.8, -2, 1.25);
@@ -904,7 +875,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    // Inner
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(-1,0,0);
    glTexCoord2f(1,0); glVertex3d(2.3, -1, 2);
    glTexCoord2f(1,0.25); glVertex3d(2.3, 1, 2);
@@ -914,7 +884,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    // Outer
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(1,0,0);
    glTexCoord2f(1,0); glVertex3d(2.4, -1, 2);
    glTexCoord2f(1,0.25); glVertex3d(2.4, 1, 2);
@@ -922,9 +891,10 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    glTexCoord2f(0,0); glVertex3d(2.4, -1, -6);
    glEnd();
 
+   glBindTexture(GL_TEXTURE_2D,texture[17]);
+
    // Center Port Panels
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[17]);
    glNormal3d(1,0,0);
    glTexCoord2f(1,0); glVertex3d(2.401, -0.75, -0.92);
    glTexCoord2f(1,0.25); glVertex3d(2.401, 0.75, -0.92);
@@ -933,7 +903,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    glEnd();
 
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[17]);
    glNormal3d(1,0,0);
    glTexCoord2f(1,0); glVertex3d(2.401, -0.75, 1.75);
    glTexCoord2f(1,0.62); glVertex3d(2.401, 0.75, 1.75);
@@ -941,9 +910,11 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    glTexCoord2f(0,0); glVertex3d(2.401, -0.75, -0.67);
    glEnd();
    
+
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
+
    // Forward edge center
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(0,0,1);
    glTexCoord2f(0.05,0); glVertex3d(2.3, -1, 2);
    glTexCoord2f(0.05,1); glVertex3d(2.3, 1, 2);
@@ -3056,15 +3027,15 @@ static void trench(double x, double y, double z) {
    
    // Forward lasers
    // 1
-   laserBeam(0, 30, 400, -85, 1, 0, 0, 'g');
+   laserBeam(10, 30, 400, -85, 1, 0, 0, 'g');
    // 2
-   laserBeam(0, 30, 600, -76, 1, 0, 0, 'g');
+   laserBeam(-12, 30, 600, -76, 1, 0, 0, 'g');
    // 3
-   laserBeam(0, 30, 800, -85, 1, 0, 0, 'g');
+   laserBeam(28, 30, 800, -85, 1, 0, 0, 'g');
    // 4
-   laserBeam(0, 30, 1000, -89, 1, 0, 0, 'g');
+   laserBeam(-17, 30, 300, -89, 1, 0, 0, 'g');
    // 5
-   laserBeam(0, 30, 300, -78, 1, 0, 0, 'g');
+   laserBeam(13, 30, 300, -78, 1, 0, 0, 'g');
 
    // Red lasers counter
    // 1
@@ -3127,13 +3098,17 @@ static void trench(double x, double y, double z) {
 
 
       scaffoldBridge(0, 0, i + trenchAnim);
+      scaffoldBridge(0, -33, i + trenchAnim + 500);
 
-      // Create turret
+      // Create turrets on top
       tTurret(-40, 40, i + 500 +trenchAnim, 1, 0,0,0, 0, 0, 90);
       tTurret(-40, 40, i + 1000 +trenchAnim, 1, 0,0,0, 0, 0, 90);
       tTurret(40, 40, i + 500 +trenchAnim, 1, 0,0,0, 0, 0, -90);
       tTurret(40, 40, i + 1000 +trenchAnim, 1, 0,0,0, 0, 0, -90);
 
+      // Create turrets in trench
+      tTurret(-10, -5, i + 250 +trenchAnim, 1, 0,0,0, 0, 0, 180);
+      tTurret(10, -5, i + 750 +trenchAnim, 1, 0,0,0, 0, 0, 180);
    }
 
 
@@ -3179,7 +3154,7 @@ void display()
 
       Ex = 0.0;
       Ey =  18.9;
-      Ez =  70.5;
+      Ez =  90.5;
 
    } 
 
@@ -3233,13 +3208,13 @@ void display()
    trench(0, -10, 0);
 
    // Create XWING
-   xWing(5 * Cos(zh) , 3 *  Sin(zh), 50, 0.3, 0,0,1, 20 * Cos(zh));
+   xWing(5 * Cos(zh) , 3 *  Sin(zh), 50, 0.3, 0,0,1, 10 * Cos(zh));
 
-   vader(10 * Cos(zh), 4 * Sin(zh), -20, 6/5, 20 * Cos(zh), 0, 0, 1);
+   vader(Cos(0.5 * zh) * Cos(0.5 * zh), 0.5 * Sin(zh), -20, 6/5, 2 * Cos(zh), 0, 0, 1);
 
    // Create Tie-Fighter
-   tFighter(-10,-2,-40, 0.2, 0,0,0, 0);
-   tFighter(10,0,-40, 0.2, 0,0,0, 0);
+   tFighter(-10 + 0.5 * Sin(zh) * Cos(zh),-2 + 0.5 * Cos(zh),-40, 0.2, 0,0,1, 2 * Sin(zh));
+   tFighter(10 + 0.5 * Sin(zh) * Sin(zh),0.5 * Cos(zh),-40, 0.2, 0,0,1, 2 * Sin(zh));
    
    //  Done - disable lighting
    glDisable(GL_LIGHTING);
@@ -3259,34 +3234,10 @@ void idle()
    double t = glutGet(GLUT_ELAPSED_TIME)/1000.0;
    zh = fmod(90*t,360.0);
 
-   
-   rotateZ = fmod(60 * t/1000, 360.0);
-
-
    // Trench animation
    if (!pause) {
       if (trenchAnim < -2000){
          trenchAnim = 0;
-      }
-
-      if (xwing_d == 1){
-         if (xwing_x == 15){
-            xwing_d = -1;
-            xwing_r = 15;
-         }
-         else{
-            xwing_x++;
-         }
-      }
-
-      if (xwing_d == -1){
-         if (xwing_x == -15){
-            xwing_d = 1;
-            xwing_r = -15;
-         }
-         else{
-            xwing_x--;
-         }
       }
 
       trenchAnim -= 3;
