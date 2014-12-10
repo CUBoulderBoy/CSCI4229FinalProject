@@ -723,7 +723,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    // Inner
    glColor3d(0.9, 0.9, 0.9);
    glBindTexture(GL_TEXTURE_2D,texture[4]);
-
    glBegin(GL_POLYGON);
    glNormal3d(1,0,0);
    glTexCoord2f(1,0); glVertex3d(-2.3, -1, 2);
@@ -732,8 +731,9 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    glTexCoord2f(0,0); glVertex3d(-2.3, -1, -6);
    glEnd();
    
-   
    //Outer
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(2,2);
    glBegin(GL_POLYGON);
    glNormal3d(-1,0,0);
    glTexCoord2f(0,0); glVertex3d(-2.4, -1, 2);
@@ -741,27 +741,28 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    glTexCoord2f(1,0.25); glVertex3d(-2.4, 1, -6);
    glTexCoord2f(1,0); glVertex3d(-2.4, -1, -6);
    glEnd();
+   glDisable(GL_POLYGON_OFFSET_FILL);
 
-   
+   // Outer panels
    glBindTexture(GL_TEXTURE_2D,texture[17]);
    glBegin(GL_POLYGON);
    glNormal3d(-1,0,0);
-   glTexCoord2f(1,0); glVertex3d(-2.51, -0.75, -0.92);
-   glTexCoord2f(1,0.25); glVertex3d(-2.51, 0.75, -0.92);
-   glTexCoord2f(0,0.25); glVertex3d(-2.51, 0.75, -5.75);
-   glTexCoord2f(0,0); glVertex3d(-2.51, -0.75, -5.75);
+   glTexCoord2f(4,0); glVertex3d(-2.4, -0.75, -0.92);
+   glTexCoord2f(4,1); glVertex3d(-2.4, 0.75, -0.92);
+   glTexCoord2f(0,1); glVertex3d(-2.4, 0.75, -5.75);
+   glTexCoord2f(0,0); glVertex3d(-2.4, -0.75, -5.75);
    glEnd();
 
    glBegin(GL_POLYGON);
    glNormal3d(-1,0,0);
-   glTexCoord2f(1,0); glVertex3d(-2.4, -0.75, 1.75);
-   glTexCoord2f(1,0.62); glVertex3d(-2.4, 0.75, 1.75);
-   glTexCoord2f(0,0.62); glVertex3d(-2.4, 0.75, -0.67);
+   glTexCoord2f(2,0); glVertex3d(-2.4, -0.75, 1.75);
+   glTexCoord2f(2,1.24); glVertex3d(-2.4, 0.75, 1.75);
+   glTexCoord2f(0,1.24); glVertex3d(-2.4, 0.75, -0.67);
    glTexCoord2f(0,0); glVertex3d(-2.4, -0.75, -0.67);
    glEnd();
    
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    // Forward edge center
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glBegin(GL_POLYGON);
    glNormal3d(0,0,1);
    glTexCoord2f(0.05,0); glVertex3d(-2.3, -1, 2);
@@ -781,6 +782,8 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    // ---------------------------- Top-tilted panel starboard --------------------------
    // Inner
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(2,2);
    glBegin(GL_POLYGON);
    normal(-1.8,2,1.25, -2.3,1,2, -1.8,2,-4.75);
    glTexCoord2f(0,0); glVertex3d(-2.3, 1, 2);
@@ -788,8 +791,30 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    glTexCoord2f(0.875,0.125); glVertex3d(-1.8, 2, -4.75);
    glTexCoord2f(1,0); glVertex3d(-2.3, 1, -6);
    glEnd();
+   glDisable(GL_POLYGON_OFFSET_FILL);
+
+   // Inner panels
+   glBindTexture(GL_TEXTURE_2D,texture[17]);
+   glBegin(GL_POLYGON);
+   normal(-1.8,2,1.25, -2.3,1,2, -1.8,2,-4.75);
+   glTexCoord2f(4,1); glVertex3d(-1.863, 1.875, -4.594);
+   glTexCoord2f(4,0); glVertex3d(-2.238, 1.125, -5.336);
+   glTexCoord2f(0,1); glVertex3d(-2.238, 1.125, -0.969);
+   glTexCoord2f(0,0); glVertex3d(-1.863, 1.875, -0.969);
+   glEnd();
+
+   glBegin(GL_POLYGON);
+   normal(-1.8,2,1.25, -2.3,1,2, -1.8,2,-4.75);
+   glTexCoord2f(0,1.24); glVertex3d(-1.863, 1.875, 1.094);
+   glTexCoord2f(0,0); glVertex3d(-2.238, 1.125, 1.656);
+   glTexCoord2f(2,1.24); glVertex3d(-2.238, 1.125, -0.844);
+   glTexCoord2f(2,0); glVertex3d(-1.863, 1.875, -0.844);
+   glEnd();
    
    // Outer
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(2,2);
    glBegin(GL_POLYGON);
    normal(-1.9,2,1.25, -1.9,2,-4.75, -2.4,1,2);
    glTexCoord2f(0,0); glVertex3d(-2.4, 1, 2);
@@ -797,8 +822,28 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    glTexCoord2f(0.875,0.125); glVertex3d(-1.9, 2, -4.75);
    glTexCoord2f(1,0); glVertex3d(-2.4, 1, -6);
    glEnd();
+   glDisable(GL_POLYGON_OFFSET_FILL);
+
+   // Outer panels
+   glBindTexture(GL_TEXTURE_2D,texture[17]);
+   glBegin(GL_POLYGON);
+   normal(-1.9,2,1.25, -1.9,2,-4.75, -2.4,1,2);
+   glTexCoord2f(4,1); glVertex3d(-1.963, 1.875, -4.594);
+   glTexCoord2f(4,0); glVertex3d(-2.338, 1.125, -5.336);
+   glTexCoord2f(0,1); glVertex3d(-2.338, 1.125, -0.969);
+   glTexCoord2f(0,0); glVertex3d(-1.963, 1.875, -0.969);
+   glEnd();
+
+   glBegin(GL_POLYGON);
+   normal(-1.9,2,1.25, -1.9,2,-4.75, -2.4,1,2);
+   glTexCoord2f(0,1.24); glVertex3d(-1.963, 1.875, 1.094);
+   glTexCoord2f(0,0); glVertex3d(-2.338, 1.125, 1.656);
+   glTexCoord2f(2,1.24); glVertex3d(-2.338, 1.125, -0.844);
+   glTexCoord2f(2,0); glVertex3d(-1.963, 1.875, -0.844);
+   glEnd();
    
    // Forward edge top
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glBegin(GL_POLYGON);
    normal(-2.4,1,2, -2.3,1,2, -1.8,2,1.25);
    glTexCoord2f(0.1,0); glVertex3d(-2.3, 1, 2);
@@ -827,6 +872,8 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    // ------------------------- Bottom-tilted panel starboard -----------------------
    // Inner
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(2,2);
    glBegin(GL_POLYGON);
    normal(-2.3,-1,2, -1.8,-2,1.25, -2.3,-1,-6);
    glTexCoord2f(0.125,0.125); glVertex3d(-1.8, -2, 1.25);
@@ -834,8 +881,30 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    glTexCoord2f(1,0); glVertex3d(-2.3, -1, -6);
    glTexCoord2f(0.875,0.125); glVertex3d(-1.8, -2, -4.75);
    glEnd();
+   glDisable(GL_POLYGON_OFFSET_FILL);
+
+   // Inner panels
+   glBindTexture(GL_TEXTURE_2D,texture[17]);
+   glBegin(GL_POLYGON);
+   normal(-2.3,-1,2, -1.8,-2,1.25, -2.3,-1,-6);
+   glTexCoord2f(4,1); glVertex3d(-1.863, -1.875, -4.594);
+   glTexCoord2f(4,0); glVertex3d(-2.238, -1.125, -5.336);
+   glTexCoord2f(0,1); glVertex3d(-2.238, -1.125, -0.969);
+   glTexCoord2f(0,0); glVertex3d(-1.863, -1.875, -0.969);
+   glEnd();
+
+   glBegin(GL_POLYGON);
+   normal(-2.3,-1,2, -1.8,-2,1.25, -2.3,-1,-6);
+   glTexCoord2f(0,1.24); glVertex3d(-1.863, -1.875, 1.094);
+   glTexCoord2f(0,0); glVertex3d(-2.238, -1.125, 1.656);
+   glTexCoord2f(2,1.24); glVertex3d(-2.238, -1.125, -0.844);
+   glTexCoord2f(2,0); glVertex3d(-1.863, -1.875, -0.844);
+   glEnd();
    
    // Outer
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(2,2);
    glBegin(GL_POLYGON);
    normal(-2.4,-1,2, -2.4,-1,-6, -1.9,-2,1.25);
    glTexCoord2f(0.125,0.125); glVertex3d(-1.9, -2, 1.25);
@@ -843,8 +912,28 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    glTexCoord2f(1,0); glVertex3d(-2.4, -1, -6);
    glTexCoord2f(0.875,0.125); glVertex3d(-1.9, -2, -4.75);
    glEnd();
+   glDisable(GL_POLYGON_OFFSET_FILL);
+
+   // Outer Panels
+   glBindTexture(GL_TEXTURE_2D,texture[17]);
+   glBegin(GL_POLYGON);
+   normal(-2.4,-1,2, -2.4,-1,-6, -1.9,-2,1.25);
+   glTexCoord2f(4,1); glVertex3d(-1.963, -1.875, -4.594);
+   glTexCoord2f(4,0); glVertex3d(-2.338, -1.125, -5.336);
+   glTexCoord2f(0,1); glVertex3d(-2.338, -1.125, -0.969);
+   glTexCoord2f(0,0); glVertex3d(-1.963, -1.875, -0.969);
+   glEnd();
+
+   glBegin(GL_POLYGON);
+   normal(-2.4,-1,2, -2.4,-1,-6, -1.9,-2,1.25);
+   glTexCoord2f(0,1.24); glVertex3d(-1.963, -1.875, 1.094);
+   glTexCoord2f(0,0); glVertex3d(-2.338, -1.125, 1.656);
+   glTexCoord2f(2,1.24); glVertex3d(-2.338, -1.125, -0.844);
+   glTexCoord2f(2,0); glVertex3d(-1.963, -1.875, -0.844);
+   glEnd();
    
    // Forward edge bottom
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glBegin(GL_POLYGON);
    normal(-1.9,-2,1.25, -1.8,-2,1.25, -2.3,-1,2);
    glTexCoord2f(0.6,1); glVertex3d(-1.8, -2, 1.25);
@@ -881,81 +970,117 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    glTexCoord2f(0,0.25); glVertex3d(2.3, 1, -6);
    glTexCoord2f(0,0); glVertex3d(2.3, -1, -6);
    glEnd();
-   
-   // Outer
+
+   //Outer
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(2,2);
    glBegin(GL_POLYGON);
    glNormal3d(1,0,0);
-   glTexCoord2f(1,0); glVertex3d(2.4, -1, 2);
-   glTexCoord2f(1,0.25); glVertex3d(2.4, 1, 2);
-   glTexCoord2f(0,0.25); glVertex3d(2.4, 1, -6);
-   glTexCoord2f(0,0); glVertex3d(2.4, -1, -6);
+   glTexCoord2f(0,0); glVertex3d(2.4, -1, 2);
+   glTexCoord2f(0,0.25); glVertex3d(2.4, 1, 2);
+   glTexCoord2f(1,0.25); glVertex3d(2.4, 1, -6);
+   glTexCoord2f(1,0); glVertex3d(2.4, -1, -6);
    glEnd();
+   glDisable(GL_POLYGON_OFFSET_FILL);
 
+   // Outer panels
    glBindTexture(GL_TEXTURE_2D,texture[17]);
-
-   // Center Port Panels
    glBegin(GL_POLYGON);
    glNormal3d(1,0,0);
-   glTexCoord2f(1,0); glVertex3d(2.401, -0.75, -0.92);
-   glTexCoord2f(1,0.25); glVertex3d(2.401, 0.75, -0.92);
-   glTexCoord2f(0,0.25); glVertex3d(2.401, 0.75, -5.75);
-   glTexCoord2f(0,0); glVertex3d(2.401, -0.75, -5.75);
+   glTexCoord2f(4,0); glVertex3d(2.4, -0.75, -0.92);
+   glTexCoord2f(4,1); glVertex3d(2.4, 0.75, -0.92);
+   glTexCoord2f(0,1); glVertex3d(2.4, 0.75, -5.75);
+   glTexCoord2f(0,0); glVertex3d(2.4, -0.75, -5.75);
    glEnd();
 
    glBegin(GL_POLYGON);
    glNormal3d(1,0,0);
-   glTexCoord2f(1,0); glVertex3d(2.401, -0.75, 1.75);
-   glTexCoord2f(1,0.62); glVertex3d(2.401, 0.75, 1.75);
-   glTexCoord2f(0,0.62); glVertex3d(2.401, 0.75, -0.67);
-   glTexCoord2f(0,0); glVertex3d(2.401, -0.75, -0.67);
+   glTexCoord2f(2,0); glVertex3d(2.4, -0.75, 1.75);
+   glTexCoord2f(2,1.24); glVertex3d(2.4, 0.75, 1.75);
+   glTexCoord2f(0,1.24); glVertex3d(2.4, 0.75, -0.67);
+   glTexCoord2f(0,0); glVertex3d(2.4, -0.75, -0.67);
    glEnd();
-   
-
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
 
    // Forward edge center
-   glBegin(GL_POLYGON);
+   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(0,0,1);
-   glTexCoord2f(0.05,0); glVertex3d(2.3, -1, 2);
-   glTexCoord2f(0.05,1); glVertex3d(2.3, 1, 2);
-   glTexCoord2f(0,1); glVertex3d(2.4, 1, 2);
-   glTexCoord2f(0,0); glVertex3d(2.4, -1, 2);
-   glEnd();
+   glTexCoord2f(0.05,0); glVertex3d(-2.3, -1, 2);
+   glTexCoord2f(0.05,1); glVertex3d(-2.3, 1, 2);
+   glTexCoord2f(0,1); glVertex3d(-2.4, 1, 2);
+   glTexCoord2f(0,0); glVertex3d(-2.4, -1, 2);
    
    // Aft edge center
-   glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(0,0,-1);
-   glTexCoord2f(0.05,0); glVertex3d(2.4, -1, -6);
-   glTexCoord2f(0.05,1); glVertex3d(2.4, 1, -6);
-   glTexCoord2f(0,1); glVertex3d(2.3, 1, -6);
-   glTexCoord2f(0,0); glVertex3d(2.3, -1, -6);
-   glEnd();
+   glTexCoord2f(0.05,0); glVertex3d(-2.4, -1, -6);
+   glTexCoord2f(0.05,1); glVertex3d(-2.4, 1, -6);
+   glTexCoord2f(0,1); glVertex3d(-2.3, 1, -6);
+   glTexCoord2f(0,0); glVertex3d(-2.3, -1, -6);
    
    // ----------------------------- Top-tilted panel port ----------------------------
    // Inner
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(2,2);
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(1.8,2,1.25, 1.8,2,-4.75, 2.3,1,2);
    glTexCoord2f(0,0); glVertex3d(2.3, 1, 2);
    glTexCoord2f(0.125,0.125); glVertex3d(1.8, 2, 1.25);
    glTexCoord2f(0.875,0.125); glVertex3d(1.8, 2, -4.75);
    glTexCoord2f(1,0); glVertex3d(2.3, 1, -6);
    glEnd();
+   glDisable(GL_POLYGON_OFFSET_FILL);
+
+   // Inner panels
+   glBindTexture(GL_TEXTURE_2D,texture[17]);
+   glBegin(GL_POLYGON);
+   normal(1.8,2,1.25, 1.8,2,-4.75, 2.3,1,2);
+   glTexCoord2f(4,1); glVertex3d(1.863, 1.875, -4.594);
+   glTexCoord2f(4,0); glVertex3d(2.238, 1.125, -5.336);
+   glTexCoord2f(0,1); glVertex3d(2.238, 1.125, -0.969);
+   glTexCoord2f(0,0); glVertex3d(1.863, 1.875, -0.969);
+   glEnd();
+
+   glBegin(GL_POLYGON);
+   normal(1.8,2,1.25, 1.8,2,-4.75, 2.3,1,2);
+   glTexCoord2f(0,1.24); glVertex3d(1.863, 1.875, 1.094);
+   glTexCoord2f(0,0); glVertex3d(2.238, 1.125, 1.656);
+   glTexCoord2f(2,1.24); glVertex3d(2.238, 1.125, -0.844);
+   glTexCoord2f(2,0); glVertex3d(1.863, 1.875, -0.844);
+   glEnd();
    
    // Outer
-   glBegin(GL_POLYGON);
    glBindTexture(GL_TEXTURE_2D,texture[4]);
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(2,2);
+   glBegin(GL_POLYGON);
    normal(1.9,2,1.25, 2.4,1,2, 1.9,2,-4.75);
    glTexCoord2f(0,0); glVertex3d(2.4, 1, 2);
    glTexCoord2f(0.125,0.125); glVertex3d(1.9, 2, 1.25);
    glTexCoord2f(0.875,0.125); glVertex3d(1.9, 2, -4.75);
    glTexCoord2f(1,0); glVertex3d(2.4, 1, -6);
    glEnd();
+   glDisable(GL_POLYGON_OFFSET_FILL);
+
+   // Outer panels
+   glBindTexture(GL_TEXTURE_2D,texture[17]);
+   glBegin(GL_POLYGON);
+   normal(1.9,2,1.25, 2.4,1,2, 1.9,2,-4.75);
+   glTexCoord2f(4,1); glVertex3d(1.963, 1.875, -4.594);
+   glTexCoord2f(4,0); glVertex3d(2.338, 1.125, -5.336);
+   glTexCoord2f(0,1); glVertex3d(2.338, 1.125, -0.969);
+   glTexCoord2f(0,0); glVertex3d(1.963, 1.875, -0.969);
+   glEnd();
+
+   glBegin(GL_POLYGON);
+   normal(1.9,2,1.25, 2.4,1,2, 1.9,2,-4.75);
+   glTexCoord2f(0,1.24); glVertex3d(1.963, 1.875, 1.094);
+   glTexCoord2f(0,0); glVertex3d(2.338, 1.125, 1.656);
+   glTexCoord2f(2,1.24); glVertex3d(2.338, 1.125, -0.844);
+   glTexCoord2f(2,0); glVertex3d(1.963, 1.875, -0.844);
+   glEnd();
    
    // Forward edge top
-   glBegin(GL_POLYGON);
    glBindTexture(GL_TEXTURE_2D,texture[4]);
+   glBegin(GL_POLYGON);
    normal(2.3,1,2, 2.4,1,2, 1.8,2,1.25);
    glTexCoord2f(0.1,0); glVertex3d(2.3, 1, 2);
    glTexCoord2f(0.6,1); glVertex3d(1.8, 2, 1.25);
@@ -965,7 +1090,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    // Aft edge top
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(2.3,1,-6, 1.9,2,-4.75, 2.4,1,-6);
    glTexCoord2f(0,0); glVertex3d(2.4, 1, -6);
    glTexCoord2f(0.5,1); glVertex3d(1.9, 2, -4.75);
@@ -975,7 +1099,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    // Top edge
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(0,1,0);
    glTexCoord2f(0.017,1); glVertex3d(1.8, 2, 1.25);
    glTexCoord2f(0.017,0); glVertex3d(1.8, 2, -4.75);
@@ -985,28 +1108,69 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
 
    // --------------------------------- Bottom-tilted panel port ---------------------------
    // Inner
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(2,2);
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(1.8,-2,1.25, 2.3,-1,2, 1.8,-2,-4.75);
    glTexCoord2f(0.125,0.125); glVertex3d(1.8, -2, 1.25);
    glTexCoord2f(0,0); glVertex3d(2.3, -1, 2);
    glTexCoord2f(1,0); glVertex3d(2.3, -1, -6);
    glTexCoord2f(0.875,0.125); glVertex3d(1.8, -2, -4.75);
    glEnd();
+   glDisable(GL_POLYGON_OFFSET_FILL);
+
+   // Inner panels
+   glBindTexture(GL_TEXTURE_2D,texture[17]);
+   glBegin(GL_POLYGON);
+   normal(1.8,-2,1.25, 2.3,-1,2, 1.8,-2,-4.75);
+   glTexCoord2f(4,1); glVertex3d(1.863, -1.875, -4.594);
+   glTexCoord2f(4,0); glVertex3d(2.238, -1.125, -5.336);
+   glTexCoord2f(0,1); glVertex3d(2.238, -1.125, -0.969);
+   glTexCoord2f(0,0); glVertex3d(1.863, -1.875, -0.969);
+   glEnd();
+
+   glBegin(GL_POLYGON);
+   normal(1.8,-2,1.25, 2.3,-1,2, 1.8,-2,-4.75);
+   glTexCoord2f(0,1.24); glVertex3d(1.863, -1.875, 1.094);
+   glTexCoord2f(0,0); glVertex3d(2.238, -1.125, 1.656);
+   glTexCoord2f(2,1.24); glVertex3d(2.238, -1.125, -0.844);
+   glTexCoord2f(2,0); glVertex3d(1.863, -1.875, -0.844);
+   glEnd();
 
    //Outer
-   glBegin(GL_POLYGON);
    glBindTexture(GL_TEXTURE_2D,texture[4]);
+   glEnable(GL_POLYGON_OFFSET_FILL);
+   glPolygonOffset(2,2);
+   glBegin(GL_POLYGON);
    normal(1.9,-2,1.25, 1.9,-2,-4.75, 2.4,-1,2);
    glTexCoord2f(0.125,0.125); glVertex3d(1.9, -2, 1.25);
    glTexCoord2f(0,0); glVertex3d(2.4, -1, 2);
    glTexCoord2f(1,0); glVertex3d(2.4, -1, -6);
    glTexCoord2f(0.875,0.125); glVertex3d(1.9, -2, -4.75);
    glEnd();
+   glDisable(GL_POLYGON_OFFSET_FILL);
+
+   // Outer Panels
+   glBindTexture(GL_TEXTURE_2D,texture[17]);
+   glBegin(GL_POLYGON);
+   normal(1.9,-2,1.25, 1.9,-2,-4.75, 2.4,-1,2);
+   glTexCoord2f(4,1); glVertex3d(1.963, -1.875, -4.594);
+   glTexCoord2f(4,0); glVertex3d(2.338, -1.125, -5.336);
+   glTexCoord2f(0,1); glVertex3d(2.338, -1.125, -0.969);
+   glTexCoord2f(0,0); glVertex3d(1.963, -1.875, -0.969);
+   glEnd();
+
+   glBegin(GL_POLYGON);
+   normal(1.9,-2,1.25, 1.9,-2,-4.75, 2.4,-1,2);
+   glTexCoord2f(0,1.24); glVertex3d(1.963, -1.875, 1.094);
+   glTexCoord2f(0,0); glVertex3d(2.338, -1.125, 1.656);
+   glTexCoord2f(2,1.24); glVertex3d(2.338, -1.125, -0.844);
+   glTexCoord2f(2,0); glVertex3d(1.963, -1.875, -0.844);
+   glEnd();
    
    // Forward edge bottom
-   glBegin(GL_POLYGON);
    glBindTexture(GL_TEXTURE_2D,texture[4]);
+   glBegin(GL_POLYGON);
    normal(1.8,-2,1.25, 1.9,-2,1.25, 2.3,-1,2);
    glTexCoord2f(0.6,1); glVertex3d(1.8, -2, 1.25);
    glTexCoord2f(0.1,0); glVertex3d(2.3, -1, 2);
@@ -1016,7 +1180,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    // Aft edge bottom
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    normal(1.8,-2,-4.75, 2.3,-1,-6, 1.9,-2,-4.75);
    glTexCoord2f(0.5,1); glVertex3d(1.9, -2, -4.75);
    glTexCoord2f(0,0); glVertex3d(2.4, -1, -6);
@@ -1026,7 +1189,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    // Bottom edge
    glBegin(GL_POLYGON);
-   glBindTexture(GL_TEXTURE_2D,texture[4]);
    glNormal3d(0,-1,0);
    glTexCoord2f(0.017,0); glVertex3d(1.8, -2, -4.75);
    glTexCoord2f(0.017,1); glVertex3d(1.8, -2, 1.25);
