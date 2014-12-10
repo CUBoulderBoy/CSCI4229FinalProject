@@ -505,11 +505,6 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    /* Beams*/
    
-   laserBeam(1, 0, 0, 90, 1, 0, 0, 'g');
-   laserBeam(-1, 0, 0, 90, 1, 0, 0, 'g');
-   
-   
-   
    glPopMatrix();
    
    
@@ -3001,8 +2996,6 @@ static void scaffoldBridge(double x, double y, double z) {
    glTranslated(x, y, z);
 
    double i; 
-   int draw = rand() % 2;
-
 
    glBindTexture(GL_TEXTURE_2D, texture[11]);
 
@@ -3207,7 +3200,7 @@ static void trench(double x, double y, double z) {
    double rep = 14;
 
    // Builds trench in panels for animation
-   for (i = 10000; i >= -10000; i-=1000) {
+   for (i = 5000; i >= -5000; i-=1000) {
 
       glBindTexture(GL_TEXTURE_2D, texture[7]);
       // Floor
