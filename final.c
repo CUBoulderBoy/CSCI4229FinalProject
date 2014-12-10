@@ -209,6 +209,44 @@ static void skybox(double D)
    glPopMatrix();
 }
 
+static void laserBeam(double x, double y, double z, double angle, double rx, double ry, double rz, char color) {
+
+   glPushMatrix();
+   glTranslated(x, y, z);
+   glRotated(angle, rx, ry, rz);
+
+
+
+   glDisable(GL_LIGHTING);
+
+   if (color == 'r')
+      glBindTexture(GL_TEXTURE_2D, laser[0]);
+else if (color == 'g')
+      glBindTexture(GL_TEXTURE_2D, laser[1]);
+
+
+   glPushMatrix();
+   //glRotated(0, 0, 0, 1);
+
+   glBegin(GL_QUADS);
+   glTexCoord2f(0, 0); glVertex3d(-1, -25 + laserAnim, 0);
+   glTexCoord2f(1, 0); glVertex3d(-1, 25 + laserAnim, 0);
+   glTexCoord2f(1, 1); glVertex3d(1, 25 + laserAnim, 0);
+   glTexCoord2f(0, 1); glVertex3d(1, -25 + laserAnim, 0);
+
+   glTexCoord2f(0, 0); glVertex3d(0, -25 + laserAnim, 1);
+   glTexCoord2f(1, 0); glVertex3d(0, 25 + laserAnim, 1);
+   glTexCoord2f(1, 1); glVertex3d(0, 25 + laserAnim, -1);
+   glTexCoord2f(0, 1); glVertex3d(0, -25 + laserAnim, -1);
+   glEnd();
+
+   glPopMatrix();
+
+
+   glEnable(GL_LIGHTING);
+   glPopMatrix();
+}
+
 static void vader(double x,double y,double z,double r, double angle, double rx, double ry, double rz)
 {
    int d = 5;
@@ -467,34 +505,8 @@ static void vader(double x,double y,double z,double r, double angle, double rx, 
    
    /* Beams*/
    
-   /*
-   if (beamPos < 4) {
-      
-      glLineWidth(2);
-      glBegin(GL_LINES);
-      glColor3d(0, 1, 0);
-      glVertex3d(-0.27, 0.18, 0);
-      glVertex3d(-0.27, 0.18, beamPos);
-      
-      glVertex3d(0.27, 0.18, 0);
-      glVertex3d(0.27, 0.18, beamPos);
-      glEnd();
-      glLineWidth(1);
-   }
-   else {
-      
-      glLineWidth(2);
-      glBegin(GL_LINES);
-      glColor3d(0, 1, 0);
-      glVertex3d(-0.27, 0.18, beamPos - 2);
-      glVertex3d(-0.27, 0.18, 2 + beamPos);
-      
-      glVertex3d(0.27, 0.18, beamPos - 2);
-      glVertex3d(0.27, 0.18, 2 + beamPos);
-      glEnd();
-      glLineWidth(1);
-   }
-   */
+   laserBeam(1, 0, 0, 90, 1, 0, 0, 'g');
+   laserBeam(-1, 0, 0, 90, 1, 0, 0, 'g');
    
    
    
@@ -2431,43 +2443,7 @@ static void tFighter(double x, double y, double z,
 }
 
 
-static void laserBeam(double x, double y, double z, double angle, double rx, double ry, double rz, char color) {
 
-   glPushMatrix();
-   glTranslated(x, y, z);
-   glRotated(angle, rx, ry, rz);
-
-
-
-   glDisable(GL_LIGHTING);
-
-   if (color == 'r')
-      glBindTexture(GL_TEXTURE_2D, laser[0]);
-else if (color == 'g')
-      glBindTexture(GL_TEXTURE_2D, laser[1]);
-
-
-   glPushMatrix();
-   //glRotated(0, 0, 0, 1);
-
-   glBegin(GL_QUADS);
-   glTexCoord2f(0, 0); glVertex3d(-1, -25 + laserAnim, 0);
-   glTexCoord2f(1, 0); glVertex3d(-1, 25 + laserAnim, 0);
-   glTexCoord2f(1, 1); glVertex3d(1, 25 + laserAnim, 0);
-   glTexCoord2f(0, 1); glVertex3d(1, -25 + laserAnim, 0);
-
-   glTexCoord2f(0, 0); glVertex3d(0, -25 + laserAnim, 1);
-   glTexCoord2f(1, 0); glVertex3d(0, 25 + laserAnim, 1);
-   glTexCoord2f(1, 1); glVertex3d(0, 25 + laserAnim, -1);
-   glTexCoord2f(0, 1); glVertex3d(0, -25 + laserAnim, -1);
-   glEnd();
-
-   glPopMatrix();
-
-
-   glEnable(GL_LIGHTING);
-   glPopMatrix();
-}
 /*
  *  Draw a trench turrent top
  *     
@@ -2980,50 +2956,55 @@ static void trench(double x, double y, double z) {
 
    int i;
 
+   int negative = 1;
+   if(camera == 2)
+      negative = -1;
+   else
+      negative = 1;
 
    // Starboard side lasers
    // 1
-   laserBeam(-100, 0, 200, -45, 0, 0, 1, 'g');
+   laserBeam(-100, 0, negative * 200, -45, 0, 0, 1, 'g');
    // 2
-   laserBeam(-300, 0, 400, -45, 0, 0, 1, 'g');
+   laserBeam(-300, 0, negative * 400, -45, 0, 0, 1, 'g');
    // 3
-   laserBeam(-500, 0, 600, -45, 0, 0, 1, 'g');
+   laserBeam(-500, 0, negative * 600, -45, 0, 0, 1, 'g');
    // 4
-   laserBeam(-700, 0, 100, -45, 0, 0, 1, 'g');
+   laserBeam(-700, 0, negative * 100, -45, 0, 0, 1, 'g');
    // 5
-   laserBeam(-800, 0, 300, -45, 0, 0, 1, 'g');
+   laserBeam(-800, 0, negative * 300, -45, 0, 0, 1, 'g');
    // 6
-   laserBeam(-100, 0, 500, -60, 0, 0, 1, 'g');
+   laserBeam(-100, 0, negative * 500, -60, 0, 0, 1, 'g');
    // 7
-   laserBeam(-300, 0, 700, -60, 0, 0, 1, 'g');
+   laserBeam(-300, 0, negative * 700, -60, 0, 0, 1, 'g');
    // 8
-   laserBeam(-500, 0, 800, -70, 0, 0, 1, 'g');
+   laserBeam(-500, 0, negative * 800, -70, 0, 0, 1, 'g');
    // 9
-   laserBeam(-700, 0, 700, -50, 0, 0, 1, 'g');
+   laserBeam(-700, 0, negative * 700, -50, 0, 0, 1, 'g');
    // 10
-   laserBeam(-600, 0, 800, -60, 0, 0, 1, 'g');
+   laserBeam(-600, 0, negative * 800, -60, 0, 0, 1, 'g');
 
    // Port side lasers
    // 1
-   laserBeam(800, 0, 400, 40, 0, 0, 1, 'g');
+   laserBeam(800, 0, negative * 400, 40, 0, 0, 1, 'g');
    // 2
-   laserBeam(450, 0, 600, 45, 0, 0, 1, 'g');
+   laserBeam(450, 0, negative * 600, 45, 0, 0, 1, 'g');
    // 3
-   laserBeam(650, 0, 800, 45, 0, 0, 1, 'g');
+   laserBeam(650, 0, negative * 800, 45, 0, 0, 1, 'g');
    // 4
-   laserBeam(540, 0, 700, 45, 0, 0, 1, 'g');
+   laserBeam(540, 0, negative * 700, 45, 0, 0, 1, 'g');
    // 5
-   laserBeam(680, 0, 300, 30, 0, 0, 1, 'g');
+   laserBeam(680, 0, negative * 300, 30, 0, 0, 1, 'g');
    // 6
-   laserBeam(120, 0, 500, 60, 0, 0, 1, 'g');
+   laserBeam(120, 0, negative * 500, 60, 0, 0, 1, 'g');
    // 7
-   laserBeam(390, 0, 700, 60, 0, 0, 1, 'g');
+   laserBeam(390, 0, negative * 700, 60, 0, 0, 1, 'g');
    // 8
-   laserBeam(540, 0, 800, 70, 0, 0, 1, 'g');
+   laserBeam(540, 0, negative * 800, 70, 0, 0, 1, 'g');
    // 9
-   laserBeam(720, 0, 100, 50, 0, 0, 1, 'g');
+   laserBeam(720, 0, negative * 100, 50, 0, 0, 1, 'g');
    // 10
-   laserBeam(980, 0, 1200, 60, 0, 0, 1, 'g');
+   laserBeam(980, 0, negative * 1200, 60, 0, 0, 1, 'g');
    
    // Forward lasers
    // 1
@@ -3033,31 +3014,31 @@ static void trench(double x, double y, double z) {
    // 3
    laserBeam(28, 30, 800, -85, 1, 0, 0, 'g');
    // 4
-   laserBeam(-17, 30, 300, -89, 1, 0, 0, 'g');
+   laserBeam(-17, 30, 300, -80, 1, 0, 0, 'g');
    // 5
    laserBeam(13, 30, 300, -78, 1, 0, 0, 'g');
 
    // Red lasers counter
    // 1
-   laserBeam(200, 1000, 800, 140, 0, 0, 1, 'r');
+   laserBeam(200, 1000, negative * 800, 140, 0, 0, 1, 'r');
    // 2
-   laserBeam(-450, 800, 800, -120, 0, 0, 1, 'r');
+   laserBeam(-450, 800, negative * 800, -120, 0, 0, 1, 'r');
    // 3
-   laserBeam(250, 600, 800, 130, 0, 0, 1, 'r');
+   laserBeam(250, 600, negative * 800, 130, 0, 0, 1, 'r');
    // 4
-   laserBeam(-540, 1200, 800, -130, 0, 0, 1, 'r');
+   laserBeam(-540, 1200, negative * 800, -130, 0, 0, 1, 'r');
    // 5
-   laserBeam(350, 400, 800, 125, 0, 0, 1, 'r');
+   laserBeam(350, 400, negative * 800, 125, 0, 0, 1, 'r');
    // 6
-   laserBeam(-120, 700, 800, -140, 0, 0, 1, 'r');
+   laserBeam(-120, 700, negative * 800, -140, 0, 0, 1, 'r');
    // 7
-   laserBeam(390, 300, 800, 130, 0, 0, 1, 'r');
+   laserBeam(390, 300, negative * 800, 130, 0, 0, 1, 'r');
    // 8
-   laserBeam(-540, 1400, 800, -134, 0, 0, 1, 'r');
+   laserBeam(-540, 1400, negative * 800, -134, 0, 0, 1, 'r');
    // 9
-   laserBeam(500, 850, 800, 134, 0, 0, 1, 'r');
+   laserBeam(500, 850, negative * 800, 134, 0, 0, 1, 'r');
    // 10
-   laserBeam(-400, 425, 800, -119, 0, 0, 1, 'r');
+   laserBeam(-400, 425, negative * 800, -119, 0, 0, 1, 'r');
 
 
    // Repeat factor of trench texture
@@ -3098,7 +3079,7 @@ static void trench(double x, double y, double z) {
 
 
       scaffoldBridge(0, 0, i + trenchAnim);
-      scaffoldBridge(0, -33, i + trenchAnim + 500);
+      scaffoldBridge(0, -33.5, i + trenchAnim + 500);
 
       // Create turrets on top
       tTurret(-40, 40, i + 500 +trenchAnim, 1, 0,0,0, 0, 0, 90);
@@ -3137,6 +3118,10 @@ void display()
       double Ex = 0.0;
       double Ey = 0.0;
       double Ez = 0.0;
+      double Ux = 0.0;
+      double Uy = 0.0;
+      double Uz = 0.0;
+      double upVal = Cos(ph);
 
    if (camera == 0) {
 
@@ -3156,11 +3141,19 @@ void display()
       Ey =  18.9;
       Ez =  90.5;
 
-   } 
+   } else if (camera == 3) {
+      Ex = Cos(zh);
+      Ey =  1 + Sin(zh);
+      Ez =  -10.0;
+      Ux = Cos(zh); 
+      Uy = 1 + 0.5 * Sin(zh); 
+      Uz = 50;
+      upVal = Cos(zh) * Cos(zh);
+   }
 
 
    // Call gluLookAt
-   gluLookAt(Ex,Ey,Ez, 0,0,0 , 0,Cos(ph),0);
+   gluLookAt(Ex,Ey,Ez, Ux,Uy,Uz, 0,upVal,0);
    
 
 
@@ -3208,13 +3201,13 @@ void display()
    trench(0, -10, 0);
 
    // Create XWING
-   xWing(5 * Cos(zh) , 3 *  Sin(zh), 50, 0.3, 0,0,1, 10 * Cos(zh));
+   xWing(5 * Cos(zh) , 2 + 2 *  Sin(zh), 50, 0.3, 0,0,1, 10 * Cos(zh));
 
-   vader(Cos(0.5 * zh) * Cos(0.5 * zh), 0.5 * Sin(zh), -20, 6/5, 2 * Cos(zh), 0, 0, 1);
+   vader(Cos(0.5 * zh) * Cos(0.5 * zh), 1 + 0.5 * Sin(zh), -20, 6/5, 2 * Cos(zh), 0, 0, 1);
 
    // Create Tie-Fighter
-   tFighter(-10 + 0.5 * Sin(zh) * Cos(zh),-2 + 0.5 * Cos(zh),-40, 0.2, 0,0,1, 2 * Sin(zh));
-   tFighter(10 + 0.5 * Sin(zh) * Sin(zh),0.5 * Cos(zh),-40, 0.2, 0,0,1, 2 * Sin(zh));
+   tFighter(-10 + 0.5 * Sin(zh) * Cos(zh),1 + 0.5 * Cos(zh),-40, 0.2, 0,0,1, 2 * Sin(zh));
+   tFighter(10 + 0.5 * Sin(zh) * Sin(zh),1 + 0.5 * Cos(zh),-40, 0.2, 0,0,1, 2 * Sin(zh));
    
    //  Done - disable lighting
    glDisable(GL_LIGHTING);
@@ -3353,6 +3346,10 @@ void key(unsigned char ch,int x,int y)
    } 
    else if (ch == '2') {
       camera = 2;
+      move = 1;
+   }
+   else if (ch == '3') {
+      camera = 3;
       move = 1;
    }
    else if (ch == ' ') {
