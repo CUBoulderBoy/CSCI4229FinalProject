@@ -27,6 +27,8 @@ Workload Breakdown:
 Look out for:
   Detail of the models, looping of the lasers and trench animation, proper application of textures, overall design and feel of scene.
 
+  Also note: on camera 3, we decided to leave out the cockpit overlay due to the time constraints and difficulty of adding it to the scene properly.  The issue was that we couldn't figure out how to make the octagonal windows transparent (in order to see through) while the rest of the cockpit remained visible.  
+
 Building: "make"
 Running: "./final"
 Cleaning up: "make clean"
