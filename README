@@ -5,37 +5,42 @@ CSCI4229 Fall 2014
 
 Utilizing code provided from William Schreuder via the ex9, ex13, ex15, ex17, and ex25 programs
 
-Approximate time: (TBD) hours
+Approximate time: ~110 man-hours
 
-What's left:
-  Still needs a bit of work, but we're on schedule.  The Vader fighter needs normals finished up and textures added to the wings (Will stick with colors only for the body).  We are having some minor issues with camera clipping when zooming in on the fighters (the trench is being cut off), but should be able to figure that out.  We need to add rotation and and dynamic laser-firing to the turrets, add the rest of the body of the death star, and implement our movement scheme for the fighters through the trench.  Lighting needs some work (no rotation, fixed, with emission from the fighters/lasers and specular to imitate sunlight of some sort).  From there, the scene just needs minor adjustments to sharpen edges and add details to our models.  We are relying solely on our modeling skills for the models; we will not be using any type of OBJ file.  Please provide any and all feedback that you deem necessary!  Some tips on preventing the trench from being clipped would help too, although I think it's being caused by our FOV settings.  Will continue to work to make our deadline in a week.  We'll make it!
+Workload Breakdown:
+  Jeremy (50 hrs):
+    - Skybox - full build
+    - Trench and scaffolding - full build
+    - Vader Tie Fighter model
+    - Lasers
+    - Animations (final)
+
+  Christopher (60 hrs):
+    - Turret - full build
+    - X-Wing fighter - full build
+    - Tie Fighter (!vader) - full build
+    - Normals & texture application of Vader's fighter
+    - X-Wing initial animation
+
+  *** In this context, full build means that the person constructed the geometry, fixed the normals, and applied textures.
+
+Look out for:
+  Detail of the models, looping of the lasers and trench animation, proper application of textures, overall design and feel of scene.
 
 Building: "make"
 Running: "./final"
 Cleaning up: "make clean"
-Chaining: "make clean && make && ./final"
+Chaining: "make clean && make && ./final && make clean"
 
 Key bindings
-  l          Toggles lighting
-  a/A        Decrease/increase ambient light
-  d/D        Decrease/increase diffuse light
-  s/S        Decrease/increase specular light
-  e/E        Decrease/increase emitted light
-  n/N        Decrease/increase shininess
-  F1         Toggle smooth/flat shading
-  F2         Toggle local viewer mode
-  F3         Toggle light distance (1/5)
-  F8         Change ball increment
-  F9         Invert bottom normal
-  m          Toggles light movement
-  []         Lower/rise light
-  p          Toggles ortogonal/perspective projection
-  +/-        Change field of view of perspective
-  x          Toggle axes
-  t          Toggle texture
-  arrows     Change view angle
-  PgDn/PgUp  Zoom Out and In
-  Mouse LB     Change view angle
-  Mouse RB     Move Fwd/Bkwd and strafe side to side
-  0          Reset view angle
+ 
+  r          Reset view angle (Dev mode)
+  +/-        Change field of view of perspective (Dev mode)
+  arrows     Change view angle (Dev mode)
+  PgDn/PgUp  Zoom Out and In (Dev mode)
+  0          Dev camera
+  1          Rear camera (looking forward)
+  2          Front camera (looking back)
+  3          Vader 1st person view
+  SpaceBar   Pause scene
   ESC        Exit
